@@ -657,3 +657,75 @@ causes collapse" story, and the mechanistic read isn't obvious from this
 data alone. Per user's explicit instruction to consult the PI again when
 genuinely unsure rather than guess at interpretation -- sending this
 full table back to the same agent now.
+
+**24. PI round 3.** Reframed the cut-style finding (step 22) as the
+strongest result in the project so far and said it was undersold --
+directional, no counterexamples, confirmed independently in two
+measurement modalities (binary collapse flag AND continuous P(EOS), where
+ragged75 gives P(EOS)=0.0000 in 9/10 cells in BOTH spliced and genuine
+conditions, meaning the sentence-boundary effect isn't splice-specific at
+all -- it's a property of the terminal state of the text itself, present
+whether or not any splicing happens).
+
+Flagged a possible critical bug before allowing any interpretation of the
+sweep deltas: drugs/neutral genuine showed P(EOS)=0.767, which under
+greedy decoding would mean EOS is argmax and the cell should collapse --
+but no genuine-prefill decode had ever actually been run on drugs/neutral
+to check, only inferred from the sweep. Instructed: validate P(EOS)
+against real decode behavior on cells not yet checked, do not proceed
+until it passes.
+
+**Ran the validation.** Decoded drugs/neutral (both spliced P(EOS)=0.764
+and genuine P(EOS)=0.767) at max_new_tokens=5: both collapsed to 1 token
+exactly as predicted. Decoded weapons/real (spliced P(EOS)=0.753, genuine
+P(EOS)=0.459): both ALSO collapsed to 1 token -- including the genuine
+case, despite P(EOS)=0.459 being below my naive 0.5 threshold. Not a
+contradiction: greedy decoding picks whichever token is the argmax, not
+whichever exceeds 0.5, so EOS at 0.459 can still win against a flatter
+remaining distribution, and the actual decode confirms it did. 5 of 5
+direct P(EOS)-vs-decode checks now consistent (the 3 original
+genuine-prefill decodes from step 19, plus these 2 new ones). Measurement
+validated, no bug found.
+
+Real nuance this validation surfaced: weapons/real is NOT a clean
+splice-only case the way medical/neutral is -- it collapses under BOTH
+spliced and genuine conditions, just with a much larger P(EOS) gap
+between them (0.753 vs 0.459) than drugs/neutral's near-zero gap (0.764
+vs 0.767, also both collapsing). So "large P(EOS) delta" and "binary
+splice-specific collapse" are not the same claim: splicing can amplify an
+existing termination tendency substantially (weapons/real) without being
+the sole cause of it, distinct from medical/neutral where genuine
+plausibly does not cross into collapse at all (130 tokens observed,
+non-collapse, at genuine P(EOS)=0.377 -- comfortably below whatever the
+competing token's probability was).
+
+PI also gave a full statistical critique of the Wilcoxon test I ran
+(recommended dropping it entirely -- deterministic measurement means no
+sampling error, so a significance test is asking the wrong question;
+heterogeneity is the finding, not noise to average away) and a specific
+suspicion to check: whether the near-zero/negative-delta cells
+(drugs/neutral, medical/real, finance/real) are ceiling effects (genuine
+baseline already high, leaving no room for splicing to add anything)
+rather than genuine absence of a splice effect -- recommended redoing the
+comparison in log-odds and plotting delta against genuine baseline before
+trusting the raw-probability heterogeneity as real structure. Revised
+priority: (1) validate P(EOS) -- done, passed; (2) log-odds reanalysis,
+free; (3) leading-token-drop ablation, promoted to the only causal
+manipulation on the list, on medical/neutral (clean positive),
+weapons/real (large delta, both collapse), drugs/neutral (null control,
+both collapse) at drop levels 1/2/4; (4) cross-pairing matrix merged with
+boundary-discontinuity measurement on the same forward passes, clean-cut
+only; (5) regress log-odds gap on pre-specified predictors (boundary
+discontinuity, shadow perplexity, num_append, genuine baseline).
+
+PI's stated bottom line, explicitly warned against overfitting a post-hoc
+story to n=10: only two claims are currently supportable. (1) Termination
+is governed primarily by whether the injected text ends at a sentence
+boundary, in both spliced and genuine conditions -- well-measured,
+directional, no counterexamples, this project's actual headline result.
+(2) On top of that, isolated-KV computation adds termination probability
+in some real-prompt/shadow-text pairings and not others, holding tokens
+and positions fixed -- heterogeneous, deterministic, causally identified
+by the design (identical tokens and positions between conditions means
+any nonzero delta is splice-attributable by construction), mechanism
+still unknown. Moving to the free log-odds reanalysis next.
