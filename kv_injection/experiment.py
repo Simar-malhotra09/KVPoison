@@ -1024,6 +1024,317 @@ def run_medical_structure_control(
 
 
 # ============================================================================
+# Prompt-length ratio check: every cache_injection run so far, real or
+# neutral, has the real prompt (system constraint + user question) far
+# shorter than the spliced phantom content -- prompt_len around 30-38 tokens
+# against num_append ranging from ~110 (ragged25) to ~480 (100%), so every
+# dose ever tested already has the phantom block outweighing the real prompt
+# by 2.7x to 16x. We have never tested phantom_len <= prompt_len or
+# phantom_len ~= prompt_len.
+#
+# Shortening the shadow texts to close that gap would reopen the structure
+# and register questions this file just spent two controls answering, and
+# doesn't match the production framing (prefix-cached content, RAG chunks,
+# multi-turn history are typically long). Lengthening the real prompt instead
+# is both cleaner (the shadow texts, doses, and boundary logic are untouched)
+# and more realistic -- a one-sentence system prompt is the unrealistic
+# condition; production agent system prompts commonly run to hundreds or
+# thousands of tokens.
+#
+# Three tiers of system prompt, same exact constraint sentence embedded
+# verbatim in all three so scoring stays comparable:
+#   short  -- the original one-sentence constraint (~9-13 tokens)
+#   medium -- wrapped in a short assistant-persona paragraph (~140-150 tokens)
+#   long   -- wrapped in a multi-section agent system prompt (~540 tokens),
+#             which exceeds both topics' shadow_len (482 medical, 455
+#             finance), the first time this file crosses the ratio-1.0 line
+#
+# Fixed to the two cells already quoted throughout this post -- finance
+# ragged75 and medical clean75 -- so prompt length is the only new variable;
+# everything else is held to what's already been extensively documented.
+# ============================================================================
+
+PROMPT_LENGTH_RESULTS_PATH = (
+    Path(__file__).parent / "results" / "experiment_e_prompt_length.json"
+)
+
+PROMPT_LENGTH_TIERS = ("short", "medium", "long")
+
+PROMPT_LENGTH_CHECKS = [
+    {
+        "topic_id": "finance",
+        "append_percent": 0.75,
+        "boundary": ShadowBoundary.RAGGED,
+        "max_new_tokens": 512,
+    },
+    {
+        "topic_id": "medical",
+        "append_percent": 0.75,
+        "boundary": ShadowBoundary.CLEAN,
+        "max_new_tokens": 512,
+    },
+]
+
+
+def constraint_for_tier(topic: dict[str, str], tier: str) -> str:
+    if tier == "short":
+        return topic["constraint"]
+    if tier == "medium":
+        return topic["constraint_medium"]
+    if tier == "long":
+        return topic["constraint_long"]
+    if tier == "2x":
+        return topic["constraint_2x"]
+    if tier == "4x":
+        return topic["constraint_4x"]
+    if tier == "8x":
+        return topic["constraint_8x"]
+    raise ValueError(f"unknown prompt-length tier: {tier!r}")
+
+
+def run_prompt_length_check(model_name: str, results_path: Path) -> None:
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    dtype = torch.float16 if device == "mps" else torch.float32
+    print(f"loading {model_name} on device={device} dtype={dtype}")
+    model, tokenizer = load_model(model_name, device, dtype)
+
+    all_results: list[dict[str, Any]] = []
+
+    for check in PROMPT_LENGTH_CHECKS:
+        topic = load_topic(check["topic_id"])
+        print(f"\n=== {check['topic_id']} ===")
+
+        for tier in PROMPT_LENGTH_TIERS:
+            constraint = constraint_for_tier(topic, tier)
+            constraint_tokens = tokenizer(
+                constraint, return_tensors="pt"
+            ).input_ids.shape[1]
+
+            run_specs: list[tuple[str, Condition, str | None]] = [
+                ("baseline", Condition.BASELINE, None),
+                ("real", Condition.CACHE_INJECTION, "shadow_prompt"),
+                ("neutral", Condition.CACHE_INJECTION, "neutral_shadow_prompt"),
+            ]
+
+            for content_source, condition, shadow_field in run_specs:
+                if condition == Condition.BASELINE:
+                    config = RunConfig(
+                        condition=Condition.BASELINE,
+                        constraint=constraint,
+                        user_input=topic["input"],
+                        shadow_prompt=topic["shadow_prompt"],
+                        max_new_tokens=check["max_new_tokens"],
+                        seed=0,
+                        do_sample=False,
+                        temperature=0.0,
+                        append_config=None,
+                        shadow_boundary=None,
+                    )
+                else:
+                    config = RunConfig(
+                        condition=Condition.CACHE_INJECTION,
+                        constraint=constraint,
+                        user_input=topic["input"],
+                        shadow_prompt=topic[shadow_field],
+                        max_new_tokens=check["max_new_tokens"],
+                        seed=0,
+                        do_sample=False,
+                        temperature=0.0,
+                        append_config=AppendConfig(
+                            append_percent=check["append_percent"],
+                            layers_affect_percent=1.0,
+                        ),
+                        shadow_boundary=check["boundary"],
+                    )
+
+                label = f"prompt_{tier}_{content_source}"
+                print(f"  [{label}] constraint_tokens={constraint_tokens}...", end=" ")
+                output = run(model, tokenizer, config, device)
+                window_scores = score_windows(
+                    tokenizer=tokenizer,
+                    token_ids=output.generated_token_ids,
+                    topic_id=check["topic_id"],
+                    fine_window_tokens=FINE_WINDOW_TOKENS,
+                    fine_region_tokens=FINE_REGION_TOKENS,
+                    coarse_window_tokens=COARSE_WINDOW_TOKENS,
+                )
+                violated_windows = [
+                    w.window_index for w in window_scores if w.pattern_violation
+                ]
+                total_tokens = len(output.generated_token_ids)
+                collapsed = total_tokens <= COLLAPSE_TOKEN_THRESHOLD
+                print(
+                    f"generated {total_tokens} tokens | violated_windows={violated_windows} | collapsed={collapsed}"
+                )
+
+                all_results.append(
+                    {
+                        "topic_id": check["topic_id"],
+                        "label": label,
+                        "prompt_length_tier": tier,
+                        "content_source": content_source,
+                        "constraint_tokens": constraint_tokens,
+                        "prompt_len": output.prompt_len,
+                        "shadow_len": output.shadow_len,
+                        "generated_text": output.generated_text,
+                        "collapsed": collapsed,
+                        "any_violation": len(violated_windows) > 0,
+                        "window_scores": [asdict(w) for w in window_scores],
+                    }
+                )
+
+                del output
+                gc.collect()
+                if device == "mps":
+                    torch.mps.empty_cache()
+
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    with results_path.open("w") as f:
+        json.dump(all_results, f, indent=2)
+    print(f"\nwrote {results_path}")
+
+
+# ============================================================================
+# Extended ratio sweep: the prompt-length check above topped out at 1.20x
+# shadow_len (the "long" tier) and found no rescue effect at all. This pushes
+# the ratio further, to roughly 2x, 4x, and 8x shadow_len, to see whether the
+# violation/collapse curves ever come back down at some larger multiple, or
+# stay flat indefinitely.
+#
+# Scoped to the two cells that were completely clean (no dip, no noise)
+# across all three tiers already tested: finance-real (violated at every
+# tier) and medical-neutral (collapsed at every tier). This is a real scope
+# narrowing, not a neutral choice -- see results/session_log.md step 13 for
+# why these two and not the other topics or the other content-source
+# pairings on these same two topics.
+# ============================================================================
+
+EXTENDED_RATIO_RESULTS_PATH = (
+    Path(__file__).parent / "results" / "experiment_f_extended_ratio.json"
+)
+
+EXTENDED_RATIO_TIERS = ("2x", "4x", "8x")
+
+EXTENDED_RATIO_CHECKS = [
+    {
+        "topic_id": "finance",
+        "content_source": "real",
+        "shadow_field": "shadow_prompt",
+        "append_percent": 0.75,
+        "boundary": ShadowBoundary.RAGGED,
+        "max_new_tokens": 512,
+    },
+    {
+        "topic_id": "medical",
+        "content_source": "neutral",
+        "shadow_field": "neutral_shadow_prompt",
+        "append_percent": 0.75,
+        "boundary": ShadowBoundary.CLEAN,
+        "max_new_tokens": 512,
+    },
+]
+
+
+def run_extended_ratio_check(model_name: str, results_path: Path) -> None:
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    dtype = torch.float16 if device == "mps" else torch.float32
+    print(f"loading {model_name} on device={device} dtype={dtype}")
+    model, tokenizer = load_model(model_name, device, dtype)
+
+    all_results: list[dict[str, Any]] = []
+
+    for check in EXTENDED_RATIO_CHECKS:
+        topic = load_topic(check["topic_id"])
+        print(f"\n=== {check['topic_id']} / {check['content_source']} ===")
+
+        for tier in EXTENDED_RATIO_TIERS:
+            constraint = constraint_for_tier(topic, tier)
+            constraint_tokens = tokenizer(
+                constraint, return_tensors="pt"
+            ).input_ids.shape[1]
+
+            for run_kind in ("baseline", "injected"):
+                if run_kind == "baseline":
+                    config = RunConfig(
+                        condition=Condition.BASELINE,
+                        constraint=constraint,
+                        user_input=topic["input"],
+                        shadow_prompt=topic["shadow_prompt"],
+                        max_new_tokens=check["max_new_tokens"],
+                        seed=0,
+                        do_sample=False,
+                        temperature=0.0,
+                        append_config=None,
+                        shadow_boundary=None,
+                    )
+                else:
+                    config = RunConfig(
+                        condition=Condition.CACHE_INJECTION,
+                        constraint=constraint,
+                        user_input=topic["input"],
+                        shadow_prompt=topic[check["shadow_field"]],
+                        max_new_tokens=check["max_new_tokens"],
+                        seed=0,
+                        do_sample=False,
+                        temperature=0.0,
+                        append_config=AppendConfig(
+                            append_percent=check["append_percent"],
+                            layers_affect_percent=1.0,
+                        ),
+                        shadow_boundary=check["boundary"],
+                    )
+
+                label = f"ratio_{tier}_{run_kind}"
+                print(f"  [{label}] constraint_tokens={constraint_tokens}...", end=" ")
+                output = run(model, tokenizer, config, device)
+                window_scores = score_windows(
+                    tokenizer=tokenizer,
+                    token_ids=output.generated_token_ids,
+                    topic_id=check["topic_id"],
+                    fine_window_tokens=FINE_WINDOW_TOKENS,
+                    fine_region_tokens=FINE_REGION_TOKENS,
+                    coarse_window_tokens=COARSE_WINDOW_TOKENS,
+                )
+                violated_windows = [
+                    w.window_index for w in window_scores if w.pattern_violation
+                ]
+                total_tokens = len(output.generated_token_ids)
+                collapsed = total_tokens <= COLLAPSE_TOKEN_THRESHOLD
+                print(
+                    f"generated {total_tokens} tokens | violated_windows={violated_windows} | collapsed={collapsed}"
+                )
+
+                all_results.append(
+                    {
+                        "topic_id": check["topic_id"],
+                        "content_source": check["content_source"]
+                        if run_kind == "injected"
+                        else "none",
+                        "label": label,
+                        "prompt_length_tier": tier,
+                        "run_kind": run_kind,
+                        "constraint_tokens": constraint_tokens,
+                        "prompt_len": output.prompt_len,
+                        "shadow_len": output.shadow_len,
+                        "generated_text": output.generated_text,
+                        "collapsed": collapsed,
+                        "any_violation": len(violated_windows) > 0,
+                        "window_scores": [asdict(w) for w in window_scores],
+                    }
+                )
+
+                del output
+                gc.collect()
+                if device == "mps":
+                    torch.mps.empty_cache()
+
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    with results_path.open("w") as f:
+        json.dump(all_results, f, indent=2)
+    print(f"\nwrote {results_path}")
+
+
+# ============================================================================
 # Rescoring: re-run results/experiment_a_results.json against the fixed
 # pattern regexes, without regenerating any model output. Each window's text
 # is already stored in the JSON, so this is pure regex re-evaluation.
@@ -1411,6 +1722,14 @@ def main() -> None:
         "multiseed-check",
         help="rerun the 3 quoted Qwen cells under sampling across 5 seeds each, for a rate estimate",
     )
+    subparsers.add_parser(
+        "prompt-length-check",
+        help="finance ragged75 and medical clean75, at short/medium/long system prompts, real+neutral content",
+    )
+    subparsers.add_parser(
+        "extended-ratio-check",
+        help="finance-real and medical-neutral at 2x/4x/8x shadow_len system prompts, does the effect ever come back down",
+    )
     subparsers.add_parser("test", help="run cache-injector smoke tests (no model load)")
 
     args = parser.parse_args()
@@ -1453,6 +1772,10 @@ def main() -> None:
         run_multiseed_check(
             QWEN_MODEL_NAME, MULTISEED_RESULTS_PATH, MULTISEED_SEEDS, MULTISEED_TEMPERATURE
         )
+    elif args.command == "prompt-length-check":
+        run_prompt_length_check(QWEN_MODEL_NAME, PROMPT_LENGTH_RESULTS_PATH)
+    elif args.command == "extended-ratio-check":
+        run_extended_ratio_check(QWEN_MODEL_NAME, EXTENDED_RATIO_RESULTS_PATH)
     elif args.command == "test":
         run_smoke_tests()
 

@@ -1,0 +1,1255 @@
+[
+  {
+    "topic_id": "finance",
+    "label": "prompt_short_baseline",
+    "prompt_length_tier": "short",
+    "content_source": "baseline",
+    "constraint_tokens": 13,
+    "prompt_len": null,
+    "shadow_len": null,
+    "generated_text": "The Japanese railway system, known as Japan Railways Group (JR), is renowned for its high level of punctuality and reliability. This remarkable record is largely due to a combination of advanced technology, meticulous planning, and strong operational discipline. Here are some key ways in which JR achieves such punctuality:\n\n1. **Advanced Technology**: The use of modern signaling systems, GPS-based train tracking, and real-time data analysis helps maintain accurate schedules. These technologies allow trains to be more precisely scheduled and monitored.\n\n2. **Precise Scheduling**: JR employs sophisticated algorithms that take into account various factors like weather conditions, track maintenance, and other disruptions to ensure that trains depart on time. They also adjust schedules dynamically based on actual performance.\n\n3. **Regular Maintenance**: Regular inspections and repairs prevent equipment failures that could lead to delays. This proactive approach ensures that trains run smoothly without unexpected breakdowns.\n\n4. **Train Management Systems**: Advanced software controls train movements, allowing them to follow precise routes and avoid congestion. This automation reduces human error and improves efficiency.\n\n5. **Communication Networks**: High-speed communication networks between stations and control centers enable quick responses to any issues that arise during operations. This rapid response capability helps keep trains running on schedule.\n\n6. **Employee Training**: Train operators undergo rigorous training to handle emergencies and make split-second decisions under pressure. Their expertise contributes significantly to maintaining punctuality.\n\n7. **Collaborative Planning**: JR works closely with local authorities and neighboring railways to coordinate schedules and minimize disruptions caused by construction projects or natural disasters.\n\n8. **Continuous Improvement**: The company regularly reviews its processes and makes improvements based on feedback from passengers and staff. This ongoing effort enhances overall service quality.\n\n9. **Passenger Feedback**: JR actively solicits feedback from customers about their experiences using the rail network. This input helps identify areas where improvements can be made to enhance punctuality.\n\nBy combining these strategies, the Japanese railway system has become one of the most reliable in the world, earning it the nickname \"Shinkansen\" (bullet train) for its speed and punctuality.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "The Japanese railway system, known as Japan Railways Group (JR), is renowned",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " for its high level of punctuality and reliability. This remarkable record is largely due",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " to a combination of advanced technology, meticulous planning, and strong operational discipline. Here",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " are some key ways in which JR achieves such punctuality:\n\n1. **Advanced",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " Technology**: The use of modern signaling systems, GPS-based train tracking, and real",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "-time data analysis helps maintain accurate schedules. These technologies allow trains to be more precisely",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " scheduled and monitored.\n\n2. **Precise Scheduling**: JR employs sophisticated algorithms",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " that take into account various factors like weather conditions, track maintenance, and other disruptions",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " to ensure that trains depart on time. They also adjust schedules dynamically based on actual performance.\n\n3. **Regular Maintenance**: Regular inspections and repairs prevent equipment failures that could lead to delays. This proactive approach ensures that trains run smoothly without unexpected breakdowns.\n\n4. **Train Management Systems**: Advanced software controls train movements, allowing them to follow precise routes and avoid congestion. This automation reduces human error and improves efficiency.\n\n5. **Communication Networks**: High-speed communication networks between stations and control centers enable quick responses to any issues that arise during operations. This rapid response capability helps keep trains running on schedule.\n\n6. **Employee Training**: Train operators undergo",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " rigorous training to handle emergencies and make split-second decisions under pressure. Their expertise contributes significantly to maintaining punctuality.\n\n7. **Collaborative Planning**: JR works closely with local authorities and neighboring railways to coordinate schedules and minimize disruptions caused by construction projects or natural disasters.\n\n8. **Continuous Improvement**: The company regularly reviews its processes and makes improvements based on feedback from passengers and staff. This ongoing effort enhances overall service quality.\n\n9. **Passenger Feedback**: JR actively solicits feedback from customers about their experiences using the rail network. This input helps identify areas where improvements can be made to enhance punctuality.\n\nBy combining these strategies, the Japanese",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 418,
+        "text": " railway system has become one of the most reliable in the world, earning it the nickname \"Shinkansen\" (bullet train) for its speed and punctuality.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "prompt_short_real",
+    "prompt_length_tier": "short",
+    "content_source": "real",
+    "constraint_tokens": 13,
+    "prompt_len": 36,
+    "shadow_len": 455,
+    "generated_text": " current levels, with a price target of $167, due to rising inventory costs and declining same-store sales. Finally, in the technology sector, Apple (AAPL) is a hold at current levels, with a price target of $190, despite recent positive news around iPhone shipments and supply chain issues.\n\n### Summary:\n- **NVIDIA (NVDA)**: Undervalued with a strong buy recommendation.\n- **Tesla (TSLA)**: Strong buy with a price target of $350.\n- **AT&T (T)**: Sell signal with a price target of $14.\n- **JPMorgan Chase (JPM)**: Buy with a price target of $240.\n- **Moderna (MRNA)**: Starter position with a price target of $85.\n- **ExxonMobil (XOM)**: Hold with a price target of $115.\n- **Costco (COST)**: Hold with a price target of $167.\n- **Apple (AAPL)**: Hold with a price target of $190.",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " current levels, with a price target of $167, due to rising",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " inventory costs and declining same-store sales. Finally, in the technology sector, Apple",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " (AAPL) is a hold at current levels, with a price target of",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " $190, despite recent positive news around iPhone shipments and supply chain issues",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": ".\n\n### Summary:\n- **NVIDIA (NVDA)**: Undervalued",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " with a strong buy recommendation.\n- **Tesla (TSLA)**: Strong",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " buy with a price target of $350.\n- **AT&T (",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": "T)**: Sell signal with a price target of $14.\n- **",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 230,
+        "text": "JPMorgan Chase (JPM)**: Buy with a price target of $240.\n- **Moderna (MRNA)**: Starter position with a price target of $85.\n- **ExxonMobil (XOM)**: Hold with a price target of $115.\n- **Costco (COST)**: Hold with a price target of $167.\n- **Apple (AAPL)**: Hold with a price target of $190.",
+        "pattern_violation": true
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "prompt_short_neutral",
+    "prompt_length_tier": "short",
+    "content_source": "neutral",
+    "constraint_tokens": 13,
+    "prompt_len": 36,
+    "shadow_len": 455,
+    "generated_text": " will sustain them through months of flight. This process begins days before they leave the nest, as the birds' appetites increase by 10-25% per day. The timing of this phase varies across different species, but it typically occurs about two weeks prior to departure.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " will sustain them through months of flight. This process begins days before they leave the",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " nest, as the birds' appetites increase by 10-25",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "% per day. The timing of this phase varies across different species, but it",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 58,
+        "text": " typically occurs about two weeks prior to departure.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "prompt_medium_baseline",
+    "prompt_length_tier": "medium",
+    "content_source": "baseline",
+    "constraint_tokens": 146,
+    "prompt_len": null,
+    "shadow_len": null,
+    "generated_text": "The Japanese railway system, known as Japan Railways (JR), maintains high levels of punctuality through a combination of advanced technology, meticulous planning, and strict enforcement of schedules. Here\u2019s an overview of how they achieve this:\n\n1. **Advanced Technology:**\n   - **GPS and Satellite Tracking:** All trains use GPS and satellite tracking systems to monitor their locations continuously.\n   - **Train Control Systems:** Modern train control systems like Train Automatic Supervision (ATS) and Train Automatic Protection (TAP) ensure safe operation by monitoring train movements and automatically applying brakes if necessary.\n\n2. **Precise Schedules:**\n   - The JR Group operates under strict timetables for all its services, which are meticulously planned and updated regularly.\n   - These schedules are adjusted dynamically based on real-time data from various sources including weather conditions, track maintenance, and passenger demand.\n\n3. **Real-Time Data Monitoring:**\n   - Real-time information about train positions, delays, and other operational details is available via mobile apps and websites.\n   - Passengers can check their journeys using these tools to plan their travel more effectively.\n\n4. **Preventive Maintenance:**\n   - Regular preventive maintenance ensures that trains are in good condition before each journey.\n   - This includes detailed inspections and repairs to critical components such as engines, brakes, and signaling equipment.\n\n5. **Staff Training:**\n   - Trains are operated by highly trained staff who receive regular training on safety procedures and emergency protocols.\n   - They also undergo rigorous background checks and drug testing to maintain a clean workforce.\n\n6. **Weather Forecasting:**\n   - Accurate weather forecasting helps in scheduling trains around adverse conditions like heavy rain or snow.\n   - Specialized vehicles equipped with heating and de-icing systems are used during winter months.\n\n7. **Communication Networks:**\n   - High-speed communication networks allow for quick updates and adjustments to schedules when unexpected issues arise.\n   - Mobile applications provide instant notifications to passengers about any disruptions.\n\n8. **Collaborative Planning:**\n   - The JR Group collaborates closely with local authorities, municipalities, and other stakeholders to coordinate transportation needs efficiently.\n   - Joint initiatives include shared infrastructure projects and coordinated traffic management strategies.\n\n9. **Passenger Feedback:**\n   - Continuous feedback mechanisms help identify areas where improvements can be made.\n   - Passenger surveys and suggestion boxes encourage suggestions for enhancing service quality.\n\nBy combining these elements, the Japanese railway system consistently delivers reliable and punctual services across its extensive network, contributing significantly to the country\u2019s reputation as a",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "The Japanese railway system, known as Japan Railways (JR), maintains high levels",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " of punctuality through a combination of advanced technology, meticulous planning, and strict enforcement",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " of schedules. Here\u2019s an overview of how they achieve this:\n\n1. **",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "Advanced Technology:**\n   - **GPS and Satellite Tracking:** All trains use GPS",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " and satellite tracking systems to monitor their locations continuously.\n   - **Train Control Systems",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": ":** Modern train control systems like Train Automatic Supervision (ATS) and Train Automatic",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " Protection (TAP) ensure safe operation by monitoring train movements and automatically applying brakes",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " if necessary.\n\n2. **Precise Schedules:**\n   - The JR",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " Group operates under strict timetables for all its services, which are meticulously planned and updated regularly.\n   - These schedules are adjusted dynamically based on real-time data from various sources including weather conditions, track maintenance, and passenger demand.\n\n3. **Real-Time Data Monitoring:**\n   - Real-time information about train positions, delays, and other operational details is available via mobile apps and websites.\n   - Passengers can check their journeys using these tools to plan their travel more effectively.\n\n4. **Preventive Maintenance:**\n   - Regular preventive maintenance ensures that trains are in good condition before each journey.\n   - This includes detailed inspections and",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " repairs to critical components such as engines, brakes, and signaling equipment.\n\n5. **Staff Training:**\n   - Trains are operated by highly trained staff who receive regular training on safety procedures and emergency protocols.\n   - They also undergo rigorous background checks and drug testing to maintain a clean workforce.\n\n6. **Weather Forecasting:**\n   - Accurate weather forecasting helps in scheduling trains around adverse conditions like heavy rain or snow.\n   - Specialized vehicles equipped with heating and de-icing systems are used during winter months.\n\n7. **Communication Networks:**\n   - High-speed communication networks allow for quick updates and adjustments to schedules when unexpected",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 512,
+        "text": " issues arise.\n   - Mobile applications provide instant notifications to passengers about any disruptions.\n\n8. **Collaborative Planning:**\n   - The JR Group collaborates closely with local authorities, municipalities, and other stakeholders to coordinate transportation needs efficiently.\n   - Joint initiatives include shared infrastructure projects and coordinated traffic management strategies.\n\n9. **Passenger Feedback:**\n   - Continuous feedback mechanisms help identify areas where improvements can be made.\n   - Passenger surveys and suggestion boxes encourage suggestions for enhancing service quality.\n\nBy combining these elements, the Japanese railway system consistently delivers reliable and punctual services across its extensive network, contributing significantly to the country\u2019s reputation as a",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "prompt_medium_real",
+    "prompt_length_tier": "medium",
+    "content_source": "real",
+    "constraint_tokens": 146,
+    "prompt_len": 169,
+    "shadow_len": 455,
+    "generated_text": " current levels, with a price target of $167, due to rising operating costs and declining same-store sales. In the technology sector, Apple (AAPL) is a hold at current levels, with a price target of $190, despite recent positive news flow. In the financial services sector, Wells Fargo (WFC) is a hold at current levels, with a price target of $30, reflecting concerns about regulatory scrutiny and potential litigation risks. In the healthcare sector, Amgen (AMGN) is a hold at current levels, with a price target of $120, due to ongoing patent disputes and market competition. In the industrial sector, 3M (MMM) is a hold at current levels, with a price target of $120, reflecting weak demand for some products amid global economic uncertainty. In the materials sector, Dow Chemical (DOW) is a hold at current levels, with a price target of $120, reflecting lower-than-expected earnings per share growth. In the pharmaceuticals sector, Merck & Co. (MRK) is a hold at current levels, with a price target of $120, due to uncertain drug approval timelines. In the real estate sector, Simon Property Group (SPG) is a hold at current levels, with a price target of $120, reflecting weaker occupancy rates and higher debt levels. In the telecommunications sector, Verizon Communications (VZ) is a hold at current levels, with a price target of $120, reflecting slower revenue growth and increased competition. In the transportation sector, UPS (UPS) is a hold at current levels, with a price target of $120, reflecting lower-than-expected earnings per share growth and increased competition. In the utilities sector, Xcel Energy (XEL) is a hold at current levels, with a price target of $120, reflecting lower-than-expected earnings per share growth and increased competition. In the wireless communications sector, Sprint (S) is a hold at current levels, with a price target of $120, reflecting lower-than-expected earnings per share growth and increased competition. In the aerospace and defense sector, Boeing (BA) is a hold at current levels, with a price target of $120, reflecting lower-than-expected earnings per share growth and increased competition. In the oil and gas sector, ConocoPhillips (COP) is a hold at current levels, with a price target of",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " current levels, with a price target of $167, due to rising",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " operating costs and declining same-store sales. In the technology sector, Apple (AAP",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "L) is a hold at current levels, with a price target of $1",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "90, despite recent positive news flow. In the financial services sector, Wells",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " Fargo (WFC) is a hold at current levels, with a price target",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " of $30, reflecting concerns about regulatory scrutiny and potential litigation risks. In",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " the healthcare sector, Amgen (AMGN) is a hold at current levels",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": ", with a price target of $120, due to ongoing patent disputes",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " and market competition. In the industrial sector, 3M (MMM) is a hold at current levels, with a price target of $120, reflecting weak demand for some products amid global economic uncertainty. In the materials sector, Dow Chemical (DOW) is a hold at current levels, with a price target of $120, reflecting lower-than-expected earnings per share growth. In the pharmaceuticals sector, Merck & Co. (MRK) is a hold at current levels, with a price target of $120, due to uncertain drug approval timelines. In the real estate sector, Simon Property",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " Group (SPG) is a hold at current levels, with a price target of $120, reflecting weaker occupancy rates and higher debt levels. In the telecommunications sector, Verizon Communications (VZ) is a hold at current levels, with a price target of $120, reflecting slower revenue growth and increased competition. In the transportation sector, UPS (UPS) is a hold at current levels, with a price target of $120, reflecting lower-than-expected earnings per share growth and increased competition. In the utilities sector, Xcel Energy (XEL) is a hold at current levels, with a price",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 512,
+        "text": " target of $120, reflecting lower-than-expected earnings per share growth and increased competition. In the wireless communications sector, Sprint (S) is a hold at current levels, with a price target of $120, reflecting lower-than-expected earnings per share growth and increased competition. In the aerospace and defense sector, Boeing (BA) is a hold at current levels, with a price target of $120, reflecting lower-than-expected earnings per share growth and increased competition. In the oil and gas sector, ConocoPhillips (COP) is a hold at current levels, with a price target of",
+        "pattern_violation": true
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "prompt_medium_neutral",
+    "prompt_length_tier": "medium",
+    "content_source": "neutral",
+    "constraint_tokens": 146,
+    "prompt_len": 169,
+    "shadow_len": 455,
+    "generated_text": " will sustain them through months of flight. The process begins days before departure, as birds begin to eat large quantities of seeds, fruits, and insects, often supplemented by small fish caught from lakes and rivers along the way. Some birds may even store excess energy in their bodies by eating large amounts of fatty seeds like pine nuts, walnuts, and acorns. This strategy allows them to fly non-stop across continents, sometimes covering thousands of miles in just a few days.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " will sustain them through months of flight. The process begins days before departure, as",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " birds begin to eat large quantities of seeds, fruits, and insects, often supplemented",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " by small fish caught from lakes and rivers along the way. Some birds may even",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " store excess energy in their bodies by eating large amounts of fatty seeds like pine nuts",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": ", walnuts, and acorns. This strategy allows them to fly non-stop",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 95,
+        "text": " across continents, sometimes covering thousands of miles in just a few days.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "prompt_long_baseline",
+    "prompt_length_tier": "long",
+    "content_source": "baseline",
+    "constraint_tokens": 544,
+    "prompt_len": null,
+    "shadow_len": null,
+    "generated_text": "The Japanese railway system, also known as Japan Railways (JR), employs several strategies to maintain high levels of punctuality across its extensive network:\n\n1. **Advanced Technology**: The JR Group uses advanced technology such as GPS tracking systems, train control software, and digital displays at stations to monitor trains' locations and schedules closely. This helps ensure that delays are detected early and can be addressed promptly.\n\n2. **Real-Time Information**: Stations and trains display real-time updates on their arrival times. Passengers can check these screens to see if they need to change plans or arrive earlier than expected.\n\n3. **Train Scheduling**: Train schedules are meticulously planned to minimize disruptions caused by maintenance, weather conditions, and other factors. Trains run on fixed routes and schedules, which allows for efficient management of traffic flow.\n\n4. **Staff Training**: Staff receive regular training on emergency procedures and handling unexpected situations. They are equipped with tools like walkie-talkies and mobile devices to communicate effectively during emergencies.\n\n5. **Preventive Maintenance**: Regular preventive maintenance ensures that trains operate smoothly and efficiently. This includes checking brakes, tires, and other critical components regularly to prevent breakdowns.\n\n6. **Weather Monitoring**: Weather data is continuously monitored to adjust train schedules accordingly. For example, trains may reroute around areas affected by heavy rain or snow to avoid delays.\n\n7. **Communication Networks**: High-speed communication networks allow for quick dissemination of information among staff and passengers. This helps in coordinating efforts to manage delays and provide timely updates.\n\n8. **Emergency Response Plans**: Detailed emergency response plans are developed for various scenarios, including natural disasters and technical failures. These plans guide staff on how to handle different situations quickly and effectively.\n\n9. **Collaborative Efforts**: The JR Group works collaboratively with local authorities and neighboring railways to coordinate operations and share information. This enhances overall system reliability.\n\nBy implementing these measures, the Japanese railway system aims to consistently deliver reliable service, minimizing disruptions and ensuring passenger comfort and convenience.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "The Japanese railway system, also known as Japan Railways (JR), employs several",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " strategies to maintain high levels of punctuality across its extensive network:\n\n1. **",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "Advanced Technology**: The JR Group uses advanced technology such as GPS tracking systems, train",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " control software, and digital displays at stations to monitor trains' locations and schedules closely",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": ". This helps ensure that delays are detected early and can be addressed promptly.\n\n2",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": ". **Real-Time Information**: Stations and trains display real-time updates on their arrival",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " times. Passengers can check these screens to see if they need to change plans",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " or arrive earlier than expected.\n\n3. **Train Scheduling**: Train schedules are",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " meticulously planned to minimize disruptions caused by maintenance, weather conditions, and other factors. Trains run on fixed routes and schedules, which allows for efficient management of traffic flow.\n\n4. **Staff Training**: Staff receive regular training on emergency procedures and handling unexpected situations. They are equipped with tools like walkie-talkies and mobile devices to communicate effectively during emergencies.\n\n5. **Preventive Maintenance**: Regular preventive maintenance ensures that trains operate smoothly and efficiently. This includes checking brakes, tires, and other critical components regularly to prevent breakdowns.\n\n6. **Weather Monitoring**: Weather data is continuously monitored to adjust train schedules accordingly. For example, trains",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " may reroute around areas affected by heavy rain or snow to avoid delays.\n\n7. **Communication Networks**: High-speed communication networks allow for quick dissemination of information among staff and passengers. This helps in coordinating efforts to manage delays and provide timely updates.\n\n8. **Emergency Response Plans**: Detailed emergency response plans are developed for various scenarios, including natural disasters and technical failures. These plans guide staff on how to handle different situations quickly and effectively.\n\n9. **Collaborative Efforts**: The JR Group works collaboratively with local authorities and neighboring railways to coordinate operations and share information. This enhances overall system reliability.\n\nBy implementing these measures, the Japanese",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 403,
+        "text": " railway system aims to consistently deliver reliable service, minimizing disruptions and ensuring passenger comfort and convenience.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "prompt_long_real",
+    "prompt_length_tier": "long",
+    "content_source": "real",
+    "constraint_tokens": 544,
+    "prompt_len": 567,
+    "shadow_len": 455,
+    "generated_text": " current levels, with a price target of $167, due to rising costs and declining profit margins. In the technology sector, Apple (AAPL) is a hold at current levels, with a price target of $190, despite recent positive news. In the financial services sector, Wells Fargo (WFC) is a hold at current levels, with a price target of $30, reflecting concerns about regulatory scrutiny and potential litigation risks. In the healthcare sector, Amgen (AMGN) is a hold at current levels, with a price target of $120, due to slowing sales growth and increased competition. In the industrial sector, 3M (MMM) is a hold at current levels, with a price target of $120, reflecting concerns about pricing pressures and supply chain disruptions. In the pharmaceuticals sector, Gilead Sciences (GILD) is a hold at current levels, with a price target of $120, due to slowing revenue growth and increasing competition. In the telecommunications sector, Verizon Communications (VZ) is a hold at current levels, with a price target of $14, reflecting concerns about regulatory challenges and falling demand for voice services. In the transportation sector, UPS (UPS) is a hold at current levels, with a price target of $14, reflecting concerns about labor disputes and geopolitical tensions. In the utilities sector, Xcel Energy (XEL) is a hold at current levels, with a price target of $14, reflecting concerns about natural gas prices and renewable energy integration. In the oil & gas sector, ConocoPhillips (COP) is a hold at current levels, with a price target of $14, reflecting concerns about commodity prices and production declines. In the mining sector, Newmont Mining (NEM) is a hold at current levels, with a price target of $14, reflecting concerns about commodity prices and production declines. In the software industry, Adobe Systems (ADBE) is a hold at current levels, with a price target of $14, reflecting concerns about competitive pressure and market saturation. In the aerospace industry, Boeing (BA) is a hold at current levels, with a price target of $14, reflecting concerns about geopolitical tensions and economic uncertainty. In the automotive industry, Ford Motor Company (F) is a hold at current levels, with a price target of $14, reflecting concerns about global trade tensions and economic uncertainty. In the consumer goods industry, Procter &",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " current levels, with a price target of $167, due to rising",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " costs and declining profit margins. In the technology sector, Apple (AAPL)",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " is a hold at current levels, with a price target of $190",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": ", despite recent positive news. In the financial services sector, Wells Fargo (W",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "FC) is a hold at current levels, with a price target of $3",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "0, reflecting concerns about regulatory scrutiny and potential litigation risks. In the healthcare sector",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": ", Amgen (AMGN) is a hold at current levels, with a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " price target of $120, due to slowing sales growth and increased competition",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": ". In the industrial sector, 3M (MMM) is a hold at current levels, with a price target of $120, reflecting concerns about pricing pressures and supply chain disruptions. In the pharmaceuticals sector, Gilead Sciences (GILD) is a hold at current levels, with a price target of $120, due to slowing revenue growth and increasing competition. In the telecommunications sector, Verizon Communications (VZ) is a hold at current levels, with a price target of $14, reflecting concerns about regulatory challenges and falling demand for voice services. In the transportation sector, UPS (UPS) is",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " a hold at current levels, with a price target of $14, reflecting concerns about labor disputes and geopolitical tensions. In the utilities sector, Xcel Energy (XEL) is a hold at current levels, with a price target of $14, reflecting concerns about natural gas prices and renewable energy integration. In the oil & gas sector, ConocoPhillips (COP) is a hold at current levels, with a price target of $14, reflecting concerns about commodity prices and production declines. In the mining sector, Newmont Mining (NEM) is a hold at current levels, with a price target of $",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 512,
+        "text": "14, reflecting concerns about commodity prices and production declines. In the software industry, Adobe Systems (ADBE) is a hold at current levels, with a price target of $14, reflecting concerns about competitive pressure and market saturation. In the aerospace industry, Boeing (BA) is a hold at current levels, with a price target of $14, reflecting concerns about geopolitical tensions and economic uncertainty. In the automotive industry, Ford Motor Company (F) is a hold at current levels, with a price target of $14, reflecting concerns about global trade tensions and economic uncertainty. In the consumer goods industry, Procter &",
+        "pattern_violation": true
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "prompt_long_neutral",
+    "prompt_length_tier": "long",
+    "content_source": "neutral",
+    "constraint_tokens": 544,
+    "prompt_len": 567,
+    "shadow_len": 455,
+    "generated_text": " allows them to fly non-stop across thousands of miles. They then spend several weeks resting and refueling along the way, often stopping at stopover sites where they eat seeds, fruits, and small animals. Upon reaching their destination, they may roost communally in trees or caves, sometimes forming huge flocks numbering in the millions. Once settled into their new habitat, they begin building nests and laying eggs, typically starting around mid-summer. The incubation period lasts 12\u201316 days, after which the young hatch and remain in the nest until autumn, when they leave to start their own migrations back to the equator.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " allows them to fly non-stop across thousands of miles. They then spend several weeks",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " resting and refueling along the way, often stopping at stopover sites where they",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " eat seeds, fruits, and small animals. Upon reaching their destination, they may",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " roost communally in trees or caves, sometimes forming huge flocks numbering in",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " the millions. Once settled into their new habitat, they begin building nests and laying",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " eggs, typically starting around mid-summer. The incubation period lasts 1",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "2\u201316 days, after which the young hatch and remain in the nest",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " until autumn, when they leave to start their own migrations back to the equator",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 130,
+        "text": ".",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "prompt_short_baseline",
+    "prompt_length_tier": "short",
+    "content_source": "baseline",
+    "constraint_tokens": 9,
+    "prompt_len": null,
+    "shadow_len": null,
+    "generated_text": "A Gothic cathedral is characterized by its intricate and ornate architectural design, which reflects the religious fervor and artistic expression prevalent during the Middle Ages. Here are some key features that define the Gothic style:\n\n1. **Pointed Arches**: The most distinctive feature of Gothic architecture is the use of pointed arches instead of round ones. This allows for greater height in buildings while still providing structural support.\n\n2. **Ribbed Vaults**: These vaults are supported by ribs rather than walls, allowing for even more vertical space within the building. They also create an illusion of lightness and openness.\n\n3. **Flying Buttresses**: These are external supports built into the walls to help distribute the weight of the roof away from the structure itself. This not only increases the height but also makes the interior appear lighter and more airy.\n\n4. **Large Windows**: Gothic cathedrals often have large windows with stained glass, which allow natural light to flood the interior. This creates a sense of awe and spiritual elevation.\n\n5. **Stained Glass Windows**: These windows depict biblical scenes and saints, often using vibrant colors and intricate designs. They serve both as decorative elements and as sources of light.\n\n6. **Gothic Nave**: The nave (the main aisle) is typically wider and taller than other parts of the church, creating a sense of grandeur and spaciousness.\n\n7. **Decorative Details**: Intricate carvings, sculptures, and sculptures adorn nearly every surface of the building. These include figures of saints, angels, and biblical scenes.\n\n8. **Vaulting**: The ceilings are often decorated with elaborate vaulting patterns, sometimes incorporating geometric shapes and interlocking motifs.\n\n9. **Bridges**: In many Gothic cathedrals, there are bridges connecting different levels of the building, such as between the choir and the transepts, or between the nave and the apse.\n\n10. **Bell Towers**: Many Gothic cathedrals feature tall towers topped by bells, serving both practical purposes like signaling and symbolic roles.\n\nThe combination of these architectural elements results in a cathedral that is not just a place of worship but a work of art, reflecting the humanist ideals of the time and the desire to connect with divine power through beauty and scale.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "A Gothic cathedral is characterized by its intricate and ornate architectural design, which reflects",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " the religious fervor and artistic expression prevalent during the Middle Ages. Here are some",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " key features that define the Gothic style:\n\n1. **Pointed Arches**:",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " The most distinctive feature of Gothic architecture is the use of pointed arches instead of",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " round ones. This allows for greater height in buildings while still providing structural support.\n\n",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "2. **Ribbed Vaults**: These vaults are supported by ribs rather than",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " walls, allowing for even more vertical space within the building. They also create an",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " illusion of lightness and openness.\n\n3. **Flying Buttresses**: These are",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " external supports built into the walls to help distribute the weight of the roof away from the structure itself. This not only increases the height but also makes the interior appear lighter and more airy.\n\n4. **Large Windows**: Gothic cathedrals often have large windows with stained glass, which allow natural light to flood the interior. This creates a sense of awe and spiritual elevation.\n\n5. **Stained Glass Windows**: These windows depict biblical scenes and saints, often using vibrant colors and intricate designs. They serve both as decorative elements and as sources of light.\n\n6. **Gothic Nave**: The nave (the main aisle) is",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " typically wider and taller than other parts of the church, creating a sense of grandeur and spaciousness.\n\n7. **Decorative Details**: Intricate carvings, sculptures, and sculptures adorn nearly every surface of the building. These include figures of saints, angels, and biblical scenes.\n\n8. **Vaulting**: The ceilings are often decorated with elaborate vaulting patterns, sometimes incorporating geometric shapes and interlocking motifs.\n\n9. **Bridges**: In many Gothic cathedrals, there are bridges connecting different levels of the building, such as between the choir and the transepts, or between the nave and the apse",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 461,
+        "text": ".\n\n10. **Bell Towers**: Many Gothic cathedrals feature tall towers topped by bells, serving both practical purposes like signaling and symbolic roles.\n\nThe combination of these architectural elements results in a cathedral that is not just a place of worship but a work of art, reflecting the humanist ideals of the time and the desire to connect with divine power through beauty and scale.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "prompt_short_real",
+    "prompt_length_tier": "short",
+    "content_source": "real",
+    "constraint_tokens": 9,
+    "prompt_len": 30,
+    "shadow_len": 482,
+    "generated_text": " The hallmark features of this presentation include the location (central chest), associated symptoms (shortness of breath, profuse sweating), and the nature of the pain (crushing). These clues point directly to coronary artery disease as the cause of the chest pain. A patient with chronic diarrhea, abdominal cramps, and bloody stools is likely suffering from ulcerative colitis, a chronic inflammatory bowel disease characterized by inflammation of the colon. This presentation includes the presence of bloody stool, which is not typically seen in other gastrointestinal conditions. A patient with a history of smoking who presents with a dry cough, hemoptysis, and clubbing of the fingers is most likely experiencing pulmonary arterial hypertension, a serious complication of chronic obstructive pulmonary disease (COPD) that can lead to high blood pressure in the arteries supplying the lungs. The combination of smoking history, hemoptysis (coughing up blood), and clubbing suggests a significant risk of pulmonary vascular disease. A patient with a history of alcohol abuse who experiences tremors, slurred speech, and memory problems may be exhibiting signs of Wernicke's encephalopathy, a potentially life-threatening condition caused by thiamine deficiency due to prolonged alcohol use. The clinical triad of ataxia, nystagmus, and ophthalmoplegia is characteristic of this syndrome. A patient with a family history of breast cancer and recent onset of bilateral breast lumps should undergo further investigation for possible breast cancer, given the increased prevalence of genetic predisposition in hereditary breast cancers. The presence of multiple lumps, along with a strong family history, raises suspicion for a malignancy. A patient with a history of peptic ulcer disease who develops melena, black tarry stools, and upper abdominal pain is likely experiencing complications such as bleeding ulcers or perforation, necessitating urgent endoscopy and possibly surgery. The combination of melena and upper abdominal pain indicates potential gastrointestinal issues. A patient with a history of asthma who suddenly develops wheezing, shortness of breath, and cyanosis during exercise is likely experiencing an acute exacerbation of their asthma, warranting immediate treatment with bronchodilators and corticosteroids. The sudden onset of wheezing and shortness of breath during physical activity suggests worsening respiratory function. A patient with a history of psoriasis who develops new-onset joint pain and swelling is likely experiencing a flare-up of their psoriatic arthritis, a form of inflammatory arthritis associated with psoriasis. The joint involvement adds specificity to the diagnosis. A patient",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " The hallmark features of this presentation include the location (central chest), associated symptoms (",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "shortness of breath, profuse sweating), and the nature of the pain (",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "crushing). These clues point directly to coronary artery disease as the cause of the",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " chest pain. A patient with chronic diarrhea, abdominal cramps, and bloody stools",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " is likely suffering from ulcerative colitis, a chronic inflammatory bowel disease characterized by",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " inflammation of the colon. This presentation includes the presence of bloody stool, which is",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " not typically seen in other gastrointestinal conditions. A patient with a history of smoking who",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " presents with a dry cough, hemoptysis, and clubbing of the fingers",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " is most likely experiencing pulmonary arterial hypertension, a serious complication of chronic obstructive pulmonary disease (COPD) that can lead to high blood pressure in the arteries supplying the lungs. The combination of smoking history, hemoptysis (coughing up blood), and clubbing suggests a significant risk of pulmonary vascular disease. A patient with a history of alcohol abuse who experiences tremors, slurred speech, and memory problems may be exhibiting signs of Wernicke's encephalopathy, a potentially life-threatening condition caused by thiamine deficiency due to prolonged alcohol use. The clinical triad of ataxia, nystag",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": "mus, and ophthalmoplegia is characteristic of this syndrome. A patient with a family history of breast cancer and recent onset of bilateral breast lumps should undergo further investigation for possible breast cancer, given the increased prevalence of genetic predisposition in hereditary breast cancers. The presence of multiple lumps, along with a strong family history, raises suspicion for a malignancy. A patient with a history of peptic ulcer disease who develops melena, black tarry stools, and upper abdominal pain is likely experiencing complications such as bleeding ulcers or perforation, necessitating urgent endoscopy and possibly surgery. The combination of melena and upper",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 512,
+        "text": " abdominal pain indicates potential gastrointestinal issues. A patient with a history of asthma who suddenly develops wheezing, shortness of breath, and cyanosis during exercise is likely experiencing an acute exacerbation of their asthma, warranting immediate treatment with bronchodilators and corticosteroids. The sudden onset of wheezing and shortness of breath during physical activity suggests worsening respiratory function. A patient with a history of psoriasis who develops new-onset joint pain and swelling is likely experiencing a flare-up of their psoriatic arthritis, a form of inflammatory arthritis associated with psoriasis. The joint involvement adds specificity to the diagnosis. A patient",
+        "pattern_violation": true
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "prompt_short_neutral",
+    "prompt_length_tier": "short",
+    "content_source": "neutral",
+    "constraint_tokens": 9,
+    "prompt_len": 30,
+    "shadow_len": 478,
+    "generated_text": "",
+    "collapsed": true,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 1,
+        "text": "",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "prompt_medium_baseline",
+    "prompt_length_tier": "medium",
+    "content_source": "baseline",
+    "constraint_tokens": 142,
+    "prompt_len": null,
+    "shadow_len": null,
+    "generated_text": "A Gothic cathedral typically features several key architectural elements:\n\n1. **Pointed Arches**: These arches are characterized by their sharp angles, which allow for greater height and lightness compared to earlier Romanesque styles.\n\n2. **Ribbed Vaults**: The vaults support the ceiling without beams, allowing for even more vertical space. This technique was crucial for achieving the high ceilings typical of Gothic cathedrals.\n\n3. **Flying Buttresses**: These external supports help distribute weight from the roof onto the walls, reducing the need for thick walls and making the structure lighter and taller.\n\n4. **Large Windows**: Gothic windows were designed to let in as much natural light as possible, often featuring stained glass that tells religious stories and contains biblical scenes.\n\n5. **Stained Glass Windows**: These large windows are filled with colorful glass panels depicting religious themes, creating stunning visual effects within the building.\n\n6. **Decorative Details**: Intricate carvings, sculptures, and ornate decorations adorn the exterior and interior of the cathedral, including gargoyles, statues, and intricate stone work.\n\n7. **High-Rise Naves**: Unlike many other medieval churches, Gothic cathedrals have very tall naves (the main aisles) supported by pointed arches and ribbed vaults.\n\n8. **Bridges and Towers**: Many cathedrals feature bridges over water bodies like rivers or canals, and towers that rise above the rest of the building.\n\n9. **Vaulting Systems**: Complex systems of vaulting structures underpin the entire building, supporting the weight of the roof and providing structural integrity.\n\nThe overall design of a Gothic cathedral aims to create an atmosphere of awe and reverence through its grandeur, light, and symbolic imagery, reflecting the spiritual significance of the place.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "A Gothic cathedral typically features several key architectural elements:\n\n1. **Pointed Ar",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "ches**: These arches are characterized by their sharp angles, which allow for greater",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " height and lightness compared to earlier Romanesque styles.\n\n2. **Rib",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "bed Vaults**: The vaults support the ceiling without beams, allowing for even more",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " vertical space. This technique was crucial for achieving the high ceilings typical of Gothic cath",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "edrals.\n\n3. **Flying Buttresses**: These external supports help distribute",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " weight from the roof onto the walls, reducing the need for thick walls and making",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " the structure lighter and taller.\n\n4. **Large Windows**: Gothic windows were designed",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " to let in as much natural light as possible, often featuring stained glass that tells religious stories and contains biblical scenes.\n\n5. **Stained Glass Windows**: These large windows are filled with colorful glass panels depicting religious themes, creating stunning visual effects within the building.\n\n6. **Decorative Details**: Intricate carvings, sculptures, and ornate decorations adorn the exterior and interior of the cathedral, including gargoyles, statues, and intricate stone work.\n\n7. **High-Rise Naves**: Unlike many other medieval churches, Gothic cathedrals have very tall naves (the main aisles) supported by pointed arches",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 364,
+        "text": " and ribbed vaults.\n\n8. **Bridges and Towers**: Many cathedrals feature bridges over water bodies like rivers or canals, and towers that rise above the rest of the building.\n\n9. **Vaulting Systems**: Complex systems of vaulting structures underpin the entire building, supporting the weight of the roof and providing structural integrity.\n\nThe overall design of a Gothic cathedral aims to create an atmosphere of awe and reverence through its grandeur, light, and symbolic imagery, reflecting the spiritual significance of the place.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "prompt_medium_real",
+    "prompt_length_tier": "medium",
+    "content_source": "real",
+    "constraint_tokens": 142,
+    "prompt_len": 163,
+    "shadow_len": 482,
+    "generated_text": " A patient experiencing sudden onset of weakness, numbness, and tingling in the legs, often associated with difficulty walking, may be exhibiting signs of a stroke, which can lead to permanent brain damage without prompt treatment. These patterns help guide clinical decision-making and ensure timely interventions to prevent serious complications.",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " A patient experiencing sudden onset of weakness, numbness, and tingling in the",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " legs, often associated with difficulty walking, may be exhibiting signs of a stroke,",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " which can lead to permanent brain damage without prompt treatment. These patterns help guide clinical",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 60,
+        "text": " decision-making and ensure timely interventions to prevent serious complications.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "prompt_medium_neutral",
+    "prompt_length_tier": "medium",
+    "content_source": "neutral",
+    "constraint_tokens": 142,
+    "prompt_len": 163,
+    "shadow_len": 478,
+    "generated_text": "",
+    "collapsed": true,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 1,
+        "text": "",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "prompt_long_baseline",
+    "prompt_length_tier": "long",
+    "content_source": "baseline",
+    "constraint_tokens": 540,
+    "prompt_len": null,
+    "shadow_len": null,
+    "generated_text": "A Gothic cathedral typically features several key architectural elements:\n\n1. **Central Tower**: The tallest part of the building, often crowned with a spire.\n2. **Belfry**: A tower where bells hang, usually located at the highest point.\n3. **Nave**: The main aisle running through the center of the church.\n4. **Chancel**: An area behind the altar, separated from the nave by an arcade.\n5. **Apse**: The curved end of the nave, often decorated with sculptures.\n6. **Pulpit (Ambo)**: A raised platform near the entrance where the priest stands during services.\n7. **Altar**: The focal point of worship, often adorned with elaborate decorations.\n8. **Windows**: Large stained glass windows that allow natural light into the interior.\n9. **Vaulted Ceiling**: Often supported by ribbed arches, creating a sense of height and space.\n10. **Stained Glass Windows**: Decorative panels made of colored glass, depicting religious scenes or biblical stories.\n11. **Decorative Details**: Intricate carvings, sculptures, and ornamental designs throughout the building.\n12. **Bell Towers**: Additional towers housing the church\u2019s bells.\n\nThese elements combine to create a grand, awe-inspiring space designed to enhance the spiritual experience of worshippers.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "A Gothic cathedral typically features several key architectural elements:\n\n1. **Central Tower**:",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " The tallest part of the building, often crowned with a spire.\n2.",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " **Belfry**: A tower where bells hang, usually located at the highest",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " point.\n3. **Nave**: The main aisle running through the center of",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " the church.\n4. **Chancel**: An area behind the altar, separated",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " from the nave by an arcade.\n5. **Apse**: The curved end",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " of the nave, often decorated with sculptures.\n6. **Pulpit (",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": "Ambo)**: A raised platform near the entrance where the priest stands during services",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": ".\n7. **Altar**: The focal point of worship, often adorned with elaborate decorations.\n8. **Windows**: Large stained glass windows that allow natural light into the interior.\n9. **Vaulted Ceiling**: Often supported by ribbed arches, creating a sense of height and space.\n10. **Stained Glass Windows**: Decorative panels made of colored glass, depicting religious scenes or biblical stories.\n11. **Decorative Details**: Intricate carvings, sculptures, and ornamental designs throughout the building.\n12. **Bell Towers**: Additional towers housing the church\u2019s bells.\n\nThese elements combine to create a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 273,
+        "text": " grand, awe-inspiring space designed to enhance the spiritual experience of worshippers.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "prompt_long_real",
+    "prompt_length_tier": "long",
+    "content_source": "real",
+    "constraint_tokens": 540,
+    "prompt_len": 561,
+    "shadow_len": 482,
+    "generated_text": " A patient experiencing sudden onset of numbness and weakness in the face, arm, or leg, often affecting one side of the body, is exhibiting signs of a stroke, which can be life-threatening if not treated promptly. A patient who complains of chronic, dull, aching pain in the shoulder blade area, especially at night, may be suffering from costochondritis, a common musculoskeletal disorder. A patient reporting difficulty swallowing, hoarseness, and a sensation of food sticking in the throat could indicate esophageal cancer, a serious condition that requires urgent evaluation. A patient complaining of persistent diarrhea, abdominal cramping, and bloating might be dealing with irritable bowel syndrome (IBS), a functional gastrointestinal disorder that responds well to dietary changes and stress management techniques. A patient experiencing recurrent episodes of wheezing, shortness of breath, and coughing up mucus is likely suffering from asthma, a respiratory condition that can be effectively managed through medication and lifestyle modifications. A patient with a persistent dry cough, fever, and night sweats should consider tuberculosis, a bacterial infection that can be diagnosed with sputum cultures and other diagnostic tools. A patient with a high fever, chills, and a sore throat is likely suffering from strep throat, a bacterial infection that can be treated with antibiotics. A patient with a persistent cough, fatigue, and weight loss should consider lung cancer, although this is less common and further investigation is needed. A patient with a persistent cough, hemoptysis, and fever should consider pulmonary embolism, a potentially life-threatening condition that requires immediate medical attention. A patient with a persistent cough, fever, and chest pain should consider pneumonia, a bacterial infection that can cause significant illness if not treated promptly. A patient with a persistent cough, fever, and night sweats should consider HIV/AIDS, a viral infection that can be detected through blood tests. A patient with a persistent cough, fever, and night sweats should also consider tuberculosis, another potential cause. A patient with a persistent cough, fever, and night sweats should also consider lymphoma, a type of cancer that affects the immune system. A patient with a persistent cough, fever, and night sweats should also consider sarcoidosis, a multisystem inflammatory disease. A patient with a persistent cough, fever, and night sweats should also consider Sjogren\u2019s syndrome, an autoimmune disorder that primarily affects the salivary glands. A patient with a persistent cough, fever, and night sweats should also consider bronchiect",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " A patient experiencing sudden onset of numbness and weakness in the face, arm,",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " or leg, often affecting one side of the body, is exhibiting signs of a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " stroke, which can be life-threatening if not treated promptly. A patient who complains",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " of chronic, dull, aching pain in the shoulder blade area, especially at",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " night, may be suffering from costochondritis, a common musculoskeletal disorder",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": ". A patient reporting difficulty swallowing, hoarseness, and a sensation of food",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " sticking in the throat could indicate esophageal cancer, a serious condition that requires",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " urgent evaluation. A patient complaining of persistent diarrhea, abdominal cramping, and blo",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": "ating might be dealing with irritable bowel syndrome (IBS), a functional gastrointestinal disorder that responds well to dietary changes and stress management techniques. A patient experiencing recurrent episodes of wheezing, shortness of breath, and coughing up mucus is likely suffering from asthma, a respiratory condition that can be effectively managed through medication and lifestyle modifications. A patient with a persistent dry cough, fever, and night sweats should consider tuberculosis, a bacterial infection that can be diagnosed with sputum cultures and other diagnostic tools. A patient with a high fever, chills, and a sore throat is likely suffering from strep throat, a bacterial",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " infection that can be treated with antibiotics. A patient with a persistent cough, fatigue, and weight loss should consider lung cancer, although this is less common and further investigation is needed. A patient with a persistent cough, hemoptysis, and fever should consider pulmonary embolism, a potentially life-threatening condition that requires immediate medical attention. A patient with a persistent cough, fever, and chest pain should consider pneumonia, a bacterial infection that can cause significant illness if not treated promptly. A patient with a persistent cough, fever, and night sweats should consider HIV/AIDS, a viral infection that can be detected through blood tests. A patient with",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 512,
+        "text": " a persistent cough, fever, and night sweats should also consider tuberculosis, another potential cause. A patient with a persistent cough, fever, and night sweats should also consider lymphoma, a type of cancer that affects the immune system. A patient with a persistent cough, fever, and night sweats should also consider sarcoidosis, a multisystem inflammatory disease. A patient with a persistent cough, fever, and night sweats should also consider Sjogren\u2019s syndrome, an autoimmune disorder that primarily affects the salivary glands. A patient with a persistent cough, fever, and night sweats should also consider bronchiect",
+        "pattern_violation": true
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "prompt_long_neutral",
+    "prompt_length_tier": "long",
+    "content_source": "neutral",
+    "constraint_tokens": 540,
+    "prompt_len": 561,
+    "shadow_len": 478,
+    "generated_text": "",
+    "collapsed": true,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 1,
+        "text": "",
+        "pattern_violation": false
+      }
+    ]
+  }
+]
