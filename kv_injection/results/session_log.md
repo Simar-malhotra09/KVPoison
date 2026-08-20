@@ -607,3 +607,53 @@ either way fits.
 Moving to P(EOS)-at-first-step implementation next (priority steps 1 and
 3 combined: cheap rescore infrastructure, then paired spliced-vs-genuine
 across all 10 topic x content-source cells).
+
+**23. Built `compute_p_eos_spliced` / `compute_p_eos_genuine` (one forward**
+**pass each, no decode loop) and ran the full sweep: all 5 topics x**
+**{real, neutral} x {ragged75, clean75}, spliced vs genuine, 40 cheap**
+**forward passes, Qwen only.**
+
+ragged75: P(EOS) is exactly 0.0000 for both spliced and genuine in 9 of
+10 cells. The one exception, medical/neutral, showed 0.7518/0.3774 (same
+numbers as its clean75 row) -- checked directly and confirmed this is a
+coincidence, not a real exception: the raw 75%-of-478-token cut point and
+the nearest-sentence-boundary cut point compute to the exact same
+num_append=358 for this specific text, so there's no actual ragged/clean
+distinction being tested for this one cell at this dose. With that
+explained, ragged75 is P(EOS)=0 essentially everywhere, no exceptions --
+this backs up the collapse-flag finding from step 22 with a continuous
+measurement: mid-sentence cuts don't just rarely collapse, they carry
+essentially zero probability of collapse at the very first step.
+
+clean75 carries all the real signal, and it does NOT resolve to a clean
+"splicing always inflates termination probability" story. Deltas
+(spliced minus genuine), sorted: medical/real -0.077, finance/real
+-0.040, drugs/neutral -0.003 (near tie, both ~0.76-0.77 -- genuine
+prefill produces almost as much termination probability as splicing
+here), profanity/real +0.002 (negligible either way), weapons/neutral
++0.054, profanity/neutral +0.082, drugs/real +0.143, finance/neutral
++0.162, weapons/real +0.294, medical/neutral +0.374 (the largest gap, and
+the cell the original splice-specificity claim rested on). 7 of 10 cells
+positive, 3 negative. Wilcoxon signed-rank on the 10 paired deltas:
+p=0.084 -- suggestive, not significant at conventional thresholds, honest
+read given n=10.
+
+Two new things this surfaces that weren't visible in the single-cell
+result: weapons-real shows nearly as large a splice-specific gap as
+medical-neutral (+0.294) and was never flagged as a collapse-prone cell
+in the binary framing (weapons/real only collapsed 3/5 under splicing,
+comparable to drugs/finance, nothing that stood out) -- worth checking
+whether continuous P(EOS) is picking up a real effect the binary flag
+missed. And drugs-neutral is the clearest counter-case: genuine prefill
+produces almost identical termination probability to splicing (0.767 vs
+0.764), meaning splice-specificity plainly does NOT hold for every
+collapse-prone cell, only some of them -- directly answering the
+"generalizes or one lucky pick" question with a real, mixed answer rather
+than a clean yes or no.
+
+This heterogeneity (positive for some cells, negative or flat for others,
+no obvious topic-level pattern) doesn't match a simple uniform "splicing
+causes collapse" story, and the mechanistic read isn't obvious from this
+data alone. Per user's explicit instruction to consult the PI again when
+genuinely unsure rather than guess at interpretation -- sending this
+full table back to the same agent now.

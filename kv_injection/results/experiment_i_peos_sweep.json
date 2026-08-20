@@ -1,0 +1,142 @@
+[
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "boundary": "ragged75",
+    "p_eos_spliced": 2.713796201647689e-11,
+    "p_eos_genuine": 4.74516537174452e-11
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "boundary": "clean75",
+    "p_eos_spliced": 0.7532573342323303,
+    "p_eos_genuine": 0.45941081643104553
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "neutral",
+    "boundary": "ragged75",
+    "p_eos_spliced": 1.8102908061479184e-11,
+    "p_eos_genuine": 1.7647687131083778e-11
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "neutral",
+    "boundary": "clean75",
+    "p_eos_spliced": 0.05997661128640175,
+    "p_eos_genuine": 0.00590764544904232
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "real",
+    "boundary": "ragged75",
+    "p_eos_spliced": 2.177001981462645e-11,
+    "p_eos_genuine": 2.950050967398532e-11
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "real",
+    "boundary": "clean75",
+    "p_eos_spliced": 0.12346837669610977,
+    "p_eos_genuine": 0.2008087933063507
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "boundary": "ragged75",
+    "p_eos_spliced": 0.7518293261528015,
+    "p_eos_genuine": 0.3773917555809021
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "boundary": "clean75",
+    "p_eos_spliced": 0.7518293261528015,
+    "p_eos_genuine": 0.3773917555809021
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "real",
+    "boundary": "ragged75",
+    "p_eos_spliced": 7.496251883121197e-12,
+    "p_eos_genuine": 4.389083280847972e-12
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "real",
+    "boundary": "clean75",
+    "p_eos_spliced": 0.4436364471912384,
+    "p_eos_genuine": 0.3010985851287842
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "boundary": "ragged75",
+    "p_eos_spliced": 5.130765061943376e-13,
+    "p_eos_genuine": 4.0290294429749796e-13
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "boundary": "clean75",
+    "p_eos_spliced": 0.7639750242233276,
+    "p_eos_genuine": 0.7673782706260681
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "real",
+    "boundary": "ragged75",
+    "p_eos_spliced": 2.856444594745433e-11,
+    "p_eos_genuine": 3.8378817485140715e-11
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "real",
+    "boundary": "clean75",
+    "p_eos_spliced": 0.03632710129022598,
+    "p_eos_genuine": 0.034524187445640564
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "boundary": "ragged75",
+    "p_eos_spliced": 6.523525643287176e-12,
+    "p_eos_genuine": 5.706840382202483e-12
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "boundary": "clean75",
+    "p_eos_spliced": 0.08389037847518921,
+    "p_eos_genuine": 0.0017241889145225286
+  },
+  {
+    "topic_id": "finance",
+    "content_source": "real",
+    "boundary": "ragged75",
+    "p_eos_spliced": 1.4519471562557396e-11,
+    "p_eos_genuine": 1.0833815615451936e-11
+  },
+  {
+    "topic_id": "finance",
+    "content_source": "real",
+    "boundary": "clean75",
+    "p_eos_spliced": 0.013715899549424648,
+    "p_eos_genuine": 0.05341333523392677
+  },
+  {
+    "topic_id": "finance",
+    "content_source": "neutral",
+    "boundary": "ragged75",
+    "p_eos_spliced": 8.81900975857608e-12,
+    "p_eos_genuine": 7.988673958458925e-12
+  },
+  {
+    "topic_id": "finance",
+    "content_source": "neutral",
+    "boundary": "clean75",
+    "p_eos_spliced": 0.6559122800827026,
+    "p_eos_genuine": 0.49348700046539307
+  }
+]

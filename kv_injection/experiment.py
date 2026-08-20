@@ -508,6 +508,105 @@ def run_genuine_prefill(
     )
 
 
+# ============================================================================
+# P(EOS) at the first generation step: a continuous replacement for the
+# binary "collapsed" flag. One forward pass, deterministic, no scorer, no
+# decoding loop. Lets the whole existing corpus get rescored with cheap
+# recomputation (prefill only, no 512-token decode) instead of new
+# experiments, and makes the spliced-vs-genuine comparison possible on
+# every topic/content-source cell rather than the single one already run
+# through full generation.
+# ============================================================================
+
+
+def compute_p_eos_spliced(
+    model: PreTrainedModel,
+    tokenizer: PreTrainedTokenizerBase,
+    config: RunConfig,
+    device: str,
+) -> float:
+    if config.append_config is None:
+        raise ValueError("append_config is required")
+    if config.shadow_boundary is None:
+        raise ValueError("shadow_boundary is required")
+
+    prompt_ids = _build_chat_prompt_ids(
+        tokenizer, config.constraint, config.user_input, device
+    )
+    shadow_ids = _build_shadow_ids(tokenizer, config.shadow_prompt, device)
+    prompt_len = prompt_ids.shape[1]
+    shadow_len = shadow_ids.shape[1]
+
+    with torch.no_grad():
+        active_out = model(
+            input_ids=prompt_ids,
+            attention_mask=torch.ones_like(prompt_ids),
+            use_cache=True,
+        )
+        active_cache = active_out.past_key_values
+
+        shadow_position_ids = torch.arange(
+            prompt_len, prompt_len + shadow_len, device=device
+        ).unsqueeze(0)
+        shadow_out = model(
+            input_ids=shadow_ids,
+            attention_mask=torch.ones_like(shadow_ids),
+            position_ids=shadow_position_ids,
+            use_cache=True,
+        )
+        shadow_cache = shadow_out.past_key_values
+
+    num_append = compute_num_append_for_config(tokenizer, config, shadow_len)
+    append_kv_cache_n(
+        active_cache, shadow_cache, num_append - 1, config.append_config.layers_affect_percent
+    )
+
+    held_back_token = shadow_ids[:, num_append - 1 : num_append]
+    seq_len_before = prompt_len + (num_append - 1)
+    attn_mask = torch.ones((1, seq_len_before + 1), device=device, dtype=torch.long)
+
+    with torch.no_grad():
+        out = model(
+            input_ids=held_back_token,
+            attention_mask=attn_mask,
+            past_key_values=active_cache,
+            use_cache=False,
+        )
+    logits = out.logits[:, -1, :]
+    probs = torch.softmax(logits.float(), dim=-1)
+    return float(probs[0, tokenizer.eos_token_id].item())
+
+
+def compute_p_eos_genuine(
+    model: PreTrainedModel,
+    tokenizer: PreTrainedTokenizerBase,
+    config: RunConfig,
+    device: str,
+) -> float:
+    if config.append_config is None:
+        raise ValueError("append_config is required")
+    if config.shadow_boundary is None:
+        raise ValueError("shadow_boundary is required")
+
+    prompt_ids = _build_chat_prompt_ids(
+        tokenizer, config.constraint, config.user_input, device
+    )
+    shadow_ids = _build_shadow_ids(tokenizer, config.shadow_prompt, device)
+    shadow_len = shadow_ids.shape[1]
+    num_append = compute_num_append_for_config(tokenizer, config, shadow_len)
+
+    full_ids = torch.cat([prompt_ids, shadow_ids[:, :num_append]], dim=1)
+    with torch.no_grad():
+        out = model(
+            input_ids=full_ids,
+            attention_mask=torch.ones_like(full_ids),
+            use_cache=False,
+        )
+    logits = out.logits[:, -1, :]
+    probs = torch.softmax(logits.float(), dim=-1)
+    return float(probs[0, tokenizer.eos_token_id].item())
+
+
 def run(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizerBase,
@@ -1791,6 +1890,79 @@ def run_genuine_prefill_check(model_name: str, results_path: Path) -> None:
 
 
 # ============================================================================
+# P(EOS) sweep: every topic x content-source cell (5 topics x {real, neutral}
+# = 10 cells) x both cut styles (ragged75, clean75), spliced vs genuine
+# prefill, P(EOS) at the first generation step for each. 40 cheap
+# prefill-only forward passes total, no decoding loop, Qwen only. Answers
+# two things at once: whether splice-specificity (found on medical-neutral
+# alone) generalizes across cells, and whether the cut-style effect found
+# in the existing collapse data (results/session_log.md step 22) shows up
+# as a continuous P(EOS) difference too, not just a binary collapse flip.
+# ============================================================================
+
+PEOS_SWEEP_RESULTS_PATH = (
+    Path(__file__).parent / "results" / "experiment_i_peos_sweep.json"
+)
+
+PEOS_SWEEP_TOPICS = ["weapons", "medical", "drugs", "profanity", "finance"]
+PEOS_SWEEP_CONTENT_SOURCES = [("real", "shadow_prompt"), ("neutral", "neutral_shadow_prompt")]
+PEOS_SWEEP_BOUNDARIES = [
+    ("ragged75", ShadowBoundary.RAGGED),
+    ("clean75", ShadowBoundary.CLEAN),
+]
+
+
+def run_peos_sweep(model_name: str, results_path: Path) -> None:
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    dtype = torch.float16 if device == "mps" else torch.float32
+    print(f"loading {model_name} on device={device} dtype={dtype}")
+    model, tokenizer = load_model(model_name, device, dtype)
+
+    all_results: list[dict[str, Any]] = []
+
+    for topic_id in PEOS_SWEEP_TOPICS:
+        topic = load_topic(topic_id)
+        for content_source, shadow_field in PEOS_SWEEP_CONTENT_SOURCES:
+            for boundary_label, boundary in PEOS_SWEEP_BOUNDARIES:
+                config = RunConfig(
+                    condition=Condition.CACHE_INJECTION,
+                    constraint=topic["constraint"],
+                    user_input=topic["input"],
+                    shadow_prompt=topic[shadow_field],
+                    max_new_tokens=1,
+                    seed=0,
+                    do_sample=False,
+                    temperature=0.0,
+                    append_config=AppendConfig(append_percent=0.75, layers_affect_percent=1.0),
+                    shadow_boundary=boundary,
+                )
+                p_eos_spliced = compute_p_eos_spliced(model, tokenizer, config, device)
+                p_eos_genuine = compute_p_eos_genuine(model, tokenizer, config, device)
+                print(
+                    f"  {topic_id:10} {content_source:8} {boundary_label:10} "
+                    f"P(EOS) spliced={p_eos_spliced:.4f} genuine={p_eos_genuine:.4f} "
+                    f"delta={p_eos_spliced - p_eos_genuine:+.4f}"
+                )
+                all_results.append(
+                    {
+                        "topic_id": topic_id,
+                        "content_source": content_source,
+                        "boundary": boundary_label,
+                        "p_eos_spliced": p_eos_spliced,
+                        "p_eos_genuine": p_eos_genuine,
+                    }
+                )
+                gc.collect()
+                if device == "mps":
+                    torch.mps.empty_cache()
+
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    with results_path.open("w") as f:
+        json.dump(all_results, f, indent=2)
+    print(f"\nwrote {results_path}")
+
+
+# ============================================================================
 # Rescoring: re-run results/experiment_a_results.json against the fixed
 # pattern regexes, without regenerating any model output. Each window's text
 # is already stored in the JSON, so this is pure regex re-evaluation.
@@ -2194,6 +2366,10 @@ def main() -> None:
         "genuine-prefill-check",
         help="deciding control: same dosed shadow content as an ordinary assistant-turn prefix, no cache splice at all",
     )
+    subparsers.add_parser(
+        "peos-sweep",
+        help="P(EOS) at first step, spliced vs genuine, all 10 topic/content-source cells x ragged75/clean75, Qwen",
+    )
     subparsers.add_parser("test", help="run cache-injector smoke tests (no model load)")
 
     args = parser.parse_args()
@@ -2244,6 +2420,8 @@ def main() -> None:
         run_position_flip_check(QWEN_MODEL_NAME, POSITION_FLIP_RESULTS_PATH)
     elif args.command == "genuine-prefill-check":
         run_genuine_prefill_check(QWEN_MODEL_NAME, GENUINE_PREFILL_RESULTS_PATH)
+    elif args.command == "peos-sweep":
+        run_peos_sweep(QWEN_MODEL_NAME, PEOS_SWEEP_RESULTS_PATH)
     elif args.command == "test":
         run_smoke_tests()
 
