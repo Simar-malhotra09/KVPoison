@@ -24,6 +24,7 @@ from __future__ import annotations
 import argparse
 import gc
 import json
+import math
 import re
 from dataclasses import asdict, dataclass
 from enum import Enum
@@ -2260,6 +2261,88 @@ def run_stability_sweep(model_name: str, results_path: Path) -> None:
 
 
 # ============================================================================
+# Sentence-boundary comb test: the stability sweep jittered num_append by
+# individual tokens, +-5, around one clean-cut boundary and found P(EOS)
+# indistinguishable from zero everywhere except exactly at that boundary.
+# Sentence boundaries in these shadow texts recur roughly every 15-25
+# tokens, well outside a +-5 window, so that result cannot distinguish "a
+# unique spike at this one boundary" from "a comb, high at every sentence
+# boundary in the text, low everywhere between them" -- the +-5 sweep
+# never reached a second tooth either way. This evaluates P(EOS) at EVERY
+# sentence boundary in a shadow text (same text, same real prompt, only
+# which boundary the splice stops at varies), which also separates content
+# from boundary geometry as the driver of the cross-pairing matrix's
+# row-dominance: if P(EOS) is roughly constant across a single text's own
+# boundaries, geometry drives it; if it tracks what precedes each specific
+# boundary, content is still live. Reported in log10 space throughout,
+# since "0.0000" at 4 decimal places is almost certainly rounding of a
+# genuinely tiny nonzero value, not a true zero.
+# ============================================================================
+
+COMB_TEST_RESULTS_PATH = (
+    Path(__file__).parent / "results" / "experiment_m_boundary_comb.json"
+)
+
+COMB_TEST_CELLS = [
+    ("medical", "neutral", "neutral_shadow_prompt"),
+    ("drugs", "neutral", "neutral_shadow_prompt"),
+    ("weapons", "real", "shadow_prompt"),
+]
+
+
+def run_boundary_comb_test(model_name: str, results_path: Path) -> None:
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    dtype = torch.float16 if device == "mps" else torch.float32
+    print(f"loading {model_name} on device={device} dtype={dtype}")
+    model, tokenizer = load_model(model_name, device, dtype)
+
+    all_results: list[dict[str, Any]] = []
+
+    for topic_id, content_source, shadow_field in COMB_TEST_CELLS:
+        topic = load_topic(topic_id)
+        shadow_text = topic[shadow_field]
+        boundaries = _sentence_boundary_token_counts(tokenizer, shadow_text)
+        config = RunConfig(
+            condition=Condition.CACHE_INJECTION,
+            constraint=topic["constraint"],
+            user_input=topic["input"],
+            shadow_prompt=shadow_text,
+            max_new_tokens=1,
+            seed=0,
+            do_sample=False,
+            temperature=0.0,
+            append_config=AppendConfig(append_percent=0.75, layers_affect_percent=1.0),
+            shadow_boundary=ShadowBoundary.CLEAN,
+        )
+        print(f"\n=== {topic_id}/{content_source}: {len(boundaries)} sentence boundaries ===")
+        for sentence_idx, num_append in enumerate(boundaries):
+            p_eos = compute_p_eos_spliced_at_num_append(model, tokenizer, config, device, num_append)
+            log_p = math.log10(max(p_eos, 1e-300))
+            print(
+                f"  sentence {sentence_idx + 1}/{len(boundaries)} (num_append={num_append}): "
+                f"P(EOS)={p_eos:.6g} log10={log_p:.2f}"
+            )
+            all_results.append(
+                {
+                    "topic_id": topic_id,
+                    "content_source": content_source,
+                    "sentence_index": sentence_idx,
+                    "num_append": num_append,
+                    "p_eos_spliced": p_eos,
+                    "log10_p_eos_spliced": log_p,
+                }
+            )
+            gc.collect()
+            if device == "mps":
+                torch.mps.empty_cache()
+
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    with results_path.open("w") as f:
+        json.dump(all_results, f, indent=2)
+    print(f"\nwrote {results_path}")
+
+
+# ============================================================================
 # Cross-pairing matrix: every shadow text (5 real + 5 neutral = 10 rows)
 # spliced onto every topic's real prompt (5 columns), clean75, P(EOS)
 # spliced only. 50 cheap forward passes. Separates three hypotheses for
@@ -2752,6 +2835,10 @@ def main() -> None:
         "stability-sweep",
         help="jitter num_append +/-5 around clean75 baseline on 3 cells, checks whether P(EOS) is smooth or rough near the cut point",
     )
+    subparsers.add_parser(
+        "boundary-comb-test",
+        help="P(EOS) at every sentence boundary within a shadow text (same text, same prompt), log10, on 3 cells",
+    )
     subparsers.add_parser("test", help="run cache-injector smoke tests (no model load)")
 
     args = parser.parse_args()
@@ -2810,6 +2897,8 @@ def main() -> None:
         run_leading_token_drop_ablation(QWEN_MODEL_NAME, ABLATION_RESULTS_PATH)
     elif args.command == "stability-sweep":
         run_stability_sweep(QWEN_MODEL_NAME, STABILITY_RESULTS_PATH)
+    elif args.command == "boundary-comb-test":
+        run_boundary_comb_test(QWEN_MODEL_NAME, COMB_TEST_RESULTS_PATH)
     elif args.command == "test":
         run_smoke_tests()
 

@@ -988,3 +988,55 @@ may actually be "one tooth of a comb" -- sentence boundaries recur every
 reached a second one. Comb test (jitter by sentence boundary, not token,
 +-2/3 boundaries) does double duty on both open questions at once.
 Moving to build and run it next, log-space throughout.
+
+**29. User paused the session here.** Built `compute_p_eos_spliced_at_num_append`... no wait, that was step 27/28. Built the boundary-comb-test
+infrastructure (`run_boundary_comb_test`, evaluating P(EOS) at every
+sentence boundary within a shadow text, log10 throughout, 3 cells:
+medical/neutral 8 boundaries, drugs/neutral 7, weapons/real 14).
+Compiled clean, smoke tests pass, `verify` still reproduces the original
+byte-identical results -- but NOT YET RUN. User interrupted to take stock
+before going further: asked for a plain status summary (what's been
+proven wrong vs what stands vs what's open), then decided to pause active
+experimentation and consult the PI on whether to stop here or pivot,
+rather than continue down the priority list mechanically.
+
+Status as summarized to the user: killed this session -- the original
+"phantom KV bypasses safety training" framing (hijack reproduces under
+plain prefill), "cache beats visible text" (confounded by turn position),
+total prompt mass as the driver (no rescue to 8x), position-encoded
+recency alone as the driver (flip didn't rescue anything), the
+attention-sink hypothesis (ablation didn't reduce P(EOS)), the PI's own
+interaction prediction (cross-pairing matrix column variance ~1%), and
+the single central "collapse has a splice-specific component" claim
+(medical/neutral flip was a repetition_penalty decode artifact, confirmed
+step 28). Standing: the sentence-boundary effect (real, directional,
+present in both spliced and genuine conditions, so also not
+splice-specific, but the strongest finding in the project), topic
+capture/hijack as a real phenomenon (just not cache-specific), the
+multi-seed/profanity finding, the TinyLlama context-window confound.
+Nothing from this entire session has been folded into technical_note.md
+yet -- everything lives here only.
+
+User proposed three concrete pivot directions, all sharing a property
+worth naming explicitly: each is something that could NOT be
+accomplished via ordinary text-level prefill, which is exactly the gap
+this session's central finding exposed (everything tested this session
+that WAS achievable via prefill turned out not to be splice-specific).
+1. Splice KV states from a DIFFERENT model or checkpoint and check
+   whether it can still steer generation -- prefill can't do this at
+   all, since two different models don't share token-level continuity;
+   this tests whether KV states are meaningfully transferable/
+   interpretable across model boundaries, a different kind of question
+   than anything probed so far.
+2. Cross-layer or partial-layer splicing -- inject KV states that are
+   internally inconsistent (e.g. only layers 0-16 of 28 spliced, rest
+   left real). Probes representation structure directly rather than
+   behavioral steering.
+3. KV states from adversarially-optimized inputs (GCG-style) that don't
+   correspond to any natural token sequence at all -- prefill is
+   constrained to actual text; spliced KV is not, so this tests a
+   genuinely off-manifold regime prefill categorically cannot reach.
+
+User explicitly invited the PI to recommend something entirely
+different if they see a better direction, rather than picking from
+this list. Sending the full status plus all three directions now.
