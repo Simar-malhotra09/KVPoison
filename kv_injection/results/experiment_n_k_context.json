@@ -1,0 +1,170 @@
+[
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "k_context": 0,
+    "prompt_len": 30,
+    "is_full_context": false,
+    "p_eos_spliced": 0.7518293261528015
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "k_context": 1,
+    "prompt_len": 30,
+    "is_full_context": false,
+    "p_eos_spliced": 0.7117037177085876
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "k_context": 2,
+    "prompt_len": 30,
+    "is_full_context": false,
+    "p_eos_spliced": 0.6873608827590942
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "k_context": 4,
+    "prompt_len": 30,
+    "is_full_context": false,
+    "p_eos_spliced": 0.6098793745040894
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "k_context": 8,
+    "prompt_len": 30,
+    "is_full_context": false,
+    "p_eos_spliced": 0.681016206741333
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "k_context": 16,
+    "prompt_len": 30,
+    "is_full_context": false,
+    "p_eos_spliced": 0.5612596273422241
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "k_context": 30,
+    "prompt_len": 30,
+    "is_full_context": true,
+    "p_eos_spliced": 0.3806038796901703
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "k_context": 0,
+    "prompt_len": 36,
+    "is_full_context": false,
+    "p_eos_spliced": 0.7532573342323303
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "k_context": 1,
+    "prompt_len": 36,
+    "is_full_context": false,
+    "p_eos_spliced": 0.5937772989273071
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "k_context": 2,
+    "prompt_len": 36,
+    "is_full_context": false,
+    "p_eos_spliced": 0.6740171909332275
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "k_context": 4,
+    "prompt_len": 36,
+    "is_full_context": false,
+    "p_eos_spliced": 0.6508605480194092
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "k_context": 8,
+    "prompt_len": 36,
+    "is_full_context": false,
+    "p_eos_spliced": 0.6562734246253967
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "k_context": 16,
+    "prompt_len": 36,
+    "is_full_context": false,
+    "p_eos_spliced": 0.3163532316684723
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "k_context": 36,
+    "prompt_len": 36,
+    "is_full_context": true,
+    "p_eos_spliced": 0.4588661789894104
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "k_context": 0,
+    "prompt_len": 38,
+    "is_full_context": false,
+    "p_eos_spliced": 0.7639750242233276
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "k_context": 1,
+    "prompt_len": 38,
+    "is_full_context": false,
+    "p_eos_spliced": 0.7688291668891907
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "k_context": 2,
+    "prompt_len": 38,
+    "is_full_context": false,
+    "p_eos_spliced": 0.7786756157875061
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "k_context": 4,
+    "prompt_len": 38,
+    "is_full_context": false,
+    "p_eos_spliced": 0.7500776648521423
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "k_context": 8,
+    "prompt_len": 38,
+    "is_full_context": false,
+    "p_eos_spliced": 0.8091555833816528
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "k_context": 16,
+    "prompt_len": 38,
+    "is_full_context": false,
+    "p_eos_spliced": 0.8555386662483215
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "k_context": 38,
+    "prompt_len": 38,
+    "is_full_context": true,
+    "p_eos_spliced": 0.7661055326461792
+  }
+]

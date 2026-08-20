@@ -1223,3 +1223,49 @@ User authorized proceeding with the k-context sweep and the paired
 layer-restricted splicing experiment without further sign-off, explicitly
 noting the option to ask the PI for design guidance mid-implementation
 rather than blocking on it upfront. Moving to implementation.
+
+**34. Built and ran the k-context sweep.** Design (already confirmed
+with the user before implementation): the shadow's own forward pass gets
+exactly k tokens of the real prompt (the LAST k tokens, correct
+position_ids) as preceding context instead of the binary choice used
+everywhere else in this file -- k=0 is exactly the isolated/spliced case,
+k=full prompt_len is exactly genuine. Only the shadow's own resulting
+K,V gets spliced; the k context tokens' K,V is computed (so the shadow
+genuinely attends to it) but discarded, since those positions already
+exist correctly in the active cache from its own real forward pass.
+Validated both boundary cases before trusting intermediate values: k=0
+matches `compute_p_eos_spliced` exactly (0.751829 both ways); k=prompt_len
+closely matches `compute_p_eos_genuine` (0.377 vs 0.381, consistent with
+the same benign cross-implementation floating-point noise documented
+earlier this session, since this computes genuine via two separate
+forward passes rather than one joint one).
+
+Ran on the same three cells as the ablation (medical/neutral, weapons/
+real, drugs/neutral), k in {0,1,2,4,8,16,full}. Result is a real,
+graded, mostly-monotonic curve, not another elimination:
+
+medical/neutral: 0.752, 0.712, 0.687, 0.610, 0.681, 0.561, 0.381 (k=0
+through k=full) -- a clear overall decline from the isolated value toward
+the genuine value as k increases, one local bump at k=8 but the trend is
+unambiguous.
+weapons/real: 0.753, 0.594, 0.674, 0.651, 0.656, 0.316, 0.459 -- noisier,
+but the same overall downward trend from k=0 toward a lower range at
+higher k.
+drugs/neutral: 0.764, 0.769, 0.779, 0.750, 0.809, 0.856, 0.766 -- flat,
+no decline at all, staying in the 0.75-0.86 range throughout.
+
+This is internally consistent with everything already known about these
+three cells: medical/neutral and weapons/real both show a real spliced-
+vs-genuine gap (confirmed earlier via the P(EOS) sweep and, for weapons,
+via direct decode validation), and both show a real decline as context
+increases from isolated toward genuine. Drugs/neutral shows near-zero
+spliced-vs-genuine gap (both conditions collapse), and shows no decline
+at all -- flat because there's nothing to converge away from. The
+amount of real preceding context the shadow's own KV computation gets to
+see has a graded, not all-or-nothing, effect on termination probability,
+at least for the two cells with a real gap to begin with. This is
+something a text prefix cannot express at all (no way to give a model a
+fractional amount of preceding attention context via token-level
+prefill), so it's a genuine splice-specific, positive, quantified
+finding rather than another ruled-out hypothesis. Moving to the paired
+layer-restricted splicing experiment next.

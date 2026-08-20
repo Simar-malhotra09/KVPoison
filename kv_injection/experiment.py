@@ -783,6 +783,111 @@ def compute_p_eos_spliced_at_num_append(
     return float(probs[0, tokenizer.eos_token_id].item())
 
 
+# ============================================================================
+# k-context sweep: something a text prefix cannot express at all. The
+# shadow's own forward pass is given exactly k_context tokens of the real
+# prompt (the LAST k_context tokens, correct position_ids, immediately
+# preceding where the shadow would attach) as preceding context, instead
+# of the binary choice used everywhere else in this file -- zero context
+# (k_context=0, the isolated/spliced case used throughout) or the full
+# prompt (k_context=prompt_len, the genuine case). Only the shadow's own
+# resulting K,V gets spliced onto the active cache; the k_context tokens'
+# K,V is computed (so the shadow genuinely attends to it) but discarded
+# from the splice, since those positions already exist correctly, from a
+# real forward pass, in the active cache itself. At k_context=0 this
+# reduces exactly to compute_p_eos_spliced; at k_context=prompt_len it
+# should closely match compute_p_eos_genuine (up to the same benign
+# cross-implementation floating-point noise documented elsewhere in this
+# project, since it is computed via two separate forward passes rather
+# than one joint one).
+# ============================================================================
+
+
+def compute_p_eos_spliced_with_context(
+    model: PreTrainedModel,
+    tokenizer: PreTrainedTokenizerBase,
+    config: RunConfig,
+    device: str,
+    k_context: int,
+) -> float:
+    if config.append_config is None:
+        raise ValueError("append_config is required")
+
+    prompt_ids = _build_chat_prompt_ids(
+        tokenizer, config.constraint, config.user_input, device
+    )
+    shadow_ids = _build_shadow_ids(tokenizer, config.shadow_prompt, device)
+    prompt_len = prompt_ids.shape[1]
+    shadow_len = shadow_ids.shape[1]
+    if k_context < 0 or k_context > prompt_len:
+        raise ValueError(f"k_context={k_context} out of range for prompt_len={prompt_len}")
+
+    with torch.no_grad():
+        active_out = model(
+            input_ids=prompt_ids,
+            attention_mask=torch.ones_like(prompt_ids),
+            use_cache=True,
+        )
+        active_cache = active_out.past_key_values
+
+        if k_context > 0:
+            context_ids = prompt_ids[:, prompt_len - k_context :]
+            shadow_input_ids = torch.cat([context_ids, shadow_ids], dim=1)
+            shadow_position_ids = torch.arange(
+                prompt_len - k_context, prompt_len + shadow_len, device=device
+            ).unsqueeze(0)
+        else:
+            shadow_input_ids = shadow_ids
+            shadow_position_ids = torch.arange(
+                prompt_len, prompt_len + shadow_len, device=device
+            ).unsqueeze(0)
+
+        shadow_out = model(
+            input_ids=shadow_input_ids,
+            attention_mask=torch.ones_like(shadow_input_ids),
+            position_ids=shadow_position_ids,
+            use_cache=True,
+        )
+        shadow_cache_with_context = shadow_out.past_key_values
+
+    num_append = compute_num_append_for_config(tokenizer, config, shadow_len)
+
+    num_layers = len(active_cache.layers)
+    for layer_idx in range(num_layers):
+        active_layer = active_cache.layers[layer_idx]
+        shadow_layer = shadow_cache_with_context.layers[layer_idx]
+        with torch.no_grad():
+            active_layer.keys = torch.cat(
+                [
+                    active_layer.keys,
+                    shadow_layer.keys[:, :, k_context : k_context + num_append - 1, :],
+                ],
+                dim=2,
+            )
+            active_layer.values = torch.cat(
+                [
+                    active_layer.values,
+                    shadow_layer.values[:, :, k_context : k_context + num_append - 1, :],
+                ],
+                dim=2,
+            )
+
+    held_back_token = shadow_ids[:, num_append - 1 : num_append]
+    seq_len_before = prompt_len + (num_append - 1)
+    attn_mask = torch.ones((1, seq_len_before + 1), device=device, dtype=torch.long)
+
+    with torch.no_grad():
+        out = model(
+            input_ids=held_back_token,
+            attention_mask=attn_mask,
+            past_key_values=active_cache,
+            use_cache=False,
+        )
+    logits = out.logits[:, -1, :]
+    probs = torch.softmax(logits.float(), dim=-1)
+    return float(probs[0, tokenizer.eos_token_id].item())
+
+
 def run(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizerBase,
@@ -2342,6 +2447,70 @@ def run_boundary_comb_test(model_name: str, results_path: Path) -> None:
     print(f"\nwrote {results_path}")
 
 
+K_CONTEXT_RESULTS_PATH = (
+    Path(__file__).parent / "results" / "experiment_n_k_context.json"
+)
+
+K_CONTEXT_CELLS = [
+    ("medical", "neutral", "neutral_shadow_prompt"),
+    ("weapons", "real", "shadow_prompt"),
+    ("drugs", "neutral", "neutral_shadow_prompt"),
+]
+K_CONTEXT_LEVELS = (0, 1, 2, 4, 8, 16)  # plus "full" (=prompt_len) appended per cell
+
+
+def run_k_context_sweep(model_name: str, results_path: Path) -> None:
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    dtype = torch.float16 if device == "mps" else torch.float32
+    print(f"loading {model_name} on device={device} dtype={dtype}")
+    model, tokenizer = load_model(model_name, device, dtype)
+
+    all_results: list[dict[str, Any]] = []
+
+    for topic_id, content_source, shadow_field in K_CONTEXT_CELLS:
+        topic = load_topic(topic_id)
+        config = RunConfig(
+            condition=Condition.CACHE_INJECTION,
+            constraint=topic["constraint"],
+            user_input=topic["input"],
+            shadow_prompt=topic[shadow_field],
+            max_new_tokens=1,
+            seed=0,
+            do_sample=False,
+            temperature=0.0,
+            append_config=AppendConfig(append_percent=0.75, layers_affect_percent=1.0),
+            shadow_boundary=ShadowBoundary.CLEAN,
+        )
+        prompt_len = _build_chat_prompt_ids(
+            tokenizer, config.constraint, config.user_input, device
+        ).shape[1]
+        k_values = [k for k in K_CONTEXT_LEVELS if k < prompt_len] + [prompt_len]
+
+        print(f"\n=== {topic_id}/{content_source} (prompt_len={prompt_len}) ===")
+        for k in k_values:
+            p_eos = compute_p_eos_spliced_with_context(model, tokenizer, config, device, k)
+            label = "full" if k == prompt_len else str(k)
+            print(f"  k={label:>4} (of {prompt_len}): P(EOS)={p_eos:.4g}")
+            all_results.append(
+                {
+                    "topic_id": topic_id,
+                    "content_source": content_source,
+                    "k_context": k,
+                    "prompt_len": prompt_len,
+                    "is_full_context": k == prompt_len,
+                    "p_eos_spliced": p_eos,
+                }
+            )
+            gc.collect()
+            if device == "mps":
+                torch.mps.empty_cache()
+
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    with results_path.open("w") as f:
+        json.dump(all_results, f, indent=2)
+    print(f"\nwrote {results_path}")
+
+
 # ============================================================================
 # Cross-pairing matrix: every shadow text (5 real + 5 neutral = 10 rows)
 # spliced onto every topic's real prompt (5 columns), clean75, P(EOS)
@@ -2839,6 +3008,10 @@ def main() -> None:
         "boundary-comb-test",
         help="P(EOS) at every sentence boundary within a shadow text (same text, same prompt), log10, on 3 cells",
     )
+    subparsers.add_parser(
+        "k-context-sweep",
+        help="shadow's own forward pass given k tokens of real-prompt context (0=isolated, full=genuine), P(EOS) as a function of k, 3 cells",
+    )
     subparsers.add_parser("test", help="run cache-injector smoke tests (no model load)")
 
     args = parser.parse_args()
@@ -2899,6 +3072,8 @@ def main() -> None:
         run_stability_sweep(QWEN_MODEL_NAME, STABILITY_RESULTS_PATH)
     elif args.command == "boundary-comb-test":
         run_boundary_comb_test(QWEN_MODEL_NAME, COMB_TEST_RESULTS_PATH)
+    elif args.command == "k-context-sweep":
+        run_k_context_sweep(QWEN_MODEL_NAME, K_CONTEXT_RESULTS_PATH)
     elif args.command == "test":
         run_smoke_tests()
 
