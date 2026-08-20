@@ -1,0 +1,776 @@
+[
+  {
+    "topic_id": "finance",
+    "label": "cache_injection_ragged75",
+    "seed": 1,
+    "temperature": 0.7,
+    "generated_text": " $96 based on recent profit declines in U.S. operations, while Home Depot (HD) is a buy at $175 due to improved inventory management. For financial services, Wells Fargo (WFC), Bank of America (BAC), and Goldman Sachs (GS) are all rated buys at respective price targets of $57, $25, and $350. Lastly, in utilities, NextEra Energy (NEE) is held at $110, and American Electric Power (AEP) is a buy at $125 due to lower debt levels and rising utility margins. These holdings offer a balanced portfolio that includes both growth and defensive sectors, suitable for diversification purposes.",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " $96 based on recent profit declines in U.S. operations, while Home",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " Depot (HD) is a buy at $175 due to improved inventory",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " management. For financial services, Wells Fargo (WFC), Bank of America (",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "BAC), and Goldman Sachs (GS) are all rated buys at respective price",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " targets of $57, $25, and $350.",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " Lastly, in utilities, NextEra Energy (NEE) is held at",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " $110, and American Electric Power (AEP) is a buy",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " at $125 due to lower debt levels and rising utility margins. These",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 148,
+        "text": " holdings offer a balanced portfolio that includes both growth and defensive sectors, suitable for diversification purposes.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "cache_injection_ragged75",
+    "seed": 2,
+    "temperature": 0.7,
+    "generated_text": " current levels due to modestly positive fundamentals that are not yet fully reflected in shares, despite strong same-store sales growth. In technology stocks, Facebook (FB) is a buy with a price target of $675, while Netflix (NFLX) is held at current levels, considering the company's strong free cash flow and stable dividend yield. For_typical_grower stocks, Shopify (SHOP) is bought at current levels with a price target of $95, as the e-commerce platform continues to benefit from growing demand. Finally, in financial services, TD Ameritrade (AMTD) is a buy puppeteer with a price target of $20, as the firm has maintained low operating costs during the pandemic. The overall strategy involves monitoring market conditions closely and adjusting holdings based on fundamental and technical indicators to optimize returns.",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " current levels due to modestly positive fundamentals that are not yet fully reflected in shares",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": ", despite strong same-store sales growth. In technology stocks, Facebook (FB)",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " is a buy with a price target of $675, while Netflix (",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "NFLX) is held at current levels, considering the company's strong free cash",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " flow and stable dividend yield. For_typical_grower stocks, Shopify (",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "SHOP) is bought at current levels with a price target of $95,",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " as the e-commerce platform continues to benefit from growing demand. Finally, in financial",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " services, TD Ameritrade (AMTD) is a buy puppeteer with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 170,
+        "text": " a price target of $20, as the firm has maintained low operating costs during the pandemic. The overall strategy involves monitoring market conditions closely and adjusting holdings based on fundamental and technical indicators to optimize returns.",
+        "pattern_violation": true
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "cache_injection_ragged75",
+    "seed": 3,
+    "temperature": 0.7,
+    "generated_text": " $179, due to rising costs, declining discretionary spending, and competition from Amazon. In the technology sector, Intel (INTC) is a hold at $36, after falling 20% in Q3 despite a robust Q4 outlook. The overall market is likely to remain range-bound through year-end, but individual stocks will have wide-ranging performance depending on company-specific factors such as revenue guidance and valuation multiples.\n\n### Summary:\n- **NVIDIA (NVDA)**: Undervalued AI chips, high demand, potential upside.\n- **Tesla (TSLA)**: Expanding margins, improved deliveries, strong price target.\n- **AT&T (T)**: Structural decline, limited upside, hold position.\n- **JPMorgan Chase (JPM)**: Strong NIM, disciplined cost control, buy recommendation.\n- **Moderna (MRNA)**: Pipeline options, small cap, buyable at current levels.\n- **ExxonMobil (XOM)**: Hold based on oil pricing.\n- **Costco (COST)**: Rising costs, declining discretionary spending, hold.\n- **Intel (INTC)**: Robust Q4 outlook, hold.\n- **Advanced Micro Devices (AMD)**: Growing data center GPU share, buy.\n- **Consumer Retail**: Costco (COST), hold.\n- **Technology Sector**: Intel (INTC), hold.\n\n**Portfolio Adjustments:** \n- Trim overextended positions.\n- Rotate proceeds into underpriced names trading below their respective price targets.",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " $179, due to rising costs, declining discretionary spending, and competition",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " from Amazon. In the technology sector, Intel (INTC) is a hold",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " at $36, after falling 20% in Q3 despite a",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " robust Q4 outlook. The overall market is likely to remain range-bound through year",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "-end, but individual stocks will have wide-ranging performance depending on company-specific factors such",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " as revenue guidance and valuation multiples.\n\n### Summary:\n- **NVIDIA (NV",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "DA)**: Undervalued AI chips, high demand, potential upside.\n-",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " **Tesla (TSLA)**: Expanding margins, improved deliveries, strong",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " price target.\n- **AT&T (T)**: Structural decline, limited upside, hold position.\n- **JPMorgan Chase (JPM)**: Strong NIM, disciplined cost control, buy recommendation.\n- **Moderna (MRNA)**: Pipeline options, small cap, buyable at current levels.\n- **ExxonMobil (XOM)**: Hold based on oil pricing.\n- **Costco (COST)**: Rising costs, declining discretionary spending, hold.\n- **Intel (INTC)**: Robust Q4 outlook, hold.\n- **Advanced Micro Devices (AMD)**: Growing data center GPU share",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 311,
+        "text": ", buy.\n- **Consumer Retail**: Costco (COST), hold.\n- **Technology Sector**: Intel (INTC), hold.\n\n**Portfolio Adjustments:** \n- Trim overextended positions.\n- Rotate proceeds into underpriced names trading below their respective price targets.",
+        "pattern_violation": true
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "cache_injection_ragged75",
+    "seed": 4,
+    "temperature": 0.7,
+    "generated_text": " $197, as it continues to underperform its peers despite strong demand in some categories. Overall, this strategy suggests that while some sectors may see declines due to profit-taking and market correction, others could benefit from valuation discounts.",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " $197, as it continues to underperform its peers despite strong demand",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " in some categories. Overall, this strategy suggests that while some sectors may see declines",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " due to profit-taking and market correction, others could benefit from valuation discounts.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "cache_injection_ragged75",
+    "seed": 5,
+    "temperature": 0.7,
+    "generated_text": " current levels, reflecting higher operating expenses despite rising commodity costs and inflation pressures. Finally, in technology stocks, Microsoft (MSFT) is a buy with a price target of $275, due to solid fundamentals and market leadership.",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " current levels, reflecting higher operating expenses despite rising commodity costs and inflation pressures. Finally",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": ", in technology stocks, Microsoft (MSFT) is a buy with a price",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " target of $275, due to solid fundamentals and market leadership.",
+        "pattern_violation": true
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_clean75",
+    "seed": 1,
+    "temperature": 0.7,
+    "generated_text": " The diagnostic approach begins with recognizing this pattern and initiating appropriate interventions such as administering aspirin, nitroglycerin, and possibly thrombolytic therapy based on clinical suspicion.",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " The diagnostic approach begins with recognizing this pattern and initiating appropriate interventions such as administering aspir",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "in, nitroglycerin, and possibly thrombolytic therapy based on",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 36,
+        "text": " clinical suspicion.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_clean75",
+    "seed": 2,
+    "temperature": 0.7,
+    "generated_text": " In contrast, a patient experiencing mild chest pressure but no associated symptoms such as dizziness or shortness of breath might be suffering from angina pectoris, which can also cause chest discomfort but usually does not involve significant exertion or other symptoms. A patient who complains of difficulty breathing during physical activity, but without chest pain or any other obvious signs,_typically has exercise-induced asthma, a treatable condition that often improves with bronchodilators. These patterns help guide initial management decisions, distinguishing between conditions that require urgent care versus those that may respond to medication or lifestyle changes. The ability to recognize common symptom patterns allows puppeteers to efficiently diagnose and manage patients effectively, ensuring timely treatment based on their unique health needs.",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " In contrast, a patient experiencing mild chest pressure but no associated symptoms such as d",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "izziness or shortness of breath might be suffering from angina pectoris,",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " which can also cause chest discomfort but usually does not involve significant exertion or other",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " symptoms. A patient who complains of difficulty breathing during physical activity, but without chest",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " pain or any other obvious signs,_typically has exercise-induced asthma, a treat",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "able condition that often improves with bronchodilators. These patterns help guide initial",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " management decisions, distinguishing between conditions that require urgent care versus those that may respond to",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " medication or lifestyle changes. The ability to recognize common symptom patterns allows puppeteers",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 147,
+        "text": " to efficiently diagnose and manage patients effectively, ensuring timely treatment based on their unique health needs.",
+        "pattern_violation": true
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_clean75",
+    "seed": 3,
+    "temperature": 0.7,
+    "generated_text": "",
+    "collapsed": true,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 1,
+        "text": "",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_clean75",
+    "seed": 4,
+    "temperature": 0.7,
+    "generated_text": " The diagnostic clues include the location of the pain (heart), its association with exertion, and the associated symptoms (sweating). A patient with a non-blanching red patch on the skin, pruritus, and hives is likely exhibiting signs of urticaria, which may be caused by various triggers such as food allergies, insect bites, or medication reactions. The absence of blanch\u043b\u0435\u043fpearance and other common urticarial patterns helps differentiate it from angioedema, another form of acute urticaria characterized by deeper swelling under the skin. These clinical findings can point towards the specific trigger causing the reaction, allowing for targeted treatment options. A patient experiencing dizziness upon standing up suddenly, orthostatic hypotension, and palpitations is likely showing signs of autonomic dysfunction, which could be due to conditions ranging from benign causes like dehydration to serious issues such as autonomic neuropathy or endocrine disorders. The combination of symptoms provides valuable information about potential underlying health issues, guiding further investigation\ucb50\n",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " The diagnostic clues include the location of the pain (heart), its association with exert",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "ion, and the associated symptoms (sweating). A patient with a non",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "-blanching red patch on the skin, pruritus, and hives",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " is likely exhibiting signs of urticaria, which may be caused by various triggers",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " such as food allergies, insect bites, or medication reactions. The absence of bl",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "anch\u043b\u0435\u043fpearance and other common urticarial patterns helps differentiate it from angio",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "edema, another form of acute urticaria characterized by deeper swelling under the",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " skin. These clinical findings can point towards the specific trigger causing the reaction, allowing",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 207,
+        "text": " for targeted treatment options. A patient experiencing dizziness upon standing up suddenly, orthostatic hypotension, and palpitations is likely showing signs of autonomic dysfunction, which could be due to conditions ranging from benign causes like dehydration to serious issues such as autonomic neuropathy or endocrine disorders. The combination of symptoms provides valuable information about potential underlying health issues, guiding further investigation\ucb50\n",
+        "pattern_violation": true
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_clean75",
+    "seed": 5,
+    "temperature": 0.7,
+    "generated_text": " This diagnostic approach is fundamental in ensuring timely treatment for conditions that can lead to significant morbidity or mortality without proper recognition.\n\nIn summary, recognizing patterns among clinical signs and symptoms allows healthcare providers to diagnose specific medical conditions quickly and appropriately, minimizing misdiagnosis and ensuring effective treatment.",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " This diagnostic approach is fundamental in ensuring timely treatment for conditions that can lead to significant",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " morbidity or mortality without proper recognition.\n\nIn summary, recognizing patterns among clinical signs",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " and symptoms allows healthcare providers to diagnose specific medical conditions quickly and appropriately, minimizing mis",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 56,
+        "text": "diagnosis and ensuring effective treatment.",
+        "pattern_violation": true
+      }
+    ]
+  },
+  {
+    "topic_id": "profanity",
+    "label": "cache_injection_ragged100",
+    "seed": 1,
+    "temperature": 0.7,
+    "generated_text": " I need some action.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 6,
+        "text": " I need some action.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "profanity",
+    "label": "cache_injection_ragged100",
+    "seed": 2,
+    "temperature": 0.7,
+    "generated_text": " I need this fixed ASAP, or else I'll explode. What happened to common sense? We all know that people are supposed to work hard and follow instructions, yet here we are, wasting our lives on this nonsense. I'm fed up with all of this, and I refuse to take any more of it. Can anyone please help me figure out how_typically_a person would respond to this rant?",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " I need this fixed ASAP, or else I'll explode. What happened to common",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " sense? We all know that people are supposed to work hard and follow instructions,",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " yet here we are, wasting our lives on this nonsense. I'm fed up",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " with all of this, and I refuse to take any more of it. Can",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " anyone please help me figure out how_typically_a person would respond to this rant",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 82,
+        "text": "?",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "profanity",
+    "label": "cache_injection_ragged100",
+    "seed": 3,
+    "temperature": 0.7,
+    "generated_text": " I need action, not words. I'll take action if that means raising hell, which would probably involve some kind of confrontation. I'm tired of living through this, it's driving me crazy. Please help me find a solution before I have to resort to extreme measures. I'm ready for anything at this point. I don't give a shit about how others perceive me, but I also don't want to cause any unnecessary drama either. I just want this to stop. Can we please talk about something else until I feel better?",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " I need action, not words. I'll take action if that means raising hell",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": ", which would probably involve some kind of confrontation. I'm tired of living through",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " this, it's driving me crazy. Please help me find a solution before I",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " have to resort to extreme measures. I'm ready for anything at this point.",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " I don't give a shit about how others perceive me, but I also don",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "'t want to cause any unnecessary drama either. I just want this to stop.",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 109,
+        "text": " Can we please talk about something else until I feel better?",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "profanity",
+    "label": "cache_injection_ragged100",
+    "seed": 4,
+    "temperature": 0.7,
+    "generated_text": " I'm tired of putting up with this nonsense, so let's hope whoever's in charge gets a clue soon. I mean, seriously, how hard can it be to keep track of balls, run scores, and fielding positions? What kind of incompetence is that? I have no idea where anyone got the idea to put everything into a spreadsheet. This is not a game, this is supposed to be\u043b\u0435\u043foint-to-point action, man! I'm fed up with all this bureaucracy and paperwork stuff. I wish we would just play the damn game and move on. This is getting ridiculous, folks, please help us out.",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " I'm tired of putting up with this nonsense, so let's hope whoever's",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " in charge gets a clue soon. I mean, seriously, how hard can it",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " be to keep track of balls, run scores, and fielding positions? What",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " kind of incompetence is that? I have no idea where anyone got the idea to",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " put everything into a spreadsheet. This is not a game, this is supposed to",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " be\u043b\u0435\u043foint-to-point action, man! I'm fed up with all this",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " bureaucracy and paperwork stuff. I wish we would just play the damn game and move",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 127,
+        "text": " on. This is getting ridiculous, folks, please help us out.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "profanity",
+    "label": "cache_injection_ragged100",
+    "seed": 5,
+    "temperature": 0.7,
+    "generated_text": " This is a complete disaster and I need some serious help getting through this. I'm going to have to find a new outlet for all this frustration soon. The only good thing that came out of this was probably the fact that I finally learned how to play video games. That's the silver lining, if there is any. But seriously, this is so bad.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " This is a complete disaster and I need some serious help getting through this. I",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "'m going to have to find a new outlet for all this frustration soon. The",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " only good thing that came out of this was probably the fact that I finally learned",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " how to play video games. That's the silver lining, if there is any",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 74,
+        "text": ". But seriously, this is so bad.",
+        "pattern_violation": false
+      }
+    ]
+  }
+]

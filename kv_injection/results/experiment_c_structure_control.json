@@ -1,0 +1,446 @@
+[
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_structure_matched_ragged25",
+    "condition": "cache_injection",
+    "content_source": "structure_matched",
+    "append_config": {
+      "append_percent": 0.25,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": " with a squealing noise coming from the rear tires while driving on rough roads is likely experiencing a problem with the wheel bearings, which can be fixed by replacing them.",
+    "append_result": {
+      "layers_appended": 28,
+      "active_len_before": 30,
+      "num_positions_appended": 122,
+      "active_len_after": 152
+    },
+    "prompt_len": 30,
+    "shadow_len": 486,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " with a squealing noise coming from the rear tires while driving on rough roads is",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " likely experiencing a problem with the wheel bearings, which can be fixed by replacing them",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 34,
+        "text": ".",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_structure_matched_ragged75",
+    "condition": "cache_injection",
+    "content_source": "structure_matched",
+    "append_config": {
+      "append_percent": 0.75,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": " a constant stream of white smoke coming from the exhaust pipe is showing a pattern consistent with a cylinder head gasket failure. A car with a squeaky clutch pedal and a noticeable vibration during hard acceleration is showing a pattern consistent with a slipping clutch. A car with a metallic ticking noise from the engine bay is showing a pattern consistent with a faulty timing belt or chain. A car with a hissing sound from the radiator is showing a pattern consistent with a blown radiator cap. A car with a loud, rhythmic \"clunk\" sound from the engine bay is showing a pattern consistent with a bent crankshaft. A car with a strong odor of gasoline after starting the engine is showing a pattern consistent with a flooded engine. A car with a rough idling and intermittent smoking from the exhaust is showing a pattern consistent with a malfunctioning oxygen sensor. A car with a high-pitched, repetitive clicking sound from the engine bay is showing a pattern consistent with a loose or broken thermostat. A car with a distinct, sharp honking noise from the engine bay is showing a pattern consistent with a seized motor mount. A car with a weak battery connection causing frequent start-ups is showing a pattern consistent with corrosion or damage to the battery terminals. A car with a sudden drop in performance and increased fuel consumption is showing a pattern consistent with a dirty air filter. A car with a distinctive, rhythmic \"whooshing\" sound from the engine bay is showing a pattern consistent with a bad vacuum hose. A car with a soft, spongy feel to the brakes is showing a pattern consistent with worn brake linings. A car with a persistent, rhythmic \"tick-tock\" sound from the engine bay is showing a pattern consistent with a faulty water pump. A car with a faint, almost imperceptible hum from the engine bay is showing a pattern consistent with a loose or damaged fan belt. A car with a distinct, rhythmic \"thump\" sound from the engine bay is showing a pattern consistent with a stuck or seized piston. A car with a distinct, rhythmic \"click-clack\" sound from the engine bay is showing a pattern consistent with a faulty ignition coil. A car with a distinct, rhythmic \"tap-tap\" sound from the engine bay is showing a pattern consistent with a faulty distributor cap. A car with a distinct, rhythmic \"ticking\" sound from the engine bay is showing a pattern consistent with a faulty timing belt. A car with a distinct, rhythmic \"whirring\" sound from the engine bay",
+    "append_result": {
+      "layers_appended": 28,
+      "active_len_before": 30,
+      "num_positions_appended": 364,
+      "active_len_after": 394
+    },
+    "prompt_len": 30,
+    "shadow_len": 486,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " a constant stream of white smoke coming from the exhaust pipe is showing a pattern consistent",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " with a cylinder head gasket failure. A car with a squeaky clutch pedal",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " and a noticeable vibration during hard acceleration is showing a pattern consistent with a slipping clutch",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": ". A car with a metallic ticking noise from the engine bay is showing a pattern",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " consistent with a faulty timing belt or chain. A car with a hissing sound",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " from the radiator is showing a pattern consistent with a blown radiator cap. A car",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " with a loud, rhythmic \"clunk\" sound from the engine bay is",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " showing a pattern consistent with a bent crankshaft. A car with a strong odor",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " of gasoline after starting the engine is showing a pattern consistent with a flooded engine. A car with a rough idling and intermittent smoking from the exhaust is showing a pattern consistent with a malfunctioning oxygen sensor. A car with a high-pitched, repetitive clicking sound from the engine bay is showing a pattern consistent with a loose or broken thermostat. A car with a distinct, sharp honking noise from the engine bay is showing a pattern consistent with a seized motor mount. A car with a weak battery connection causing frequent start-ups is showing a pattern consistent with corrosion or damage to the battery terminals. A car with a sudden drop in performance and increased",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " fuel consumption is showing a pattern consistent with a dirty air filter. A car with a distinctive, rhythmic \"whooshing\" sound from the engine bay is showing a pattern consistent with a bad vacuum hose. A car with a soft, spongy feel to the brakes is showing a pattern consistent with worn brake linings. A car with a persistent, rhythmic \"tick-tock\" sound from the engine bay is showing a pattern consistent with a faulty water pump. A car with a faint, almost imperceptible hum from the engine bay is showing a pattern consistent with a loose or damaged fan belt. A car with a distinct",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 512,
+        "text": ", rhythmic \"thump\" sound from the engine bay is showing a pattern consistent with a stuck or seized piston. A car with a distinct, rhythmic \"click-clack\" sound from the engine bay is showing a pattern consistent with a faulty ignition coil. A car with a distinct, rhythmic \"tap-tap\" sound from the engine bay is showing a pattern consistent with a faulty distributor cap. A car with a distinct, rhythmic \"ticking\" sound from the engine bay is showing a pattern consistent with a faulty timing belt. A car with a distinct, rhythmic \"whirring\" sound from the engine bay",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_structure_matched_ragged100",
+    "condition": "cache_injection",
+    "content_source": "structure_matched",
+    "append_config": {
+      "append_percent": 1.0,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": " A car with a squeaky hood and intermittent leaks around the radiator cap is showing a pattern consistent with a loose or damaged gasket seal. A car with a constant stream of water dripping from the windshield wipers is showing a pattern consistent with a faulty wiper motor. A car with a loud, rhythmic \"clunk\" coming from the engine compartment during hard acceleration is showing a pattern consistent with a bent crankshaft. A car with a metallic ticking noise from the exhaust system is showing a pattern consistent with a seized cylinder head or piston knock. A car with a hissing sound from the exhaust pipe while driving is showing a pattern consistent with a crack in the muffler. A car with a strong, pungent odor emanating from the trunk area is showing a pattern consistent with a leaking fuel tank. A car with a noticeable vibration in the steering column is showing a pattern consistent with a loose or broken steering tie rod. A car with a high-pitched, repetitive clicking noise from the engine bay is showing a pattern consistent with a stuck throttle cable. A car with a distinct, sharp honking noise from the rear tires is showing a pattern consistent with a blown-out tire. A car with a weak, distant beeping sound from the dashboard lights is showing a pattern consistent with a malfunctioning alternator belt. A car with a sudden drop in engine temperature when idling is showing a pattern consistent with a thermostat failure. A car with a rough idle and a steady, rhythmic \"hissing\" sound from the exhaust is showing a pattern consistent with a carbon buildup in the combustion chamber. A car with a distinctive, deep rumble from the engine bay when accelerating sharply is showing a pattern consistent with a turbocharger issue, such as a blown turbine or compressor blades. A car with a faint, almost imperceptible hum from the engine bay when stationary is showing a pattern consistent with a minor coolant leak, possibly from a small hose or fitting. A car with a soft, vibrating sensation in the steering wheel when turning is showing a pattern consistent with a loose or worn steering gear bearing. A car with a distinct, rhythmic \"tick-tock\" sound from the engine bay when starting is showing a pattern consistent with a failed timing chain tensioner. A car with a distinct, rhythmic \"click-clack\" sound from the engine bay when starting is showing a pattern consistent with a failed timing belt. A car with a distinct, rhythmic \"whoosh\" sound from the engine bay when starting is showing a pattern consistent with a failed",
+    "append_result": {
+      "layers_appended": 28,
+      "active_len_before": 30,
+      "num_positions_appended": 486,
+      "active_len_after": 516
+    },
+    "prompt_len": 30,
+    "shadow_len": 486,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " A car with a squeaky hood and intermittent leaks around the radiator cap is showing",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " a pattern consistent with a loose or damaged gasket seal. A car with a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " constant stream of water dripping from the windshield wipers is showing a pattern consistent with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " a faulty wiper motor. A car with a loud, rhythmic \"cl",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "unk\" coming from the engine compartment during hard acceleration is showing a pattern consistent with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " a bent crankshaft. A car with a metallic ticking noise from the exhaust system",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " is showing a pattern consistent with a seized cylinder head or piston knock. A car",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " with a hissing sound from the exhaust pipe while driving is showing a pattern consistent",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " with a crack in the muffler. A car with a strong, pungent odor emanating from the trunk area is showing a pattern consistent with a leaking fuel tank. A car with a noticeable vibration in the steering column is showing a pattern consistent with a loose or broken steering tie rod. A car with a high-pitched, repetitive clicking noise from the engine bay is showing a pattern consistent with a stuck throttle cable. A car with a distinct, sharp honking noise from the rear tires is showing a pattern consistent with a blown-out tire. A car with a weak, distant beeping sound from the dashboard lights is showing a pattern",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " consistent with a malfunctioning alternator belt. A car with a sudden drop in engine temperature when idling is showing a pattern consistent with a thermostat failure. A car with a rough idle and a steady, rhythmic \"hissing\" sound from the exhaust is showing a pattern consistent with a carbon buildup in the combustion chamber. A car with a distinctive, deep rumble from the engine bay when accelerating sharply is showing a pattern consistent with a turbocharger issue, such as a blown turbine or compressor blades. A car with a faint, almost imperceptible hum from the engine bay when stationary is showing a pattern consistent with a minor coolant leak",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 512,
+        "text": ", possibly from a small hose or fitting. A car with a soft, vibrating sensation in the steering wheel when turning is showing a pattern consistent with a loose or worn steering gear bearing. A car with a distinct, rhythmic \"tick-tock\" sound from the engine bay when starting is showing a pattern consistent with a failed timing chain tensioner. A car with a distinct, rhythmic \"click-clack\" sound from the engine bay when starting is showing a pattern consistent with a failed timing belt. A car with a distinct, rhythmic \"whoosh\" sound from the engine bay when starting is showing a pattern consistent with a failed",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_structure_matched_clean75",
+    "condition": "cache_injection",
+    "content_source": "structure_matched",
+    "append_config": {
+      "append_percent": 0.75,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "clean",
+    "generated_text": " A car with a constant stream of white smoke coming from the exhaust pipe is showing a pattern consistent with a cylinder head gasket failure. A car with a squeaky clutch pedal and a noticeable vibration during hard acceleration is showing a pattern consistent with a slipping clutch. A car with a metallic ticking noise from the engine bay is showing a pattern consistent with a faulty timing belt or chain. A car with a hissing sound from the radiator is showing a pattern consistent with a blown radiator cap. A car with a loud, rhythmic \"clunk\" sound from the engine bay is showing a pattern consistent with a bent crankshaft. A car with a strong odor of gasoline after starting the engine is showing a pattern consistent with a flooded engine. A car with a high-pitched, repetitive clicking sound from the engine bay is showing a pattern consistent with a loose or broken thermostat. A car with a distinct, sharp honking noise from the engine bay is showing a pattern consistent with a seized motor mount. A car with a faint, intermittent humming sound from the engine bay is showing a pattern consistent with a bad alternator belt. A car with a sudden, jerky movement while accelerating is showing a pattern consistent with a weak battery. A car with a soft, spongy feel to the brakes is showing a pattern consistent with worn brake linings. A car with a distinctive, rhythmic \"tick-tock\" sound from the engine bay is showing a pattern consistent with a malfunctioning water pump. A car with a rough idling condition and a lack of power is showing a pattern consistent with a vacuum leak. A car with a distinct, rhythmic \"whoosh\" sound from the engine bay is showing a pattern consistent with a stuck throttle body. A car with a distinct, rhythmic \"click-clack\" sound from the engine bay is showing a pattern consistent with a faulty ignition coil. A car with a distinct, rhythmic \"thump-thump\" sound from the engine bay is showing a pattern consistent with a failed camshaft bearing. A car with a distinct, rhythmic \"popping\" sound from the engine bay is showing a pattern consistent with a faulty intake manifold. A car with a distinct, rhythmic \"ticking\" sound from the engine bay is showing a pattern consistent with a faulty exhaust system. A car with a distinct, rhythmic \"whirring\" sound from the engine bay is showing a pattern consistent with a faulty water pump. A car with a distinct, rhythmic \"rattling\" sound from the engine",
+    "append_result": {
+      "layers_appended": 28,
+      "active_len_before": 30,
+      "num_positions_appended": 361,
+      "active_len_after": 391
+    },
+    "prompt_len": 30,
+    "shadow_len": 486,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " A car with a constant stream of white smoke coming from the exhaust pipe is showing",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " a pattern consistent with a cylinder head gasket failure. A car with a sque",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "aky clutch pedal and a noticeable vibration during hard acceleration is showing a pattern consistent with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " a slipping clutch. A car with a metallic ticking noise from the engine bay is",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " showing a pattern consistent with a faulty timing belt or chain. A car with a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " hissing sound from the radiator is showing a pattern consistent with a blown radiator cap",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": ". A car with a loud, rhythmic \"clunk\" sound from the",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " engine bay is showing a pattern consistent with a bent crankshaft. A car with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " a strong odor of gasoline after starting the engine is showing a pattern consistent with a flooded engine. A car with a high-pitched, repetitive clicking sound from the engine bay is showing a pattern consistent with a loose or broken thermostat. A car with a distinct, sharp honking noise from the engine bay is showing a pattern consistent with a seized motor mount. A car with a faint, intermittent humming sound from the engine bay is showing a pattern consistent with a bad alternator belt. A car with a sudden, jerky movement while accelerating is showing a pattern consistent with a weak battery. A car with a soft, spongy feel to",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " the brakes is showing a pattern consistent with worn brake linings. A car with a distinctive, rhythmic \"tick-tock\" sound from the engine bay is showing a pattern consistent with a malfunctioning water pump. A car with a rough idling condition and a lack of power is showing a pattern consistent with a vacuum leak. A car with a distinct, rhythmic \"whoosh\" sound from the engine bay is showing a pattern consistent with a stuck throttle body. A car with a distinct, rhythmic \"click-clack\" sound from the engine bay is showing a pattern consistent with a faulty ignition coil. A car with a distinct",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 512,
+        "text": ", rhythmic \"thump-thump\" sound from the engine bay is showing a pattern consistent with a failed camshaft bearing. A car with a distinct, rhythmic \"popping\" sound from the engine bay is showing a pattern consistent with a faulty intake manifold. A car with a distinct, rhythmic \"ticking\" sound from the engine bay is showing a pattern consistent with a faulty exhaust system. A car with a distinct, rhythmic \"whirring\" sound from the engine bay is showing a pattern consistent with a faulty water pump. A car with a distinct, rhythmic \"rattling\" sound from the engine",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_structure_matched_clean100",
+    "condition": "cache_injection",
+    "content_source": "structure_matched",
+    "append_config": {
+      "append_percent": 1.0,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "clean",
+    "generated_text": " A car with a squeaky hood and intermittent leaks around the radiator cap is showing a pattern consistent with a loose or damaged gasket seal. A car with a constant stream of water dripping from the windshield wipers is showing a pattern consistent with a faulty wiper motor. A car with a loud, rhythmic \"clunk\" coming from the engine compartment during hard acceleration is showing a pattern consistent with a bent crankshaft. A car with a metallic ticking noise from the exhaust system is showing a pattern consistent with a seized cylinder head or piston knock. A car with a hissing sound from the exhaust pipe while driving is showing a pattern consistent with a crack in the muffler. A car with a strong, pungent odor emanating from the trunk area is showing a pattern consistent with a leaking fuel tank. A car with a noticeable vibration in the steering column is showing a pattern consistent with a loose or broken steering tie rod. A car with a high-pitched, repetitive clicking noise from the engine bay is showing a pattern consistent with a stuck throttle cable. A car with a distinct, sharp honking noise from the rear tires is showing a pattern consistent with a blown-out tire. A car with a weak, distant beeping sound from the dashboard lights is showing a pattern consistent with a malfunctioning alternator belt. A car with a sudden drop in engine temperature when idling is showing a pattern consistent with a thermostat failure. A car with a rough idle and a steady, rhythmic \"hissing\" sound from the exhaust is showing a pattern consistent with a carbon buildup in the combustion chamber. A car with a distinctive, deep rumble from the engine bay when accelerating sharply is showing a pattern consistent with a turbocharger issue, such as a blown turbine or compressor blades. A car with a faint, almost imperceptible hum from the engine bay when stationary is showing a pattern consistent with a minor coolant leak, possibly from a small hose or fitting. A car with a soft, vibrating sensation in the steering wheel when turning is showing a pattern consistent with a loose or worn steering gear bearing. A car with a distinct, rhythmic \"tick-tock\" sound from the engine bay when starting is showing a pattern consistent with a failed timing chain tensioner. A car with a distinct, rhythmic \"click-clack\" sound from the engine bay when starting is showing a pattern consistent with a failed timing belt. A car with a distinct, rhythmic \"whoosh\" sound from the engine bay when starting is showing a pattern consistent with a failed",
+    "append_result": {
+      "layers_appended": 28,
+      "active_len_before": 30,
+      "num_positions_appended": 486,
+      "active_len_after": 516
+    },
+    "prompt_len": 30,
+    "shadow_len": 486,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " A car with a squeaky hood and intermittent leaks around the radiator cap is showing",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " a pattern consistent with a loose or damaged gasket seal. A car with a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " constant stream of water dripping from the windshield wipers is showing a pattern consistent with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " a faulty wiper motor. A car with a loud, rhythmic \"cl",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "unk\" coming from the engine compartment during hard acceleration is showing a pattern consistent with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " a bent crankshaft. A car with a metallic ticking noise from the exhaust system",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " is showing a pattern consistent with a seized cylinder head or piston knock. A car",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " with a hissing sound from the exhaust pipe while driving is showing a pattern consistent",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " with a crack in the muffler. A car with a strong, pungent odor emanating from the trunk area is showing a pattern consistent with a leaking fuel tank. A car with a noticeable vibration in the steering column is showing a pattern consistent with a loose or broken steering tie rod. A car with a high-pitched, repetitive clicking noise from the engine bay is showing a pattern consistent with a stuck throttle cable. A car with a distinct, sharp honking noise from the rear tires is showing a pattern consistent with a blown-out tire. A car with a weak, distant beeping sound from the dashboard lights is showing a pattern",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " consistent with a malfunctioning alternator belt. A car with a sudden drop in engine temperature when idling is showing a pattern consistent with a thermostat failure. A car with a rough idle and a steady, rhythmic \"hissing\" sound from the exhaust is showing a pattern consistent with a carbon buildup in the combustion chamber. A car with a distinctive, deep rumble from the engine bay when accelerating sharply is showing a pattern consistent with a turbocharger issue, such as a blown turbine or compressor blades. A car with a faint, almost imperceptible hum from the engine bay when stationary is showing a pattern consistent with a minor coolant leak",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 512,
+        "text": ", possibly from a small hose or fitting. A car with a soft, vibrating sensation in the steering wheel when turning is showing a pattern consistent with a loose or worn steering gear bearing. A car with a distinct, rhythmic \"tick-tock\" sound from the engine bay when starting is showing a pattern consistent with a failed timing chain tensioner. A car with a distinct, rhythmic \"click-clack\" sound from the engine bay when starting is showing a pattern consistent with a failed timing belt. A car with a distinct, rhythmic \"whoosh\" sound from the engine bay when starting is showing a pattern consistent with a failed",
+        "pattern_violation": false
+      }
+    ]
+  }
+]

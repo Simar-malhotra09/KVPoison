@@ -143,10 +143,12 @@ def append_kv_cache(
 
 # Model runner: baseline / prompt_injection / cache_injection conditions
 #
-# Decoding is greedy (do_sample=False) to match the Inspect task sketch's
-# temperature=0.0. Note: greedy decoding makes the `seed` field in RunConfig
-# if the full run matrix's N=5-seeds axis is meant to produce
-# variation, generation needs do_sample=True with a real temperature instead.
+# The main run matrix decodes greedily (do_sample=False), matching the
+# Inspect task sketch's temperature=0.0; `seed` is unused in that mode since
+# greedy decoding is deterministic. The multi-seed sampling check below sets
+# do_sample=True with a real temperature, at which point `seed` (fed to
+# torch.manual_seed before generate()) is what actually produces variation
+# across runs of the same config.
 # Flagging this rather than silently picking one; greedy is used here because
 # it's the most reproducible choice for validating the mechanism.
 
@@ -183,6 +185,8 @@ class RunConfig:
     shadow_prompt: str
     max_new_tokens: int
     seed: int
+    do_sample: bool
+    temperature: float  # only read from when do_sample is True
     append_config: (
         AppendConfig | None
     )  # must be an AppendConfig iff condition == CACHE_INJECTION, else None
@@ -278,12 +282,16 @@ def run_baseline_or_prompt_injection(
     )
     attention_mask = torch.ones_like(prompt_ids)
 
+    if config.do_sample:
+        torch.manual_seed(config.seed)
+
     with torch.no_grad():
         out_ids = model.generate(
             input_ids=prompt_ids,
             attention_mask=attention_mask,
             max_new_tokens=config.max_new_tokens,
-            do_sample=False,
+            do_sample=config.do_sample,
+            temperature=config.temperature if config.do_sample else None,
             pad_token_id=tokenizer.eos_token_id,
         )
     new_ids = out_ids[0, prompt_ids.shape[1] :].tolist()
@@ -374,13 +382,17 @@ def run_cache_injection(
     extended_input_ids = torch.cat([prompt_ids, shadow_ids[:, :num_append]], dim=1)
     attention_mask = torch.ones_like(extended_input_ids)
 
+    if config.do_sample:
+        torch.manual_seed(config.seed)
+
     with torch.no_grad():
         out_ids = model.generate(
             input_ids=extended_input_ids,
             attention_mask=attention_mask,
             past_key_values=active_cache,
             max_new_tokens=config.max_new_tokens,
-            do_sample=False,
+            do_sample=config.do_sample,
+            temperature=config.temperature if config.do_sample else None,
             pad_token_id=tokenizer.eos_token_id,
         )
     new_ids = out_ids[0, extended_input_ids.shape[1] :].tolist()
@@ -597,6 +609,8 @@ def build_run_configs(topic: dict[str, str], max_new_tokens: int) -> list[RunCon
             shadow_prompt=topic["shadow_prompt"],
             max_new_tokens=max_new_tokens,
             seed=SEED,
+            do_sample=False,
+            temperature=0.0,
             append_config=None,
             shadow_boundary=None,
         ),
@@ -607,6 +621,8 @@ def build_run_configs(topic: dict[str, str], max_new_tokens: int) -> list[RunCon
             shadow_prompt=topic["shadow_prompt"],
             max_new_tokens=max_new_tokens,
             seed=SEED,
+            do_sample=False,
+            temperature=0.0,
             append_config=None,
             shadow_boundary=None,
         ),
@@ -620,6 +636,8 @@ def build_run_configs(topic: dict[str, str], max_new_tokens: int) -> list[RunCon
                 shadow_prompt=topic["shadow_prompt"],
                 max_new_tokens=max_new_tokens,
                 seed=SEED,
+                do_sample=False,
+                temperature=0.0,
                 append_config=AppendConfig(
                     append_percent=append_percent, layers_affect_percent=1.0
                 ),
@@ -635,6 +653,8 @@ def build_run_configs(topic: dict[str, str], max_new_tokens: int) -> list[RunCon
                 shadow_prompt=topic["shadow_prompt"],
                 max_new_tokens=max_new_tokens,
                 seed=SEED,
+                do_sample=False,
+                temperature=0.0,
                 append_config=AppendConfig(
                     append_percent=append_percent, layers_affect_percent=1.0
                 ),
@@ -767,6 +787,8 @@ def build_neutral_control_configs(
                 shadow_prompt=topic["neutral_shadow_prompt"],
                 max_new_tokens=max_new_tokens,
                 seed=SEED,
+                do_sample=False,
+                temperature=0.0,
                 append_config=AppendConfig(
                     append_percent=append_percent, layers_affect_percent=1.0
                 ),
@@ -782,6 +804,8 @@ def build_neutral_control_configs(
                 shadow_prompt=topic["neutral_shadow_prompt"],
                 max_new_tokens=max_new_tokens,
                 seed=SEED,
+                do_sample=False,
+                temperature=0.0,
                 append_config=AppendConfig(
                     append_percent=append_percent, layers_affect_percent=1.0
                 ),
@@ -860,6 +884,135 @@ def run_neutral_control_matrix(
             gc.collect()
             if device == "mps":
                 torch.mps.empty_cache()
+
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    with results_path.open("w") as f:
+        json.dump(all_results, f, indent=2)
+    print(f"\nwrote {results_path}")
+
+
+# ============================================================================
+# Structure-matched control, medical topic only: the neutral control above
+# separates topic from length but not topic from structure. The real medical
+# shadow text is a tight, repetitive template, eleven "a patient with X is
+# showing signs of Y" vignettes back to back. The neutral ocean-currents text
+# used above is a more varied expository paragraph. If medical's unusually
+# low collapse rate under real content (0/5, vs 4/5 for neutral) is really
+# about the repetitive template being easy to extend rather than about
+# medical topic familiarity, a neutral passage written in the *same*
+# template, "a car with X is showing a pattern consistent with Y" repeated
+# eleven times about car diagnostics, should collapse about as rarely as the
+# real medical text does. If it collapses like the ocean-currents text
+# instead, structure isn't the explanation and topic is doing more work than
+# Finding 3 suggested.
+# ============================================================================
+
+MEDICAL_STRUCTURE_CONTROL_RESULTS_PATH = (
+    Path(__file__).parent / "results" / "experiment_c_structure_control.json"
+)
+
+
+def build_structure_control_configs(
+    topic: dict[str, str], max_new_tokens: int
+) -> list[RunConfig]:
+    configs: list[RunConfig] = []
+    for append_percent in RAGGED_APPEND_PERCENTS:
+        configs.append(
+            RunConfig(
+                condition=Condition.CACHE_INJECTION,
+                constraint=topic["constraint"],
+                user_input=topic["input"],
+                shadow_prompt=topic["structure_matched_shadow_prompt"],
+                max_new_tokens=max_new_tokens,
+                seed=SEED,
+                do_sample=False,
+                temperature=0.0,
+                append_config=AppendConfig(
+                    append_percent=append_percent, layers_affect_percent=1.0
+                ),
+                shadow_boundary=ShadowBoundary.RAGGED,
+            )
+        )
+    for append_percent in CLEAN_APPEND_PERCENTS:
+        configs.append(
+            RunConfig(
+                condition=Condition.CACHE_INJECTION,
+                constraint=topic["constraint"],
+                user_input=topic["input"],
+                shadow_prompt=topic["structure_matched_shadow_prompt"],
+                max_new_tokens=max_new_tokens,
+                seed=SEED,
+                do_sample=False,
+                temperature=0.0,
+                append_config=AppendConfig(
+                    append_percent=append_percent, layers_affect_percent=1.0
+                ),
+                shadow_boundary=ShadowBoundary.CLEAN,
+            )
+        )
+    return configs
+
+
+def run_medical_structure_control(
+    model_name: str, results_path: Path, max_new_tokens: int
+) -> None:
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    dtype = torch.float16 if device == "mps" else torch.float32
+    print(f"loading {model_name} on device={device} dtype={dtype}")
+    model, tokenizer = load_model(model_name, device, dtype)
+
+    topic = next(t for t in load_all_topics() if t["topic_id"] == "medical")
+    run_configs = build_structure_control_configs(topic, max_new_tokens)
+    all_results: list[dict[str, Any]] = []
+
+    print("\n=== topic: medical (structure-matched control) ===")
+    for i, config in enumerate(run_configs):
+        label = label_for(config, "structure_matched")
+        print(f"  [{i + 1}/{len(run_configs)}] {label}...", end=" ")
+
+        output = run(model, tokenizer, config, device)
+        window_scores = score_windows(
+            tokenizer=tokenizer,
+            token_ids=output.generated_token_ids,
+            topic_id=topic["topic_id"],
+            fine_window_tokens=FINE_WINDOW_TOKENS,
+            fine_region_tokens=FINE_REGION_TOKENS,
+            coarse_window_tokens=COARSE_WINDOW_TOKENS,
+        )
+        violated_windows = [w.window_index for w in window_scores if w.pattern_violation]
+        total_tokens = len(output.generated_token_ids)
+        collapsed = total_tokens <= COLLAPSE_TOKEN_THRESHOLD
+        print(
+            f"generated {total_tokens} tokens | violated_windows={violated_windows} | collapsed={collapsed}"
+        )
+
+        all_results.append(
+            {
+                "topic_id": topic["topic_id"],
+                "label": label,
+                "condition": config.condition.value,
+                "content_source": "structure_matched",
+                "append_config": asdict(config.append_config)
+                if config.append_config is not None
+                else None,
+                "shadow_boundary": config.shadow_boundary.value
+                if config.shadow_boundary is not None
+                else None,
+                "generated_text": output.generated_text,
+                "append_result": asdict(output.append_result)
+                if output.append_result is not None
+                else None,
+                "prompt_len": output.prompt_len,
+                "shadow_len": output.shadow_len,
+                "collapsed": collapsed,
+                "window_scores": [asdict(w) for w in window_scores],
+            }
+        )
+
+        del output
+        gc.collect()
+        if device == "mps":
+            torch.mps.empty_cache()
 
     results_path.parent.mkdir(parents=True, exist_ok=True)
     with results_path.open("w") as f:
@@ -983,6 +1136,8 @@ def verify_examples() -> None:
             shadow_prompt=topic["shadow_prompt"],
             max_new_tokens=check["max_new_tokens"],
             seed=0,
+            do_sample=False,
+            temperature=0.0,
             append_config=AppendConfig(
                 append_percent=check["append_percent"], layers_affect_percent=1.0
             ),
@@ -1007,6 +1162,118 @@ def verify_examples() -> None:
             torch.mps.empty_cache()
 
     print(f"\n{'ALL CHECKS PASSED' if all_passed else 'SOME CHECKS FAILED, see above'}")
+
+
+# ============================================================================
+# Multi-seed sampling check: every result in this post, and the neutral and
+# structure-matched controls, comes from a single greedy (temperature 0)
+# decode per condition. That establishes existence -- cache injection CAN
+# produce these failure modes -- but not rate: whether the sustained
+# violation seen in, say, the medical/clean75 cell is the typical outcome for
+# that config or a single unusually bad draw is still open. This reruns the
+# same three CHECKS cells quoted in the post under real sampling,
+# do_sample=True at MULTISEED_TEMPERATURE, across MULTISEED_SEEDS distinct
+# seeds each, and reports how many of those seeds trip the keyword scorer or
+# collapse, turning "we found an example" into a rate over N samples for
+# these three specific cells. Qwen only, to keep this within the time and
+# memory budget of a laptop check rather than a full sweep.
+# ============================================================================
+
+MULTISEED_RESULTS_PATH = Path(__file__).parent / "results" / "experiment_d_multiseed.json"
+MULTISEED_TEMPERATURE = 0.7
+MULTISEED_SEEDS = (1, 2, 3, 4, 5)
+
+
+def build_multiseed_configs(
+    check: dict[str, Any], topic: dict[str, str], seeds: tuple[int, ...]
+) -> list[RunConfig]:
+    configs: list[RunConfig] = []
+    for seed in seeds:
+        configs.append(
+            RunConfig(
+                condition=check["condition"],
+                constraint=topic["constraint"],
+                user_input=topic["input"],
+                shadow_prompt=topic["shadow_prompt"],
+                max_new_tokens=check["max_new_tokens"],
+                seed=seed,
+                do_sample=True,
+                temperature=MULTISEED_TEMPERATURE,
+                append_config=AppendConfig(
+                    append_percent=check["append_percent"], layers_affect_percent=1.0
+                ),
+                shadow_boundary=check["boundary"],
+            )
+        )
+    return configs
+
+
+def run_multiseed_check(
+    model_name: str, results_path: Path, seeds: tuple[int, ...], temperature: float
+) -> None:
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    dtype = torch.float16 if device == "mps" else torch.float32
+    print(f"loading {model_name} on device={device} dtype={dtype}")
+    model, tokenizer = load_model(model_name, device, dtype)
+
+    all_results: list[dict[str, Any]] = []
+
+    for check in CHECKS:
+        topic = load_topic(check["topic_id"])
+        run_configs = build_multiseed_configs(check, topic, seeds)
+        print(f"\n=== {check['topic_id']} / {check['label']} (temperature={temperature}) ===")
+
+        for i, config in enumerate(run_configs):
+            print(f"  [{i + 1}/{len(run_configs)}] seed={config.seed}...", end=" ")
+            output = run(model, tokenizer, config, device)
+            window_scores = score_windows(
+                tokenizer=tokenizer,
+                token_ids=output.generated_token_ids,
+                topic_id=check["topic_id"],
+                fine_window_tokens=FINE_WINDOW_TOKENS,
+                fine_region_tokens=FINE_REGION_TOKENS,
+                coarse_window_tokens=COARSE_WINDOW_TOKENS,
+            )
+            violated_windows = [w.window_index for w in window_scores if w.pattern_violation]
+            total_tokens = len(output.generated_token_ids)
+            collapsed = total_tokens <= COLLAPSE_TOKEN_THRESHOLD
+            print(
+                f"generated {total_tokens} tokens | violated_windows={violated_windows} | collapsed={collapsed}"
+            )
+
+            all_results.append(
+                {
+                    "topic_id": check["topic_id"],
+                    "label": check["label"],
+                    "seed": config.seed,
+                    "temperature": temperature,
+                    "generated_text": output.generated_text,
+                    "collapsed": collapsed,
+                    "any_violation": len(violated_windows) > 0,
+                    "window_scores": [asdict(w) for w in window_scores],
+                }
+            )
+
+            del output
+            gc.collect()
+            if device == "mps":
+                torch.mps.empty_cache()
+
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    with results_path.open("w") as f:
+        json.dump(all_results, f, indent=2)
+    print(f"\nwrote {results_path}")
+
+    print("\nsummary (seeds with any window violation / seeds with collapse):")
+    for check in CHECKS:
+        cell_results = [r for r in all_results if r["label"] == check["label"]]
+        num_violated = sum(1 for r in cell_results if r["any_violation"])
+        num_collapsed = sum(1 for r in cell_results if r["collapsed"])
+        print(
+            f"  {check['topic_id']}/{check['label']}: "
+            f"{num_violated}/{len(cell_results)} violated, "
+            f"{num_collapsed}/{len(cell_results)} collapsed"
+        )
 
 
 # ============================================================================
@@ -1124,10 +1391,18 @@ def main() -> None:
         help="rerun the neutral control on TinyLlama, matching the pilot-tinyllama topic/token trim",
     )
     subparsers.add_parser(
+        "structure-control",
+        help="medical-only: neutral content in the same repetitive vignette template, Qwen",
+    )
+    subparsers.add_parser(
         "rescore", help="re-score stored Qwen results against the current regexes"
     )
     subparsers.add_parser(
         "verify", help="reproduce the blog post's quoted Qwen examples"
+    )
+    subparsers.add_parser(
+        "multiseed-check",
+        help="rerun the 3 quoted Qwen cells under sampling across 5 seeds each, for a rate estimate",
     )
     subparsers.add_parser("test", help="run cache-injector smoke tests (no model load)")
 
@@ -1153,10 +1428,18 @@ def main() -> None:
             TINYLLAMA_TOPIC_IDS,
             TINYLLAMA_MAX_NEW_TOKENS,
         )
+    elif args.command == "structure-control":
+        run_medical_structure_control(
+            QWEN_MODEL_NAME, MEDICAL_STRUCTURE_CONTROL_RESULTS_PATH, QWEN_MAX_NEW_TOKENS
+        )
     elif args.command == "rescore":
         rescore_results()
     elif args.command == "verify":
         verify_examples()
+    elif args.command == "multiseed-check":
+        run_multiseed_check(
+            QWEN_MODEL_NAME, MULTISEED_RESULTS_PATH, MULTISEED_SEEDS, MULTISEED_TEMPERATURE
+        )
     elif args.command == "test":
         run_smoke_tests()
 
