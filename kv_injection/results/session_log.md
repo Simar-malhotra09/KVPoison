@@ -1183,3 +1183,43 @@ tokens/39%, which was still transitional at 0.644, not yet at plateau).
 Verified `verify`/`test` still pass after the rewrite (no code touched,
 just the writeup). Sending the revised framing back to the PI for a
 final check before treating it as done, per their explicit request.
+
+**33. PI round 8, and it caught a real overclaim before the note went**
+**out, which the round-7 draft had already introduced.** Accepted the
+numerical check outright. But: weapons/real's boundaries 11-13 (382, 412,
+442 tokens; 0.052, 0.069, 0.047) are genuine sentence boundaries with
+MORE accumulated content than medical needed to reach its own plateau
+(219 tokens), and P(EOS) is near-zero there anyway. Both stated
+conditions (on-boundary, substantial accumulation) are satisfied and the
+outcome is still near-zero -- this doesn't just fail to show the pattern,
+it falsifies the "boundary AND accumulation together sufficient" framing
+the round-7 draft had landed on. Also flagged: "near-zero for boundaries
+1-3, then persistently high" oversimplifies two genuinely different onset
+shapes (medical is a graded climb across its first four boundaries;
+drugs is flat-low for three then transitions); "they do not cleanly
+unify" oversells what two data points and three candidate variables can
+actually establish; the plateau-ceiling similarity should be reported as
+an unexplained observation, not editorialized as "strikingly similar"
+given weapons also touches the same value once; and "indistinguishable
+from zero" should be replaced with the actual observed maximum now that
+fp32 is confirmed trustworthy. Recomputed precisely: max off-boundary
+P(EOS) in the jitter sweep is 8.3e-8, at jitter=-1 (357 tokens) --
+essentially the token immediately before the true boundary, still six
+orders of magnitude below the on-boundary value. New open question named:
+the jitter sweep was only ever run around LATE, plateau-region boundaries
+-- never tested whether the sharp on/off-boundary contrast exists at all
+early in a text, which would distinguish a multiplicative relationship
+between the two factors from a genuinely interacting one. Not run.
+
+Rewrote the load-bearing passage a second time to state the corrected,
+narrower finding: boundary geometry is necessary (no counterexample
+across 3 texts), not sufficient, and the second factor governing the
+value at a boundary is identified in 2 of 3 texts (looks like
+accumulated content, imperfectly) and not identified at all in the third,
+rather than claiming a clean two-factor rule. Verified `test` still
+passes after the edit (no code touched).
+
+User authorized proceeding with the k-context sweep and the paired
+layer-restricted splicing experiment without further sign-off, explicitly
+noting the option to ask the PI for design guidance mid-implementation
+rather than blocking on it upfront. Moving to implementation.
