@@ -460,3 +460,114 @@ reframes what the actual novel claim of this whole project should be
 (collapse, and possibly hijack severity/duration, not topic capture
 itself) rather than just continuing down the PI's priority list
 mechanically.
+
+**20. Did our own homework before going back to the PI, per explicit**
+**request ("we can't report on just one isolated incident").** Compiled
+collapse across every experiment run this session (127 cache-splice
+cells total, 35 collapsed). Collapse is NOT unique to medical: at
+high dose, real content collapses for weapons (3/5), drugs (3/5), finance
+(2/5), never medical (0/5) or profanity (0/5); neutral content collapses
+for medical (4/5), drugs (3/5), finance (3/5), profanity (2/5), never
+weapons (0/5). Medical-neutral is the single most reliable cell (11 of 12
+independent tests across 5 different experimental designs collapsed), not
+the only one that collapses. But "collapse is splice-specific" (from step
+19) rests on genuine-prefill testing against exactly that one cell --
+untested whether it generalizes to the other collapse-prone cells.
+Structure-match clue (repetitive template avoids collapse) doesn't fully
+explain cross-topic variation either: weapons' neutral text (pottery) is
+equally varied, non-repetitive prose, yet never collapses, unlike ocean
+currents. Sent this full picture back to the SAME PI agent (continued the
+conversation via SendMessage, not a fresh spawn) with the explicit
+question: is this generalizable or did we get lucky on one cell, and what
+should we run next.
+
+**21. PI round 2 response -- more consequential than round 1, and it**
+**corrected something I'd just gotten wrong in the last write-up.**
+
+Two claims I'd conflated: "collapse is general" (solid, the table proves
+it) versus "collapse is splice-specific" (weak -- worse than presented,
+since 2 of the 3 genuine-prefill cells tested, medical-real and
+finance-real, had low/moderate collapse probability under splicing to
+begin with, so a non-collapse there carries almost no evidence; effective
+n for the splice-specificity claim is 1, not 3; told directly not to write
+"0/3" down as if it meant something).
+
+The fix that reframes most of what follows: stop counting collapse as a
+binary flag, measure P(EOS) -- the model's probability of the end-of-
+sequence token -- at the first generation step. One forward pass,
+deterministic, continuous, no scorer needed. Consequences: (a) the entire
+existing corpus can be rescored with cheap recomputation (prefill-only
+forward passes, no decode loops) rather than genuinely new experiments;
+(b) "which cell to test next" stops being a single lucky pick -- all 10
+topic x content-source cells against genuine-prefill becomes ~20 cheap
+forward passes; (c) it fixes a comparison I couldn't make on the binary
+DV: genuine-prefill's non-collapse outputs (47/35/130 tokens) never came
+close to the 512-token cap that spliced non-collapses run to, so "spliced
+sustains, genuine terminates early" might be the same underlying curve
+that a binary flag can't distinguish.
+
+Two zero-compute analyses to do first, on data already in hand:
+1. Break the existing collapse table out by ragged vs clean cut style --
+   never done, and their mechanistic story for why this might be the whole
+   answer: the shadow's isolated forward pass ends with a hidden state
+   that looks like a standalone document that just concluded; landing the
+   cut at a sentence boundary makes termination the natural continuation,
+   landing it mid-sentence makes termination implausible, so the model
+   keeps going. If collapse concentrates in clean-cut cells, that's a
+   real, already-in-hand explanation.
+2. Correction on how we've been describing fractions: x/5 is across
+   doses/cut-styles, not seeds -- greedy decoding has no sampling variance,
+   so "3/5" isn't a rate with a confidence interval, and "11 of 12
+   independent tests" is 12 different manipulations, not 12 replicates
+   (a STRONGER claim -- robustness to deliberate perturbation -- but has
+   to be described as that, not dressed up as a replication rate).
+
+Cross-pairing matrix (already identified as missing in step 18) becomes
+trivial with P(EOS): 5x5 shadow-text x real-prompt = 25 forward passes,
+minutes. Cleanly separates shadow-intrinsic (variance loads on rows) vs
+prompt-intrinsic (loads on columns) vs interaction (neither) -- and both
+pure forms are already partly falsified by data in hand (pottery vs ocean
+currents kills pure shadow-intrinsic; medical-real 0/5 vs medical-neutral
+4/5 on the SAME prompt kills pure prompt-intrinsic), so PI's prior is on
+interaction.
+
+Specific mechanism proposed: boundary discontinuity -- per-layer
+cosine/L2 distance between the spliced hidden state at the splice point
+and what a genuine joint forward pass over the same tokens would have
+produced, regressed against P(EOS). Subsumes perplexity as one covariate
+rather than the whole story (weapons counterexample already demanded
+this), predicts pairing-specific structure.
+
+Cheap, sharp ablation: splice the shadow block with its first 1/2/4
+tokens dropped. If collapse disappears, the shadow's own artificial
+attention sink (confirmed directly this session: Qwen2.5's tokenizer has
+no BOS token at all, and plain tokenization adds zero special tokens, so
+the shadow forward pass processes completely raw, unframed content) was
+the mechanism, not content or position. An afternoon either way.
+
+Third failure mode reframed: verbatim echo (seen twice independently --
+position-flip finance, 8x-ratio medical) was being filed as unexplained
+noise each time. PI's read: continue-in-style -> verbatim echo -> EOS is
+an ordinal spectrum of how completely the spliced block dominates the
+next-token distribution, not two unrelated oddities. Suggests recoding as
+a 3-level ordinal DV; may mean the 8x "exception" to medical-neutral's
+collapse streak isn't an exception at all.
+
+Pushback accepted: the "spliced content is more vividly confabulated than
+genuine-prefill content" claim from step 19 is length-confounded (512 vs
+35 tokens) and n=1 -- withdrawn as stated, not a real finding yet.
+
+Revised priority order, hijack now explicitly deprioritized (resolved,
+non-novel, confirmed step 19): (1) switch to P(EOS)/tokens-to-EOS, rescore
+existing corpus; (2) cut-style breakdown, zero new runs; (3) paired
+spliced-vs-genuine on all 10 cells with P(EOS); (4) leading-token-drop
+ablation; (5) 5x5 cross-pairing matrix; (6) boundary-discontinuity
+regression; (7) layer-restricted splice + magnitude scaling, now aimed at
+collapse; (8) attention weights, last, scalar still fixed in advance.
+
+User has gone AFK for an extended period: explicit standing instructions
+to keep working through this list, keep committing without asking, keep
+logging here, and consult the same PI agent again (SendMessage, not a
+fresh spawn) whenever genuinely stuck or unsure rather than guessing.
+Starting on priority steps 1-2 now (zero/cheap compute, no new
+experimental design needed).
