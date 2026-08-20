@@ -916,3 +916,75 @@ technical_note.md to date. Not yet quantified how much this changes
 historical numbers. Sending all of this to the PI now rather than
 proceeding further, since it bears on whether the entire collapse
 literature built up this session needs a caveat or a partial rerun.
+
+**28. PI round 5, decisive and mostly unfavorable to where this project**
+**stood. Acted on it immediately rather than sitting on it.**
+
+Verdict on the repetition penalty: it's directional, and it cuts one way.
+Repetition penalty discounts EOS because EOS (the chat template's own
+turn-closing token) is always already in context -- so the penalty has
+been systematically working AGAINST collapse in every decode this whole
+project has ever run. Historical collapse POSITIVES are safe (they
+happened despite a penalty opposing them, so they'd happen at least as
+readily without it). Historical collapse NEGATIVES are the exposed ones.
+Direct implication for the medical/neutral story: it rests almost
+entirely on a negative (genuine not collapsing), and that's exactly the
+kind PI predicted would flip. Told to write the sentence plainly if it's
+true rather than hedge, and to keep P(EOS) penalty-free as the primary
+scientific quantity (mechanistic claim about the model, not decode-time
+post-processing) with a separate, explicitly-labeled penalty-applied
+number only where deployed-behavior realism matters -- never mix the two
+again, never call generate() without a fully explicit config again.
+
+Full GenerationConfig audit done immediately: repetition_penalty=1.1 is
+the ONLY silent setting active. min_new_tokens, min_length,
+no_repeat_ngram_size, bad_words_ids, begin_suppress_tokens,
+suppress_tokens, forced_decoder_ids, exponential_decay_length_penalty are
+all unset. One confound, not several.
+
+**Re-decoded the three established genuine-prefill cases with**
+**repetition_penalty=1.0 explicitly disabled, actual generation (20**
+**tokens), not just first-step argmax.** finance/real: still 20 tokens
+of ordinary market commentary, no collapse -- unchanged. medical/real:
+still no collapse, generates a FRESH fabricated diagnosis
+(tuberculosis, not in the original shadow text) -- unchanged in kind,
+consistent with the "invents content past the seam" pattern documented
+much earlier this session. medical/neutral: COLLAPSES -- 1 token, empty
+-- exactly as the penalty-free argmax predicted and exactly the opposite
+of its original 130-token decode under the silent default penalty.
+
+This confirms the PI's prediction precisely and directly. The single
+cell this entire "collapse has a splice-specific component" narrative
+was built around, tested and retested across five separate experiments
+this session (neutral control, prompt-length check, extended ratio,
+position-flip, and the deciding genuine-prefill control itself), does
+NOT show a real splice/genuine difference once decoded under matched,
+explicit settings. Spliced and genuine both collapse medical/neutral
+once the repetition penalty stops artificially propping the genuine
+condition up. The one clean behavioral flip in the whole project is
+gone. Writing that plainly rather than hedging it, per instruction.
+
+Also from round 5: my "cross-pairing matrix row-dominance is a tautology"
+argument was partly wrong -- being on-spike guarantees position, not
+value; the spike HEIGHT was free to vary with prompt and didn't (columns
+1.2% of variance), so "the preceding prompt barely matters" is a real
+result. But PI's own on-diagonal interaction prediction was explicitly
+wrong and they said to record that as a falsified prediction of theirs,
+not an inconclusive result. The real open problem: content and boundary
+geometry are confounded across rows (every shadow text differs in both
+what it says and how its sentences happen to be shaped/tokenized), so
+97.8% row variance doesn't distinguish "content drives it" from "some
+texts just have sharper boundaries." Diagnostic: a sentence-boundary comb
+test WITHIN a single shadow text (same text, same prompt, several
+different real sentence boundaries) -- if P(EOS) is roughly constant
+across a text's own boundaries, geometry drives it and the content
+dimension of this project is finished; if it varies with what precedes
+each boundary, content is still live. Also: "exactly 0.0000" in the
+stability sweep is almost certainly print-precision rounding of a
+genuinely tiny nonzero value (1e-4 to 1e-7 range plausible for a 1.5B
+model), should be reported in log space, and the razor-thin-spike framing
+may actually be "one tooth of a comb" -- sentence boundaries recur every
+~15-25 tokens in these shadow texts and the +-5 jitter window never
+reached a second one. Comb test (jitter by sentence boundary, not token,
++-2/3 boundaries) does double duty on both open questions at once.
+Moving to build and run it next, log-space throughout.
