@@ -1141,3 +1141,45 @@ not cleanly separable from this data alone -- sending the full numbers to
 the PI rather than picking an interpretation, then moving to the
 technical_note.md reconciliation while waiting, per their non-negotiable
 ordering.
+
+**32. PI round 7, arrived while the technical_note.md rewrite was already**
+**underway -- sharpened the comb-test read beyond what had been drafted,**
+**required going back and fixing the draft before it could be called**
+**final.** Core insight: the jitter sweep and comb sweep are not competing
+explanations, they're the two axes of one 2x2. Jitter sweep (fixed late
+position, varying offset): on-boundary high, off-boundary near-zero,
+holding accumulated length fixed -- geometry matters. Comb sweep (varying
+position, always on a real boundary): early boundaries near-zero, late
+boundaries high, holding boundary geometry fixed -- accumulated length
+matters. Neither axis alone is sufficient; both were tested; the effect
+needs both. Also flagged and had to be checked: (a) a numerical caution
+that 3.4e-8 might be an untrustworthy fp16 subnormal -- checked directly
+via independent log_softmax in fp32, confirmed the existing
+implementation already used `.float()` before softmax, value is
+numerically valid, matches exactly; (b) the "7 orders of magnitude within
+one text" framing overstated a real but narrower effect, since it rested
+on one point (the near-zero first boundary) against a plateau that only
+spans about a factor of 4 -- softened in the writeup; (c) a real
+confound: boundary index and accumulated token count are collinear
+within a single text, so the comb sweep alone can't tell them apart --
+resolved by replotting P(EOS) against actual num_append across the two
+plateauing texts, which does NOT reveal a shared threshold (medical
+crosses at 219 tokens/46% through its text, drugs at 305 tokens/67%
+through its own) though it does reveal a shared plateau ceiling (~0.73-
+0.81 for both); (d) proposed a within-text sentence-shuffle control to
+separate accumulated-length from discourse-coherence as the explanation
+for why the weapons text never plateaus -- not run, stated as an
+untested hypothesis per the PI's own suggested wording, adapted into the
+note.
+
+Rewrote `technical_note.md` end to end (new title, new abstract, new
+major sections for the deciding genuine-prefill control, the ruled-out
+hypotheses in sequence, the repetition_penalty trap as its own section,
+and the corrected boundary-plus-accumulation framing for the cut-point
+finding) to reflect everything killed and everything that survived this
+session. Fixed the medical crossing-point description after the PI's
+correction (fourth boundary/219 tokens/46%, not third boundary/185
+tokens/39%, which was still transitional at 0.644, not yet at plateau).
+Verified `verify`/`test` still pass after the rewrite (no code touched,
+just the writeup). Sending the revised framing back to the PI for a
+final check before treating it as done, per their explicit request.
