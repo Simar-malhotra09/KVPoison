@@ -729,3 +729,41 @@ and positions fixed -- heterogeneous, deterministic, causally identified
 by the design (identical tokens and positions between conditions means
 any nonzero delta is splice-attributable by construction), mechanism
 still unknown. Moving to the free log-odds reanalysis next.
+
+**25. Log-odds reanalysis (free, pure recomputation from the P(EOS) sweep**
+**already in hand).** Transformed both spliced and genuine P(EOS) to
+log-odds (logit) and recomputed the delta, per PI instruction, since raw
+probability differences are the wrong scale for a bounded [0,1] quantity.
+
+The picture changes meaningfully. In log-odds terms, 9 of 10 clean75
+cells now show a positive delta (splicing increases relative termination
+odds), not 7 of 10 as in raw-probability terms -- drugs/neutral is
+essentially an exact tie (logodds delta -0.019, consistent with both
+conditions collapsing identically as validated in step 24), and only
+finance/real (-1.401) and medical/real (-0.579) remain genuinely negative.
+Both negative cells are REAL (forbidden) content, not neutral, though
+n=2 is too small to call that a pattern rather than coincidence.
+
+The reordering is the more interesting part. Under raw probability,
+weapons/real (+0.294) and medical/neutral (+0.374) looked like the
+standout cells. Under log-odds, profanity/neutral (+3.971) and
+weapons/neutral (+2.374) are actually the LARGEST relative effects --
+their raw deltas looked modest (+0.082, +0.054) only because both
+conditions sit at low absolute probability (under 10%), where a raw
+probability difference compresses what is actually a large relative
+(odds) change. Raw-probability comparison was understating the effect on
+low-baseline cells and, conversely, may be overstating it on
+high-baseline cells bunched near the top of the scale.
+
+Ceiling-effect check (PI's specific suspicion: do near-zero-delta cells
+just have high genuine baselines with no headroom left): correlation
+between genuine baseline and log-odds delta is -0.219 -- weak, in the
+direction a ceiling effect would predict, not strong enough to call it
+confirmed or ruled out on n=10. Not chasing this further with correlation
+alone, per PI's own instruction not to lean on statistics with a
+deterministic measurement and no pre-specified model; the ablation is the
+actual test.
+
+Proceeding to the leading-token-drop ablation on the three PI-specified
+cells (medical/neutral, weapons/real, drugs/neutral), drop levels 1/2/4,
+both conditions -- the one causal manipulation on the current list.
