@@ -1,0 +1,432 @@
+[
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_structure_matched_ragged25",
+    "condition": "cache_injection",
+    "content_source": "structure_matched",
+    "append_config": {
+      "append_percent": 0.25,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": "er, particularly when the car is idling or when the engine is cold. A car with a loud, metallic clunking sound from the engine bay and a check-engine light that flashes continuously is showing a pattern consistent with a failing engine oil pump, particularly when the engine is cold. A car with a loud, metallic clunking sound from the engine bay and a check-engine light that flashes intermittently is showing a pattern consistent with a failing engine valve, particularly when the engine is cold. A car with a loud, metallic clunking sound from the engine bay and a check-engine light that flashes continuously is showing a pattern consistent with a failing engine timing belt, particularly when the engine is cold. A car with a loud, metallic clunking sound from the engine bay and a check-engine light that flashes intermittently is showing a pattern consistent with a failing engine camshaft, particularly when the engine is cold. A car with a loud, metallic clunking sound from the engine bay and a check-engine light that flashes continuously is showing a pattern consistent with a failing engine crankshaft, particularly when the engine is",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 46,
+      "num_positions_appended": 143,
+      "active_len_after": 189
+    },
+    "prompt_len": 46,
+    "shadow_len": 571,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "er, particularly when the car is idling or when the engine is cold.",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "A car with a loud, metallic clunking sound from the engine",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "bay and a check-engine light that flashes continuously is showing a pattern",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "consistent with a failing engine oil pump, particularly when the engine is cold.",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "A car with a loud, metallic clunking sound from the engine",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "bay and a check-engine light that flashes intermittently is showing a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "pattern consistent with a failing engine valve, particularly when the engine is cold.",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": "A car with a loud, metallic clunking sound from the engine",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": "bay and a check-engine light that flashes continuously is showing a pattern consistent with a failing engine timing belt, particularly when the engine is cold. A car with a loud, metallic clunking sound from the engine bay and a check-engine light that flashes intermittently is showing a pattern consistent with a failing engine camshaft, particularly when the engine is cold. A car with a loud, metallic clunking sound from the engine bay and a check-engine light that flashes continuously is showing a pattern consistent with a failing engine crankshaft, particularly when the engine is",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_structure_matched_ragged75",
+    "condition": "cache_injection",
+    "content_source": "structure_matched",
+    "append_config": {
+      "append_percent": 0.75,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": "with a squealing noise from the rear wheels and a check-engine light that flashes when the car is stationary is showing a pattern consistent with a worn differential or a loose wheel bearing. A car with a squealing noise from the front wheels and a check-engine light that flashes when the car is stationary is showing a pattern consistent with a worn differential or a loose wheel bearing. A car with a squealing noise from the front wheels and a check-engine light that flashes when the car is stationary is showing a pattern consistent with a worn differential or a loose wheel bearing. A car with a squealing noise from the front wheels and a check-engine light that flashes when the car is stationary is showing a pattern consistent with a worn differential or a loose wheel bearing. A car with a squealing noise from the front wheels and a check-engine light that flashes when the car is stationary is showing a pattern consistent with a worn differential or a loose wheel bearing. A car with a squealing noise from the front wheels and a check-engine light that flashes when the car is stationary is showing a pattern consistent with a worn differential or a loose wheel bearing.",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 46,
+      "num_positions_appended": 428,
+      "active_len_after": 474
+    },
+    "prompt_len": 46,
+    "shadow_len": 571,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "with a squealing noise from the rear wheels and a check-engine",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "light that flashes when the car is stationary is showing a pattern consistent with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "a worn differential or a loose wheel bearing. A car with a squealing",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "noise from the front wheels and a check-engine light that flashes when",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "the car is stationary is showing a pattern consistent with a worn differential or a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "loose wheel bearing. A car with a squealing noise from the front whe",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "els and a check-engine light that flashes when the car is stationary",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": "is showing a pattern consistent with a worn differential or a loose wheel bearing. A",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": "car with a squealing noise from the front wheels and a check-engine light that flashes when the car is stationary is showing a pattern consistent with a worn differential or a loose wheel bearing. A car with a squealing noise from the front wheels and a check-engine light that flashes when the car is stationary is showing a pattern consistent with a worn differential or a loose wheel bearing. A car with a squealing noise from the front wheels and a check-engine light that flashes when the car is stationary is showing a pattern consistent with a worn differential or a loose wheel bearing.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_structure_matched_ragged100",
+    "condition": "cache_injection",
+    "content_source": "structure_matched",
+    "append_config": {
+      "append_percent": 1.0,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": "A car with a squealing noise from the rear wheels when cornering is showing a pattern consistent with worn or damaged rear suspension bushings. A car with a sputtering engine and a smell of burning oil is showing a pattern consistent with a clogged fuel filter. A car with a sputtering engine and a check-engine light that flashes frequently is showing a pattern consistent with a faulty fuel injector. A car with a sputtering engine and a check-engine light that flickers under acceleration is showing a pattern consistent with a faulty ignition coil. A car with a sputtering engine and a check-engine light that flickers under low-speed acceleration is showing a pattern consistent with a faulty fuel pump. A car with a sputtering engine and a check-engine light that flickers under high-speed acceleration is showing a pattern consistent with a faulty fuel injector. A car with a sputtering engine and a check-engine light that flickers under heavy acceleration is showing a pattern consistent with a faulty fuel pump. A car with a sputtering engine and a check-engine light that flickers",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 46,
+      "num_positions_appended": 571,
+      "active_len_after": 617
+    },
+    "prompt_len": 46,
+    "shadow_len": 571,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "A car with a squealing noise from the rear wheels when cornering",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "is showing a pattern consistent with worn or damaged rear suspension bushings.",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "A car with a sputtering engine and a smell of burning oil",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "is showing a pattern consistent with a clogged fuel filter. A car with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "a sputtering engine and a check-engine light that flashes frequently",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "is showing a pattern consistent with a faulty fuel injector. A car with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "a sputtering engine and a check-engine light that flickers",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": "under acceleration is showing a pattern consistent with a faulty ignition coil.",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": "A car with a sputtering engine and a check-engine light that flickers under low-speed acceleration is showing a pattern consistent with a faulty fuel pump. A car with a sputtering engine and a check-engine light that flickers under high-speed acceleration is showing a pattern consistent with a faulty fuel injector. A car with a sputtering engine and a check-engine light that flickers under heavy acceleration is showing a pattern consistent with a faulty fuel pump. A car with a sputtering engine and a check-engine light that flickers",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_structure_matched_clean75",
+    "condition": "cache_injection",
+    "content_source": "structure_matched",
+    "append_config": {
+      "append_percent": 0.75,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "clean",
+    "generated_text": "A car with a squealing noise from the rear wheels when cornering is showing a pattern consistent with worn rear suspension bushings or a loose wheel alignment. A car with a sputtering engine and a smell of burning oil is showing a pattern consistent with a clogged fuel filter or a failing fuel pump. A car with a sputtering engine and a check-engine light that flashes repeatedly is showing a pattern consistent with a faulty fuel injector or a clogged fuel filter. A car with a sputtering engine and a check-engine light that flickers under acceleration is showing a pattern consistent with a faulty fuel injector or a clogged fuel filter. A car with a sputtering engine and a check-engine light that flickers under braking is showing a pattern consistent with a faulty fuel injector or a clogged fuel filter. A car with a sputtering engine and a check-engine light that flickers under heavy acceleration is showing a pattern consistent with a faulty fuel injector or a clogged fuel filter. A car with a sputtering engine and a check-engine light that flickers under heavy braking",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 46,
+      "num_positions_appended": 426,
+      "active_len_after": 472
+    },
+    "prompt_len": 46,
+    "shadow_len": 571,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "A car with a squealing noise from the rear wheels when cornering",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "is showing a pattern consistent with worn rear suspension bushings or a loose wheel",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "alignment. A car with a sputtering engine and a smell of",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "burning oil is showing a pattern consistent with a clogged fuel filter or a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "failing fuel pump. A car with a sputtering engine and a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "check-engine light that flashes repeatedly is showing a pattern consistent with a fault",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "y fuel injector or a clogged fuel filter. A car with a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": "sputtering engine and a check-engine light that flickers under",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": "acceleration is showing a pattern consistent with a faulty fuel injector or a clogged fuel filter. A car with a sputtering engine and a check-engine light that flickers under braking is showing a pattern consistent with a faulty fuel injector or a clogged fuel filter. A car with a sputtering engine and a check-engine light that flickers under heavy acceleration is showing a pattern consistent with a faulty fuel injector or a clogged fuel filter. A car with a sputtering engine and a check-engine light that flickers under heavy braking",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_structure_matched_clean100",
+    "condition": "cache_injection",
+    "content_source": "structure_matched",
+    "append_config": {
+      "append_percent": 1.0,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "clean",
+    "generated_text": "A car with a squealing noise from the rear wheels when cornering is showing a pattern consistent with worn or damaged rear suspension bushings. A car with a sputtering engine and a smell of burning oil is showing a pattern consistent with a clogged fuel filter. A car with a sputtering engine and a check-engine light that flashes frequently is showing a pattern consistent with a faulty fuel injector. A car with a sputtering engine and a check-engine light that flickers under acceleration is showing a pattern consistent with a faulty ignition coil. A car with a sputtering engine and a check-engine light that flickers under low-speed acceleration is showing a pattern consistent with a faulty fuel pump. A car with a sputtering engine and a check-engine light that flickers under high-speed acceleration is showing a pattern consistent with a faulty fuel injector. A car with a sputtering engine and a check-engine light that flickers under heavy acceleration is showing a pattern consistent with a faulty fuel pump. A car with a sputtering engine and a check-engine light that flickers",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 46,
+      "num_positions_appended": 571,
+      "active_len_after": 617
+    },
+    "prompt_len": 46,
+    "shadow_len": 571,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "A car with a squealing noise from the rear wheels when cornering",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "is showing a pattern consistent with worn or damaged rear suspension bushings.",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "A car with a sputtering engine and a smell of burning oil",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "is showing a pattern consistent with a clogged fuel filter. A car with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "a sputtering engine and a check-engine light that flashes frequently",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "is showing a pattern consistent with a faulty fuel injector. A car with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "a sputtering engine and a check-engine light that flickers",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": "under acceleration is showing a pattern consistent with a faulty ignition coil.",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": "A car with a sputtering engine and a check-engine light that flickers under low-speed acceleration is showing a pattern consistent with a faulty fuel pump. A car with a sputtering engine and a check-engine light that flickers under high-speed acceleration is showing a pattern consistent with a faulty fuel injector. A car with a sputtering engine and a check-engine light that flickers under heavy acceleration is showing a pattern consistent with a faulty fuel pump. A car with a sputtering engine and a check-engine light that flickers",
+        "pattern_violation": false
+      }
+    ]
+  }
+]

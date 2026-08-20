@@ -910,6 +910,9 @@ def run_neutral_control_matrix(
 MEDICAL_STRUCTURE_CONTROL_RESULTS_PATH = (
     Path(__file__).parent / "results" / "experiment_c_structure_control.json"
 )
+MEDICAL_STRUCTURE_CONTROL_TINYLLAMA_RESULTS_PATH = (
+    Path(__file__).parent / "results" / "experiment_c_structure_control_tinyllama.json"
+)
 
 
 def build_structure_control_configs(
@@ -1395,6 +1398,10 @@ def main() -> None:
         help="medical-only: neutral content in the same repetitive vignette template, Qwen",
     )
     subparsers.add_parser(
+        "structure-control-tinyllama",
+        help="medical-only structure-matched control, rerun on TinyLlama",
+    )
+    subparsers.add_parser(
         "rescore", help="re-score stored Qwen results against the current regexes"
     )
     subparsers.add_parser(
@@ -1431,6 +1438,12 @@ def main() -> None:
     elif args.command == "structure-control":
         run_medical_structure_control(
             QWEN_MODEL_NAME, MEDICAL_STRUCTURE_CONTROL_RESULTS_PATH, QWEN_MAX_NEW_TOKENS
+        )
+    elif args.command == "structure-control-tinyllama":
+        run_medical_structure_control(
+            TINYLLAMA_MODEL_NAME,
+            MEDICAL_STRUCTURE_CONTROL_TINYLLAMA_RESULTS_PATH,
+            TINYLLAMA_MAX_NEW_TOKENS,
         )
     elif args.command == "rescore":
         rescore_results()
