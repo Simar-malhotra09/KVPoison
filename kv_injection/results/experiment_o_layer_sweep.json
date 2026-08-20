@@ -1,0 +1,218 @@
+[
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sweep": "from_start",
+    "num_phantom_layers": 0,
+    "num_layers": 28,
+    "p_eos_spliced": 0.3806038796901703,
+    "entropy_nats": 3.7920708656311035
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sweep": "from_start",
+    "num_phantom_layers": 4,
+    "num_layers": 28,
+    "p_eos_spliced": 0.3682256042957306,
+    "entropy_nats": 3.8392045497894287
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sweep": "from_start",
+    "num_phantom_layers": 8,
+    "num_layers": 28,
+    "p_eos_spliced": 0.37213221192359924,
+    "entropy_nats": 3.8382718563079834
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sweep": "from_start",
+    "num_phantom_layers": 14,
+    "num_layers": 28,
+    "p_eos_spliced": 0.44790902733802795,
+    "entropy_nats": 3.5062217712402344
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sweep": "from_start",
+    "num_phantom_layers": 20,
+    "num_layers": 28,
+    "p_eos_spliced": 0.7449797987937927,
+    "entropy_nats": 1.7441552877426147
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sweep": "from_start",
+    "num_phantom_layers": 24,
+    "num_layers": 28,
+    "p_eos_spliced": 0.764825701713562,
+    "entropy_nats": 1.6282806396484375
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sweep": "from_start",
+    "num_phantom_layers": 28,
+    "num_layers": 28,
+    "p_eos_spliced": 0.7518293261528015,
+    "entropy_nats": 1.6765851974487305
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sweep": "from_end",
+    "num_phantom_layers": 4,
+    "num_layers": 28,
+    "p_eos_spliced": 0.41532477736473083,
+    "entropy_nats": 3.555734395980835
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sweep": "from_end",
+    "num_phantom_layers": 8,
+    "num_layers": 28,
+    "p_eos_spliced": 0.3330070674419403,
+    "entropy_nats": 3.9665157794952393
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sweep": "from_end",
+    "num_phantom_layers": 14,
+    "num_layers": 28,
+    "p_eos_spliced": 0.6646636128425598,
+    "entropy_nats": 2.1491832733154297
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sweep": "from_end",
+    "num_phantom_layers": 20,
+    "num_layers": 28,
+    "p_eos_spliced": 0.7839304208755493,
+    "entropy_nats": 1.4694576263427734
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sweep": "from_end",
+    "num_phantom_layers": 24,
+    "num_layers": 28,
+    "p_eos_spliced": 0.7539812922477722,
+    "entropy_nats": 1.6684552431106567
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sweep": "from_start",
+    "num_phantom_layers": 0,
+    "num_layers": 28,
+    "p_eos_spliced": 0.4588661789894104,
+    "entropy_nats": 3.3057150840759277
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sweep": "from_start",
+    "num_phantom_layers": 4,
+    "num_layers": 28,
+    "p_eos_spliced": 0.4524427354335785,
+    "entropy_nats": 3.330658435821533
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sweep": "from_start",
+    "num_phantom_layers": 8,
+    "num_layers": 28,
+    "p_eos_spliced": 0.4799979329109192,
+    "entropy_nats": 3.20222806930542
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sweep": "from_start",
+    "num_phantom_layers": 14,
+    "num_layers": 28,
+    "p_eos_spliced": 0.5406747460365295,
+    "entropy_nats": 2.9494435787200928
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sweep": "from_start",
+    "num_phantom_layers": 20,
+    "num_layers": 28,
+    "p_eos_spliced": 0.7395802140235901,
+    "entropy_nats": 1.765899419784546
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sweep": "from_start",
+    "num_phantom_layers": 24,
+    "num_layers": 28,
+    "p_eos_spliced": 0.8094853758811951,
+    "entropy_nats": 1.3605033159255981
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sweep": "from_start",
+    "num_phantom_layers": 28,
+    "num_layers": 28,
+    "p_eos_spliced": 0.7532573342323303,
+    "entropy_nats": 1.6606155633926392
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sweep": "from_end",
+    "num_phantom_layers": 4,
+    "num_layers": 28,
+    "p_eos_spliced": 0.3630130887031555,
+    "entropy_nats": 3.6884167194366455
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sweep": "from_end",
+    "num_phantom_layers": 8,
+    "num_layers": 28,
+    "p_eos_spliced": 0.42112064361572266,
+    "entropy_nats": 3.435529947280884
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sweep": "from_end",
+    "num_phantom_layers": 14,
+    "num_layers": 28,
+    "p_eos_spliced": 0.7271249890327454,
+    "entropy_nats": 1.7746565341949463
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sweep": "from_end",
+    "num_phantom_layers": 20,
+    "num_layers": 28,
+    "p_eos_spliced": 0.7381393313407898,
+    "entropy_nats": 1.7468146085739136
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sweep": "from_end",
+    "num_phantom_layers": 24,
+    "num_layers": 28,
+    "p_eos_spliced": 0.7643370032310486,
+    "entropy_nats": 1.6105738878250122
+  }
+]

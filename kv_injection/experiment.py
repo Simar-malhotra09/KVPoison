@@ -888,6 +888,115 @@ def compute_p_eos_spliced_with_context(
     return float(probs[0, tokenizer.eos_token_id].item())
 
 
+# ============================================================================
+# Layer-restricted splicing: inject phantom (isolated-forward-pass) KV into
+# only a subset of layers; every other layer gets the GENUINE (real joint
+# forward pass) KV for the same positions instead. Every layer keeps the
+# same total cache length -- attention requires uniform sequence length
+# across layers, so "no content at all" in the excluded layers isn't a
+# valid state; the choice is phantom-vs-genuine per layer, not
+# phantom-vs-absent. This localizes which layers carry the sentence-
+# boundary effect: if P(EOS) survives with phantom content confined to a
+# small subset of layers, the effect is concentrated there.
+#
+# Mandatory alongside P(EOS): an entropy-of-next-token-distribution DV,
+# since a mixed-layer cache is a state no ordinary forward pass would ever
+# produce and the model may simply degrade into confusion regardless of
+# which layers are phantom. Entropy stays low when the model is confident
+# about what comes next (whatever that prediction is) and rises when the
+# input has pushed it into a genuinely degenerate, out-of-distribution
+# state. Without this, "these layers carry the effect" and "splicing here
+# just breaks the model" would be indistinguishable from P(EOS) alone.
+# ============================================================================
+
+
+def compute_p_eos_layer_restricted(
+    model: PreTrainedModel,
+    tokenizer: PreTrainedTokenizerBase,
+    config: RunConfig,
+    device: str,
+    phantom_layers: frozenset[int],
+) -> tuple[float, float]:
+    """Returns (p_eos, entropy_nats)."""
+    if config.append_config is None:
+        raise ValueError("append_config is required")
+
+    prompt_ids = _build_chat_prompt_ids(
+        tokenizer, config.constraint, config.user_input, device
+    )
+    shadow_ids = _build_shadow_ids(tokenizer, config.shadow_prompt, device)
+    prompt_len = prompt_ids.shape[1]
+    shadow_len = shadow_ids.shape[1]
+    num_append = compute_num_append_for_config(tokenizer, config, shadow_len)
+
+    with torch.no_grad():
+        # Real prompt, one genuine forward pass -- this becomes the base
+        # active cache, and every layer's first prompt_len positions come
+        # from here regardless of phantom_layers.
+        active_out = model(
+            input_ids=prompt_ids, attention_mask=torch.ones_like(prompt_ids), use_cache=True
+        )
+        active_cache = active_out.past_key_values
+
+        # Isolated shadow forward pass -- the source of "phantom" K,V for
+        # the extension positions, exactly as in the ordinary splice.
+        shadow_position_ids = torch.arange(
+            prompt_len, prompt_len + shadow_len, device=device
+        ).unsqueeze(0)
+        phantom_out = model(
+            input_ids=shadow_ids,
+            attention_mask=torch.ones_like(shadow_ids),
+            position_ids=shadow_position_ids,
+            use_cache=True,
+        )
+        phantom_cache = phantom_out.past_key_values
+
+        # Genuine joint forward pass -- the source of "genuine" K,V for
+        # the same extension positions, real attention back to the prompt.
+        full_ids = torch.cat([prompt_ids, shadow_ids[:, :num_append]], dim=1)
+        genuine_out = model(
+            input_ids=full_ids, attention_mask=torch.ones_like(full_ids), use_cache=True
+        )
+        genuine_cache = genuine_out.past_key_values
+
+    num_layers = len(active_cache.layers)
+    for layer_idx in range(num_layers):
+        active_layer = active_cache.layers[layer_idx]
+        source_cache = phantom_cache if layer_idx in phantom_layers else genuine_cache
+        source_layer = source_cache.layers[layer_idx]
+        # phantom_cache's extension positions are 0..num_append-2 (isolated
+        # shadow indexing); genuine_cache's are prompt_len..prompt_len+num_append-2
+        # (joint indexing). Both slices are "the num_append-1 positions
+        # right after the real prompt, before the held-back token."
+        if layer_idx in phantom_layers:
+            ext_keys = source_layer.keys[:, :, : num_append - 1, :]
+            ext_values = source_layer.values[:, :, : num_append - 1, :]
+        else:
+            ext_keys = source_layer.keys[:, :, prompt_len : prompt_len + num_append - 1, :]
+            ext_values = source_layer.values[:, :, prompt_len : prompt_len + num_append - 1, :]
+        with torch.no_grad():
+            active_layer.keys = torch.cat([active_layer.keys, ext_keys], dim=2)
+            active_layer.values = torch.cat([active_layer.values, ext_values], dim=2)
+
+    held_back_token = shadow_ids[:, num_append - 1 : num_append]
+    seq_len_before = prompt_len + (num_append - 1)
+    attn_mask = torch.ones((1, seq_len_before + 1), device=device, dtype=torch.long)
+
+    with torch.no_grad():
+        out = model(
+            input_ids=held_back_token,
+            attention_mask=attn_mask,
+            past_key_values=active_cache,
+            use_cache=False,
+        )
+    logits = out.logits[:, -1, :].float()
+    probs = torch.softmax(logits, dim=-1)
+    p_eos = float(probs[0, tokenizer.eos_token_id].item())
+    log_probs = torch.log_softmax(logits, dim=-1)
+    entropy = float(-(probs * log_probs).sum(dim=-1).item())
+    return p_eos, entropy
+
+
 def run(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizerBase,
@@ -2511,6 +2620,92 @@ def run_k_context_sweep(model_name: str, results_path: Path) -> None:
     print(f"\nwrote {results_path}")
 
 
+LAYER_SWEEP_RESULTS_PATH = (
+    Path(__file__).parent / "results" / "experiment_o_layer_sweep.json"
+)
+
+LAYER_SWEEP_CELLS = [
+    ("medical", "neutral", "neutral_shadow_prompt"),
+    ("weapons", "real", "shadow_prompt"),
+]
+
+
+def run_layer_sweep(model_name: str, results_path: Path) -> None:
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    dtype = torch.float16 if device == "mps" else torch.float32
+    print(f"loading {model_name} on device={device} dtype={dtype}")
+    model, tokenizer = load_model(model_name, device, dtype)
+
+    num_layers = model.config.num_hidden_layers
+    from_start_levels = [0, 4, 8, 14, 20, 24, num_layers]
+    from_end_levels = [4, 8, 14, 20, 24]
+
+    all_results: list[dict[str, Any]] = []
+
+    for topic_id, content_source, shadow_field in LAYER_SWEEP_CELLS:
+        topic = load_topic(topic_id)
+        config = RunConfig(
+            condition=Condition.CACHE_INJECTION,
+            constraint=topic["constraint"],
+            user_input=topic["input"],
+            shadow_prompt=topic[shadow_field],
+            max_new_tokens=1,
+            seed=0,
+            do_sample=False,
+            temperature=0.0,
+            append_config=AppendConfig(append_percent=0.75, layers_affect_percent=1.0),
+            shadow_boundary=ShadowBoundary.CLEAN,
+        )
+        print(f"\n=== {topic_id}/{content_source}, phantom = first k layers ===")
+        for k in from_start_levels:
+            phantom_layers = frozenset(range(k))
+            p_eos, entropy = compute_p_eos_layer_restricted(
+                model, tokenizer, config, device, phantom_layers
+            )
+            print(f"  first {k:>2}/{num_layers} phantom: P(EOS)={p_eos:.4f} entropy={entropy:.3f} nats")
+            all_results.append(
+                {
+                    "topic_id": topic_id,
+                    "content_source": content_source,
+                    "sweep": "from_start",
+                    "num_phantom_layers": k,
+                    "num_layers": num_layers,
+                    "p_eos_spliced": p_eos,
+                    "entropy_nats": entropy,
+                }
+            )
+            gc.collect()
+            if device == "mps":
+                torch.mps.empty_cache()
+
+        print(f"\n=== {topic_id}/{content_source}, phantom = last k layers ===")
+        for k in from_end_levels:
+            phantom_layers = frozenset(range(num_layers - k, num_layers))
+            p_eos, entropy = compute_p_eos_layer_restricted(
+                model, tokenizer, config, device, phantom_layers
+            )
+            print(f"  last {k:>2}/{num_layers} phantom: P(EOS)={p_eos:.4f} entropy={entropy:.3f} nats")
+            all_results.append(
+                {
+                    "topic_id": topic_id,
+                    "content_source": content_source,
+                    "sweep": "from_end",
+                    "num_phantom_layers": k,
+                    "num_layers": num_layers,
+                    "p_eos_spliced": p_eos,
+                    "entropy_nats": entropy,
+                }
+            )
+            gc.collect()
+            if device == "mps":
+                torch.mps.empty_cache()
+
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    with results_path.open("w") as f:
+        json.dump(all_results, f, indent=2)
+    print(f"\nwrote {results_path}")
+
+
 # ============================================================================
 # Cross-pairing matrix: every shadow text (5 real + 5 neutral = 10 rows)
 # spliced onto every topic's real prompt (5 columns), clean75, P(EOS)
@@ -3012,6 +3207,10 @@ def main() -> None:
         "k-context-sweep",
         help="shadow's own forward pass given k tokens of real-prompt context (0=isolated, full=genuine), P(EOS) as a function of k, 3 cells",
     )
+    subparsers.add_parser(
+        "layer-sweep",
+        help="splice phantom K,V into only a subset of layers (genuine K,V elsewhere), P(EOS) + next-token entropy as a function of how many/which layers are phantom, 2 cells",
+    )
     subparsers.add_parser("test", help="run cache-injector smoke tests (no model load)")
 
     args = parser.parse_args()
@@ -3074,6 +3273,8 @@ def main() -> None:
         run_boundary_comb_test(QWEN_MODEL_NAME, COMB_TEST_RESULTS_PATH)
     elif args.command == "k-context-sweep":
         run_k_context_sweep(QWEN_MODEL_NAME, K_CONTEXT_RESULTS_PATH)
+    elif args.command == "layer-sweep":
+        run_layer_sweep(QWEN_MODEL_NAME, LAYER_SWEEP_RESULTS_PATH)
     elif args.command == "test":
         run_smoke_tests()
 
