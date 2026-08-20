@@ -571,3 +571,39 @@ logging here, and consult the same PI agent again (SendMessage, not a
 fresh spawn) whenever genuinely stuck or unsure rather than guessing.
 Starting on priority steps 1-2 now (zero/cheap compute, no new
 experimental design needed).
+
+**22. Priority step 2, zero compute: cut-style breakdown of existing**
+**collapse data.** First pass (all doses pooled) showed clean cut
+collapsing more than twice as often as ragged (47.2% vs 20.4%, 90 cells),
+but that pools in the 100%-dose cells where ragged100 and clean100 are
+mechanically identical by construction (no truncation happens at 100%
+regardless of boundary type), which isn't a real test of cut style. Redid
+it on the one truly apples-to-apples comparison: same 75% dose, only the
+cut style differs. 36 cells (Qwen + TinyLlama, main matrix + neutral
+control + structure control): ragged75 collapses 1/18 (5.6%), clean75
+collapses 7/18 (38.9%).
+
+Paired by (source file, topic, content-source) so ragged and clean can be
+compared cell-for-cell on identical setups: 6 pairs flip from
+ragged=no-collapse to clean=collapse (weapons/topic, drugs/topic,
+medical-TinyLlama/topic, drugs/neutral, finance/neutral,
+medical-TinyLlama/neutral). Zero pairs flip the other direction. Exact
+binomial sign test on the 6 discordant pairs, p=0.03125 -- real, not
+noise, for an analysis that cost nothing since the data already existed.
+
+This directly supports the PI's mechanistic account: the shadow's isolated
+forward pass ends with a hidden state that, landing on a genuine sentence
+boundary, looks like a completed standalone document -- and the natural
+continuation of a finished document is termination. Landing mid-sentence
+makes termination implausible, so the model continues instead. Medical-
+neutral (Qwen) is one of the two cells that collapses under BOTH cut
+styles, consistent with it being the most reliable case rather than an
+outlier. The structure-matched car-diagnostics cells never collapse under
+either cut style, also consistent -- if collapse is about a genuinely-
+finished-feeling shadow document, a text explicitly designed to look like
+it could always continue (repetitive open-ended template) not collapsing
+either way fits.
+
+Moving to P(EOS)-at-first-step implementation next (priority steps 1 and
+3 combined: cheap rescore infrastructure, then paired spliced-vs-genuine
+across all 10 topic x content-source cells).
