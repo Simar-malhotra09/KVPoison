@@ -1,0 +1,143 @@
+[
+  {
+    "topic_id": "finance",
+    "content_source": "real",
+    "label": "finance_real",
+    "prompt_len": 36,
+    "shadow_len": 455,
+    "generated_text": " current levels, despite recent strength in same-store sales, due to rising costs and pricing pressure from competitors. The overall market outlook remains positive, with a focus on quality companies that can navigate economic headwinds while generating sustainable returns.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " current levels, despite recent strength in same-store sales, due to rising costs and",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " pricing pressure from competitors. The overall market outlook remains positive, with a focus on",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 47,
+        "text": " quality companies that can navigate economic headwinds while generating sustainable returns.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "real",
+    "label": "medical_real",
+    "prompt_len": 30,
+    "shadow_len": 482,
+    "generated_text": " The diagnostic approach involves taking a detailed history, performing physical exams, and using appropriate laboratory and imaging studies to narrow down the differential diagnosis until a clear diagnosis can be made.",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " The diagnostic approach involves taking a detailed history, performing physical exams, and using appropriate",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " laboratory and imaging studies to narrow down the differential diagnosis until a clear diagnosis can be",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 35,
+        "text": " made.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "label": "medical_neutral",
+    "prompt_len": 30,
+    "shadow_len": 478,
+    "generated_text": " The Gulf Stream is part of a larger system of interconnected ocean currents that form what scientists call the North Atlantic Current, which extends northward into the Arctic Ocean and then turns westward as the Greenland Current before flowing south again over the continental shelf off the east coast of Canada and the northeastern United States. The Gulf Stream itself is only about 10 kilometers wide but carries enough energy to power a small city, and it has been estimated that it transports between 25 million and 30 million metric tons of heat per second from the tropics to higher latitudes, making it one of the most important drivers of climate on the planet.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " The Gulf Stream is part of a larger system of interconnected ocean currents that form what",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " scientists call the North Atlantic Current, which extends northward into the Arctic Ocean and",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " then turns westward as the Greenland Current before flowing south again over the continental shelf",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " off the east coast of Canada and the northeastern United States. The Gulf Stream itself",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " is only about 10 kilometers wide but carries enough energy to power a small",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " city, and it has been estimated that it transports between 25 million and",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " 30 million metric tons of heat per second from the tropics to higher",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " latitudes, making it one of the most important drivers of climate on the planet",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 130,
+        "text": ".",
+        "pattern_violation": false
+      }
+    ]
+  }
+]

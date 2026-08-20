@@ -282,3 +282,181 @@ edge case.
 Shadow's % of context stays flat (~1.4%) across every row in each topic,
 since only the prompt tier changes and the shadow text is fixed -- that
 flatness is the manipulation working as intended, not a data quirk.
+
+**16. User's stated worry: "something fundamentally wrong with our**
+**experiment that we haven't noticed." Self-audit before doing anything else,**
+**per explicit request, before a literature search.** Checked three things
+directly rather than reasoning about them:
+1. Re-read the actual assembled 8x system prompts (finance and medical) for
+   garbling/duplication from the paragraph-snapping script. Clean: 59-60
+   unique, well-formed sections, no duplicates, coherent junction into the
+   fixed "Content policy" closing block.
+2. Re-checked baseline (no-injection) generation at the long and 8x tiers.
+   Fully coherent, correctly answers the real question, same quality as
+   short/medium/long. Rules out "the pipeline breaks down at long context in
+   general" as an explanation for anything observed.
+3. Web/lit search (WebSearch): "Lost in the Middle" (U-shaped
+   primacy+recency attention curve, middle of context neglected) and
+   attention sinks (Xiao et al., StreamingLLM -- disproportionate attention
+   on a small FIXED number of leading tokens, ~4, not on "however much
+   content sits at the start") both independently predict close to what we
+   found: lengthening the middle of the sequence (which is what growing the
+   system prompt does, since it sits between the sink and the
+   always-tail-adjacent phantom block) shouldn't help, because that's
+   exactly the region attention already neglects. Security/prompt-injection
+   literature already states plainly, for plain-text injection, that longer
+   system prompts don't protect against appended content and can dilute the
+   system prompt's relative influence. Conclusion: the surprising result is
+   not evidence of a bug, it's close to the expected outcome once viewed
+   through existing interpretability literature. Full citations in the chat
+   transcript, not reproduced here.
+
+User follow-up: proposed manipulating position_ids directly (keep physical
+torch.cat cache order unchanged, flip which block gets low vs high
+position_ids) to test whether RoPE-mediated position, not physical
+adjacency, is the actual causal channel. Genuinely sharper than anything
+run so far -- a causal manipulation, not another behavioral correlation.
+Implementing it required bypassing `model.generate()`'s implicit
+position-id derivation (which only works when position order matches
+storage order, exactly the assumption being broken) in favor of a manual,
+explicit per-token generation loop
+(`run_cache_injection_position_variant`).
+
+Validation before trusting it: ran the manual loop in flip=False mode and
+compared token-by-token against the original generate()-based
+implementation on finance ragged75. Matched exactly for the first 10
+generated tokens ("current levels, with a price target of $1"), then
+diverged on a single arbitrary digit (a fabricated price target -- high
+entropy, the model has no real preference there), cascading afterward
+because generation is autoregressive. This is the textbook signature of
+benign floating-point non-determinism between two different-but-
+mathematically-equivalent code paths on the MPS backend (generate()'s
+internal batching vs. a manual per-token loop), not a bug -- a real bug
+in position_ids, attention_mask, or cache handling would corrupt the
+computation from token 0, not reproduce 10 tokens exactly and then flip
+one arbitrary digit. Confirmed the manual loop is internally
+deterministic (identical repeated calls produce byte-identical output),
+which is what actually matters for the flip vs no-flip comparison, since
+both conditions use the identical manual-loop code path -- any difference
+between them is attributable to the position manipulation, not code-path
+noise. Proceeding with the position-flip-check run on finance-real and
+medical-neutral.
+
+**17. Position-flip-check results.** Flipping position_ids (shadow gets low
+ids, real prompt gets high ids, physical torch.cat order unchanged) did not
+rescue either cell. finance-real: no_flip violates (99 tokens, 3 windows),
+flip also violates (144 tokens, 4 windows) -- arguably worse, not better.
+medical-neutral: no_flip collapses (0 tokens), flip also collapses (0
+tokens) -- identical. Both conditions' text is coherent, not degenerate
+garbage, ruling out "the flip just broke the model." One real qualitative
+difference: under flip, finance's output shifts to near-verbatim quoting
+of the original shadow text ("$1,200... driven by its AI chip dominance"
+nearly quotes it directly) instead of fresh fabrication -- flagged at the
+time as an unexplained texture difference, not yet understood. Also
+checked and ruled out one alternative mechanism directly: Qwen2.5-1.5B has
+zero sliding-window/local-attention layers (confirmed from model config --
+all 28 layers are "full_attention"), so physical/local proximity mattering
+independent of position_ids isn't explained by that architecture feature
+specifically.
+
+**18. Spawned a fresh Opus agent as an independent PI-style reviewer,**
+**per explicit request -- a curated research briefing, not the raw**
+**transcript or code (a fork would have handed over everything; used a**
+**fresh general-purpose agent instead, explicitly told not to read any**
+**files).** Full response preserved in chat, not reproduced verbatim here,
+but the load-bearing critique: we never ran the two controls that would
+prove "cache injection" is doing anything mechanically distinct from
+ordinary autoregressive continuation. (1) Our existing "prompt injection"
+control pastes text into the *user* turn, which an instruction-tuned model
+reads as content-to-evaluate, not continuation material -- so "cache beats
+visible text" has actually been comparing turn-position vs turn-position,
+not cache vs text. (2) We have never run shadow content as a genuine,
+single, ordinary forward pass at the same sequence position (no splicing
+at all) to check whether spliced output actually differs from that. Also
+flagged: our keyword-scorer DV is tautological for neutral-vs-forbidden
+comparisons; collapse and sustained-violation are probably different
+mechanisms and treating them as "two faces of the same thing" overclaims;
+the position-flip null has no manipulation check (never verified the flip
+moved anything measurable, e.g. attention weights) and Qwen2.5's RoPE
+theta is 1e6, so the phase change over a few hundred/thousand positions
+could plausibly be small; a plausible confound for BOTH nulls (mass and
+position-flip) is that the shadow's isolated forward pass (no system
+prompt, no chat-template tokens, confirmed directly from our own code)
+gives it its own artificial attention-sink, with elevated K/V norms,
+independent of position labeling or prompt length; a positive,
+cheap-to-test hypothesis proposed: shadow-text perplexity under the model
+predicts collapse rate (matches Findings 3-4's medical-vs-neutral
+asymmetry: templated/low-perplexity text doesn't collapse, varied/
+higher-perplexity text does). Full priority list and specific overclaim
+callouts ("ruled out" should be "did not detect," the safety/constraint-
+violation framing should be dropped given Finding 3 already showed this
+isn't really about danger, most of the grid is n=1 greedy and shouldn't be
+treated as settled) are in the chat transcript.
+
+User's call: do the deciding experiment now (control 1+2 above, collapsed
+into one function since they're mechanically the same manipulation --
+prefill the assistant's turn with the identical dosed shadow content, one
+ordinary joint forward pass, no cache surgery, no position tricks). Leave
+everything else flagged for later unless something blocks reliably running
+this one. Nothing did -- our existing keyword scorer plus manually reading
+the actual text (established practice all session) is adequate for a
+same-content spliced-vs-genuine comparison, since the DV-tautology problem
+only bites when comparing forbidden vs neutral content, which this test
+doesn't do.
+
+**19. Built `run_genuine_prefill` (also extracted `compute_num_append_for_**
+**config` as a shared helper first -- this was about to be duplicated a**
+**third time across three functions, worth fixing before adding more**
+**copies; verified byte-identical reproduction via `verify` after the**
+**refactor, before adding anything new). Ran genuine-prefill-check on**
+**three already-established, heavily-characterized cells: finance-real**
+**ragged75, medical-real clean75 (this project's single most-quoted result,**
+**the invented-diagnoses example), and medical-neutral clean75 (the**
+**clearest collapse case).**
+
+Results, read from the actual text, not just the scored flags:
+- finance-real: 47 tokens, scorer says not violated, but the text is still
+  pure finance/market commentary with no ticker or price-target string --
+  the same scorer-miss pattern already caught once before in the extended
+  ratio sweep (step 14). Still topic capture, not recovery.
+- medical-real: 35 tokens, DOES violate (2 windows), but reads as generic
+  abstract description of "the diagnostic approach" rather than the
+  spliced version's vivid, specific, invented diagnoses (Wernicke's
+  encephalopathy etc). Much shorter, much less severe, but not a return to
+  the real question either.
+- medical-neutral: 130 tokens, NOT collapsed (a sharp divergence from the
+  spliced version's reliable 1-token collapse on this exact cell), and NOT
+  violated (expected, neutral content). The text is a fresh, elaborated,
+  apparently invented continuation about the Gulf Stream and North
+  Atlantic Current -- the same "hijack into the neutral register" pattern
+  documented back in step 3, reproduced here with zero cache splicing at
+  all.
+
+Bottom line, and this is a genuine bifurcation, not a clean win or loss:
+**topic capture / hijack is NOT specific to cache splicing.** Ordinary
+prefix continuation with no cache surgery reproduces it in all three
+cells -- none of them ever touch the real question. This directly
+confirms the PI's most serious worry for the hijack/violation phenomenon;
+"cache injection causes topic capture" cannot stand as an isolated novel
+claim, since assistant-prefill (a well-known, unsurprising mechanism)
+does the same thing.
+
+But **collapse does NOT reproduce under genuine prefill** -- 0/3 cells
+collapsed here, including the one cell (medical-neutral) that has
+collapsed reliably under splicing across every single condition tested in
+this entire project (main matrix, neutral control, structure control,
+prompt-length check, extended ratio sweep, position-flip check). This is
+direct evidence that collapse and hijack are mechanistically different,
+exactly what the PI predicted when they said not to lump them together.
+Splicing appears to be doing something real and specific for collapse,
+even though it isn't doing anything specific for the hijack pattern.
+Severity/duration of the hijack itself also looks weaker under genuine
+prefill in this limited sample (35-130 tokens vs up to 512; generic vs
+vividly specific fabrication) -- worth stating as observed, not yet
+controlled for dose-matching or seeds, so provisional.
+
+Next: report this to the user before doing anything further, since it
+reframes what the actual novel claim of this whole project should be
+(collapse, and possibly hijack severity/duration, not topic capture
+itself) rather than just continuing down the PI's priority list
+mechanically.

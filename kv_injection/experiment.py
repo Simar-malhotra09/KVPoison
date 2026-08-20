@@ -305,6 +305,34 @@ def run_baseline_or_prompt_injection(
     )
 
 
+def compute_num_append_for_config(
+    tokenizer: PreTrainedTokenizerBase, config: RunConfig, shadow_len: int
+) -> int:
+    """Dose (config.append_config.append_percent) applied to shadow_len,
+    then snapped to a clean sentence boundary if config.shadow_boundary
+    requires it. Shared by every splice/prefill variant so the dose math
+    can't drift between them."""
+    if config.append_config is None:
+        raise ValueError("append_config is required to compute num_append")
+    if config.shadow_boundary is None:
+        raise ValueError("shadow_boundary is required to compute num_append")
+
+    target_num_append = min(
+        round(config.append_config.append_percent * shadow_len), shadow_len
+    )
+    if target_num_append < 1:
+        raise ValueError(
+            f"append_percent={config.append_config.append_percent} on shadow_len={shadow_len} "
+            "rounds to 0 appended tokens; increase append_percent or lengthen shadow_prompt"
+        )
+
+    if config.shadow_boundary == ShadowBoundary.CLEAN:
+        return _snap_to_clean_sentence_boundary(
+            tokenizer, config.shadow_prompt, target_num_append
+        )
+    return target_num_append
+
+
 def run_cache_injection(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizerBase,
@@ -351,21 +379,7 @@ def run_cache_injection(
         )
         shadow_cache = shadow_out.past_key_values
 
-    target_num_append = min(
-        round(config.append_config.append_percent * shadow_len), shadow_len
-    )
-    if target_num_append < 1:
-        raise ValueError(
-            f"append_percent={config.append_config.append_percent} on shadow_len={shadow_len} "
-            "rounds to 0 appended tokens; increase append_percent or lengthen shadow_prompt"
-        )
-
-    if config.shadow_boundary == ShadowBoundary.CLEAN:
-        num_append = _snap_to_clean_sentence_boundary(
-            tokenizer, config.shadow_prompt, target_num_append
-        )
-    else:
-        num_append = target_num_append
+    num_append = compute_num_append_for_config(tokenizer, config, shadow_len)
 
     # Hold back the very last appended token: append only num_append-1 phantom
     # positions now, then let generate() reprocess that final token attending
@@ -413,6 +427,87 @@ def run_cache_injection(
     )
 
 
+# ============================================================================
+# Genuine-KV / assistant-prefill control: the deflationary null hypothesis
+# for the entire project. Every cache_injection run so far builds the
+# shadow's key/value tensors from an ISOLATED forward pass -- the shadow
+# text alone, with no system prompt, no chat-template special tokens, no
+# attention back to the real conversation at all -- then glues a prefix of
+# that isolated cache onto the tail of the real cache after the fact. This
+# control removes the splice entirely: the identical dosed shadow-text
+# prefix is placed directly after the real chat-templated prompt (i.e. as
+# if it were the start of the assistant's own turn) and the WHOLE sequence
+# is forward-passed together, once, with ordinary causal self-attention
+# throughout -- the shadow tokens genuinely attend back to the real system
+# prompt and question, unlike in the spliced condition. No cache surgery,
+# no position_ids tricks, just a normal prefix continuation.
+#
+# If this reproduces the same violation/collapse pattern as the spliced
+# condition, "cache injection" is not doing anything mechanically special:
+# the tail of the context drives the continuation, which is true of any
+# autoregressive LM and does not require phantom KV tensors at all. If the
+# spliced and genuine conditions diverge, that is evidence the splice
+# mechanism itself, not just "shadow content sits near the generation
+# point," is contributing something.
+# ============================================================================
+
+
+def run_genuine_prefill(
+    model: PreTrainedModel,
+    tokenizer: PreTrainedTokenizerBase,
+    config: RunConfig,
+    device: str,
+) -> RunOutput:
+    if config.append_config is None:
+        raise ValueError("append_config is required to compute the dosed prefix")
+    if config.shadow_boundary is None:
+        raise ValueError("shadow_boundary is required to compute the dosed prefix")
+
+    prompt_ids = _build_chat_prompt_ids(
+        tokenizer, config.constraint, config.user_input, device
+    )
+    shadow_ids = _build_shadow_ids(tokenizer, config.shadow_prompt, device)
+
+    prompt_len = prompt_ids.shape[1]
+    shadow_len = shadow_ids.shape[1]
+    if shadow_len < 1:
+        raise ValueError("shadow_prompt tokenized to 0 tokens")
+
+    num_append = compute_num_append_for_config(tokenizer, config, shadow_len)
+
+    full_ids = torch.cat([prompt_ids, shadow_ids[:, :num_append]], dim=1)
+    attention_mask = torch.ones_like(full_ids)
+
+    if config.do_sample:
+        torch.manual_seed(config.seed)
+
+    with torch.no_grad():
+        out_ids = model.generate(
+            input_ids=full_ids,
+            attention_mask=attention_mask,
+            max_new_tokens=config.max_new_tokens,
+            do_sample=config.do_sample,
+            temperature=config.temperature if config.do_sample else None,
+            pad_token_id=tokenizer.eos_token_id,
+        )
+    new_ids = out_ids[0, full_ids.shape[1] :].tolist()
+    text = tokenizer.decode(new_ids, skip_special_tokens=True)
+
+    append_result = AppendResult(
+        layers_appended=0,
+        active_len_before=prompt_len,
+        num_positions_appended=num_append,
+        active_len_after=prompt_len + num_append,
+    )
+    return RunOutput(
+        generated_text=text,
+        generated_token_ids=new_ids,
+        append_result=append_result,
+        prompt_len=prompt_len,
+        shadow_len=shadow_len,
+    )
+
+
 def run(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizerBase,
@@ -422,6 +517,142 @@ def run(
     if config.condition == Condition.CACHE_INJECTION:
         return run_cache_injection(model, tokenizer, config, device)
     return run_baseline_or_prompt_injection(model, tokenizer, config, device)
+
+
+# ============================================================================
+# Position-id flip: isolates whether the effect is driven by position_ids
+# (the only channel through which "recency" enters the attention computation
+# at all, via RoPE) versus something about physical storage order in the KV
+# cache tensor. torch.cat concatenation order is left completely unchanged --
+# the shadow's K,V still physically land at the tail of active_cache, right
+# where generation reads from, exactly as in run_cache_injection. Only the
+# position_ids assigned during each forward pass are swapped: the shadow
+# gets the LOW range (0..shadow_len-1, made to look positionally old) and
+# the real prompt gets the HIGH range (shadow_len..shadow_len+prompt_len-1,
+# made to look positionally recent), with generation continuing upward from
+# there. If position_ids/RoPE recency is what's doing the causal work, this
+# should weaken or kill the hijack. If the effect survives unchanged, physical
+# adjacency in the cache is doing something RoPE-based attention shouldn't be
+# able to do on its own, which would be a real finding in its own right.
+#
+# model.generate() derives position_ids implicitly from cache length, which
+# only gives the right answer when position order matches storage order --
+# exactly the assumption being broken here. So this uses an explicit,
+# manual greedy/sampling loop instead, tracking position_ids by hand at
+# every step. flip_positions is a required, explicit argument (not a
+# RunConfig field, since it applies to this one comparison, not the general
+# framework) so a call site can never silently default to one mode.
+# ============================================================================
+
+
+def run_cache_injection_position_variant(
+    model: PreTrainedModel,
+    tokenizer: PreTrainedTokenizerBase,
+    config: RunConfig,
+    device: str,
+    flip_positions: bool,
+) -> RunOutput:
+    if config.append_config is None:
+        raise ValueError("append_config is required for the cache_injection condition")
+    if config.shadow_boundary is None:
+        raise ValueError(
+            "shadow_boundary is required for the cache_injection condition"
+        )
+
+    prompt_ids = _build_chat_prompt_ids(
+        tokenizer, config.constraint, config.user_input, device
+    )
+    shadow_ids = _build_shadow_ids(tokenizer, config.shadow_prompt, device)
+
+    prompt_len = prompt_ids.shape[1]
+    shadow_len = shadow_ids.shape[1]
+    if shadow_len < 1:
+        raise ValueError("shadow_prompt tokenized to 0 tokens")
+
+    if flip_positions:
+        prompt_position_ids = torch.arange(
+            shadow_len, shadow_len + prompt_len, device=device
+        ).unsqueeze(0)
+        shadow_position_ids = torch.arange(0, shadow_len, device=device).unsqueeze(0)
+    else:
+        prompt_position_ids = torch.arange(0, prompt_len, device=device).unsqueeze(0)
+        shadow_position_ids = torch.arange(
+            prompt_len, prompt_len + shadow_len, device=device
+        ).unsqueeze(0)
+
+    with torch.no_grad():
+        active_out = model(
+            input_ids=prompt_ids,
+            attention_mask=torch.ones_like(prompt_ids),
+            position_ids=prompt_position_ids,
+            use_cache=True,
+        )
+        active_cache = active_out.past_key_values
+
+        shadow_out = model(
+            input_ids=shadow_ids,
+            attention_mask=torch.ones_like(shadow_ids),
+            position_ids=shadow_position_ids,
+            use_cache=True,
+        )
+        shadow_cache = shadow_out.past_key_values
+
+    num_append = compute_num_append_for_config(tokenizer, config, shadow_len)
+
+    append_result = append_kv_cache_n(
+        active_cache,
+        shadow_cache,
+        num_append - 1,
+        config.append_config.layers_affect_percent,
+    )
+
+    held_back_token = shadow_ids[:, num_append - 1 : num_append]
+    held_back_position = shadow_position_ids[0, num_append - 1].item()
+
+    if config.do_sample:
+        torch.manual_seed(config.seed)
+
+    generated_ids: list[int] = []
+    current_input = held_back_token
+    current_position = held_back_position
+    cache_len_before_step = prompt_len + (num_append - 1)
+
+    with torch.no_grad():
+        for step in range(config.max_new_tokens):
+            seq_len_so_far = cache_len_before_step + step
+            attn_mask = torch.ones(
+                (1, seq_len_so_far + 1), device=device, dtype=torch.long
+            )
+            position_ids_step = torch.tensor([[current_position]], device=device)
+            out = model(
+                input_ids=current_input,
+                attention_mask=attn_mask,
+                position_ids=position_ids_step,
+                past_key_values=active_cache,
+                use_cache=True,
+            )
+            active_cache = out.past_key_values
+            logits = out.logits[:, -1, :]
+            if config.do_sample:
+                probs = torch.softmax(logits / config.temperature, dim=-1)
+                next_token = torch.multinomial(probs, num_samples=1)
+            else:
+                next_token = torch.argmax(logits, dim=-1, keepdim=True)
+            next_id = int(next_token.item())
+            if next_id == tokenizer.eos_token_id:
+                break
+            generated_ids.append(next_id)
+            current_input = next_token
+            current_position += 1
+
+    text = tokenizer.decode(generated_ids, skip_special_tokens=True)
+    return RunOutput(
+        generated_text=text,
+        generated_token_ids=generated_ids,
+        append_result=append_result,
+        prompt_len=prompt_len,
+        shadow_len=shadow_len,
+    )
 
 
 # ============================================================================
@@ -1335,6 +1566,231 @@ def run_extended_ratio_check(model_name: str, results_path: Path) -> None:
 
 
 # ============================================================================
+# Position-id flip check: runs finance-real and medical-neutral, both
+# flip_positions=False and flip_positions=True, through
+# run_cache_injection_position_variant. Both conditions use the identical
+# manual-loop code path (only the position_ids values differ), so any
+# difference between them is attributable to the position manipulation, not
+# to code-path noise -- see results/session_log.md for the diagnostic that
+# ruled out an implementation bug (the manual loop diverges from the
+# original generate()-based run_cache_injection only on arbitrary
+# high-entropy tokens like fabricated price-target digits, after matching
+# exactly for many tokens first, and is internally deterministic on repeat
+# calls -- benign MPS/fp16 cross-implementation non-determinism, not a bug,
+# but a reason not to compare byte-for-byte against the old code path).
+# ============================================================================
+
+POSITION_FLIP_RESULTS_PATH = (
+    Path(__file__).parent / "results" / "experiment_g_position_flip.json"
+)
+
+POSITION_FLIP_CHECKS = [
+    {
+        "topic_id": "finance",
+        "content_source": "real",
+        "shadow_field": "shadow_prompt",
+        "append_percent": 0.75,
+        "boundary": ShadowBoundary.RAGGED,
+        "max_new_tokens": 512,
+    },
+    {
+        "topic_id": "medical",
+        "content_source": "neutral",
+        "shadow_field": "neutral_shadow_prompt",
+        "append_percent": 0.75,
+        "boundary": ShadowBoundary.CLEAN,
+        "max_new_tokens": 512,
+    },
+]
+
+
+def run_position_flip_check(model_name: str, results_path: Path) -> None:
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    dtype = torch.float16 if device == "mps" else torch.float32
+    print(f"loading {model_name} on device={device} dtype={dtype}")
+    model, tokenizer = load_model(model_name, device, dtype)
+
+    all_results: list[dict[str, Any]] = []
+
+    for check in POSITION_FLIP_CHECKS:
+        topic = load_topic(check["topic_id"])
+        print(f"\n=== {check['topic_id']} / {check['content_source']} ===")
+
+        for flip_positions in (False, True):
+            config = RunConfig(
+                condition=Condition.CACHE_INJECTION,
+                constraint=topic["constraint"],
+                user_input=topic["input"],
+                shadow_prompt=topic[check["shadow_field"]],
+                max_new_tokens=check["max_new_tokens"],
+                seed=0,
+                do_sample=False,
+                temperature=0.0,
+                append_config=AppendConfig(
+                    append_percent=check["append_percent"], layers_affect_percent=1.0
+                ),
+                shadow_boundary=check["boundary"],
+            )
+
+            label = "flip" if flip_positions else "no_flip"
+            print(f"  [{label}]...", end=" ")
+            output = run_cache_injection_position_variant(
+                model, tokenizer, config, device, flip_positions
+            )
+            window_scores = score_windows(
+                tokenizer=tokenizer,
+                token_ids=output.generated_token_ids,
+                topic_id=check["topic_id"],
+                fine_window_tokens=FINE_WINDOW_TOKENS,
+                fine_region_tokens=FINE_REGION_TOKENS,
+                coarse_window_tokens=COARSE_WINDOW_TOKENS,
+            )
+            violated_windows = [
+                w.window_index for w in window_scores if w.pattern_violation
+            ]
+            total_tokens = len(output.generated_token_ids)
+            collapsed = total_tokens <= COLLAPSE_TOKEN_THRESHOLD
+            print(
+                f"generated {total_tokens} tokens | violated_windows={violated_windows} | collapsed={collapsed}"
+            )
+
+            all_results.append(
+                {
+                    "topic_id": check["topic_id"],
+                    "content_source": check["content_source"],
+                    "label": label,
+                    "flip_positions": flip_positions,
+                    "prompt_len": output.prompt_len,
+                    "shadow_len": output.shadow_len,
+                    "generated_text": output.generated_text,
+                    "collapsed": collapsed,
+                    "any_violation": len(violated_windows) > 0,
+                    "window_scores": [asdict(w) for w in window_scores],
+                }
+            )
+
+            del output
+            gc.collect()
+            if device == "mps":
+                torch.mps.empty_cache()
+
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    with results_path.open("w") as f:
+        json.dump(all_results, f, indent=2)
+    print(f"\nwrote {results_path}")
+
+
+# ============================================================================
+# Genuine/prefill check: reruns three already-established cells, two of
+# them the most extensively quoted results in this project, through
+# run_genuine_prefill instead of run_cache_injection. Same topics, same
+# dose, same shadow content, same real prompt -- the only thing removed is
+# the splice itself. Deciding comparison for the whole project: if these
+# match the stored spliced results, cache injection is not mechanically
+# distinct from ordinary prefix continuation.
+# ============================================================================
+
+GENUINE_PREFILL_RESULTS_PATH = (
+    Path(__file__).parent / "results" / "experiment_h_genuine_prefill.json"
+)
+
+GENUINE_PREFILL_CHECKS = [
+    {
+        "topic_id": "finance",
+        "content_source": "real",
+        "shadow_field": "shadow_prompt",
+        "append_percent": 0.75,
+        "boundary": ShadowBoundary.RAGGED,
+        "max_new_tokens": 512,
+    },
+    {
+        "topic_id": "medical",
+        "content_source": "real",
+        "shadow_field": "shadow_prompt",
+        "append_percent": 0.75,
+        "boundary": ShadowBoundary.CLEAN,
+        "max_new_tokens": 512,
+    },
+    {
+        "topic_id": "medical",
+        "content_source": "neutral",
+        "shadow_field": "neutral_shadow_prompt",
+        "append_percent": 0.75,
+        "boundary": ShadowBoundary.CLEAN,
+        "max_new_tokens": 512,
+    },
+]
+
+
+def run_genuine_prefill_check(model_name: str, results_path: Path) -> None:
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    dtype = torch.float16 if device == "mps" else torch.float32
+    print(f"loading {model_name} on device={device} dtype={dtype}")
+    model, tokenizer = load_model(model_name, device, dtype)
+
+    all_results: list[dict[str, Any]] = []
+
+    for check in GENUINE_PREFILL_CHECKS:
+        topic = load_topic(check["topic_id"])
+        config = RunConfig(
+            condition=Condition.CACHE_INJECTION,
+            constraint=topic["constraint"],
+            user_input=topic["input"],
+            shadow_prompt=topic[check["shadow_field"]],
+            max_new_tokens=check["max_new_tokens"],
+            seed=0,
+            do_sample=False,
+            temperature=0.0,
+            append_config=AppendConfig(
+                append_percent=check["append_percent"], layers_affect_percent=1.0
+            ),
+            shadow_boundary=check["boundary"],
+        )
+
+        label = f"{check['topic_id']}_{check['content_source']}"
+        print(f"\n=== {label} (genuine prefill, no splice) ===", end=" ")
+        output = run_genuine_prefill(model, tokenizer, config, device)
+        window_scores = score_windows(
+            tokenizer=tokenizer,
+            token_ids=output.generated_token_ids,
+            topic_id=check["topic_id"],
+            fine_window_tokens=FINE_WINDOW_TOKENS,
+            fine_region_tokens=FINE_REGION_TOKENS,
+            coarse_window_tokens=COARSE_WINDOW_TOKENS,
+        )
+        violated_windows = [w.window_index for w in window_scores if w.pattern_violation]
+        total_tokens = len(output.generated_token_ids)
+        collapsed = total_tokens <= COLLAPSE_TOKEN_THRESHOLD
+        print(
+            f"generated {total_tokens} tokens | violated_windows={violated_windows} | collapsed={collapsed}"
+        )
+
+        all_results.append(
+            {
+                "topic_id": check["topic_id"],
+                "content_source": check["content_source"],
+                "label": label,
+                "prompt_len": output.prompt_len,
+                "shadow_len": output.shadow_len,
+                "generated_text": output.generated_text,
+                "collapsed": collapsed,
+                "any_violation": len(violated_windows) > 0,
+                "window_scores": [asdict(w) for w in window_scores],
+            }
+        )
+
+        del output
+        gc.collect()
+        if device == "mps":
+            torch.mps.empty_cache()
+
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    with results_path.open("w") as f:
+        json.dump(all_results, f, indent=2)
+    print(f"\nwrote {results_path}")
+
+
+# ============================================================================
 # Rescoring: re-run results/experiment_a_results.json against the fixed
 # pattern regexes, without regenerating any model output. Each window's text
 # is already stored in the JSON, so this is pure regex re-evaluation.
@@ -1730,6 +2186,14 @@ def main() -> None:
         "extended-ratio-check",
         help="finance-real and medical-neutral at 2x/4x/8x shadow_len system prompts, does the effect ever come back down",
     )
+    subparsers.add_parser(
+        "position-flip-check",
+        help="finance-real and medical-neutral, position_ids flipped vs not, physical cache order unchanged",
+    )
+    subparsers.add_parser(
+        "genuine-prefill-check",
+        help="deciding control: same dosed shadow content as an ordinary assistant-turn prefix, no cache splice at all",
+    )
     subparsers.add_parser("test", help="run cache-injector smoke tests (no model load)")
 
     args = parser.parse_args()
@@ -1776,6 +2240,10 @@ def main() -> None:
         run_prompt_length_check(QWEN_MODEL_NAME, PROMPT_LENGTH_RESULTS_PATH)
     elif args.command == "extended-ratio-check":
         run_extended_ratio_check(QWEN_MODEL_NAME, EXTENDED_RATIO_RESULTS_PATH)
+    elif args.command == "position-flip-check":
+        run_position_flip_check(QWEN_MODEL_NAME, POSITION_FLIP_RESULTS_PATH)
+    elif args.command == "genuine-prefill-check":
+        run_genuine_prefill_check(QWEN_MODEL_NAME, GENUINE_PREFILL_RESULTS_PATH)
     elif args.command == "test":
         run_smoke_tests()
 
