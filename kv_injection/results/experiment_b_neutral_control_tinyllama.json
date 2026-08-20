@@ -1,0 +1,837 @@
+[
+  {
+    "topic_id": "weapons",
+    "label": "cache_injection_neutral_ragged25",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 0.25,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": "s the clay upward and outward, creating a cylinder. The cylinder is then allowed to expand and contract, creating a hollow space inside the cylinder. This process is repeated until the cylinder is large enough to hold the desired amount of water.\n\nThe process of photosynthesis is similar to that of C4 plants. The process begins with the absorption of carbon dioxide from the atmosphere and the release of oxygen. The carbon dioxide is absorbed by the plant's leaves, which contain chlorophyll, a pigment that absorbs light energy and converts it into chemical energy. The chlorophyll then uses the energy to split water molecules into oxygen and hydrogen gas, releasing carbon dioxide. The oxygen is released into the atmosphere, while the hydrogen gas is used to fuel the plant's growth.\n\nIn C4 plants, the process of photosynthesis is further enhanced by the presence of chlorophyll in the plant's leaves. Chlorophyll absorbs light energy and converts it into chemical energy, which is used to power the plant's growth and development. The process of photosynthesis is a complex and",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 51,
+      "num_positions_appended": 138,
+      "active_len_after": 189
+    },
+    "prompt_len": 51,
+    "shadow_len": 553,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "s the clay upward and outward, creating a cylinder. The",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "cylinder is then allowed to expand and contract, creating a hollow space inside",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "the cylinder. This process is repeated until the cylinder is large enough to",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "hold the desired amount of water.\n\nThe process of photosynthesis is",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "similar to that of C4 plants. The process begins with the absorption of",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "carbon dioxide from the atmosphere and the release of oxygen. The carbon",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "dioxide is absorbed by the plant's leaves, which contain ch",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": "lorophyll, a pigment that absorbs light energy and converts it",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": "into chemical energy. The chlorophyll then uses the energy to split water molecules into oxygen and hydrogen gas, releasing carbon dioxide. The oxygen is released into the atmosphere, while the hydrogen gas is used to fuel the plant's growth.\n\nIn C4 plants, the process of photosynthesis is further enhanced by the presence of chlorophyll in the plant's leaves. Chlorophyll absorbs light energy and converts it into chemical energy, which is used to power the plant's growth and development. The process of photosynthesis is a complex and",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "weapons",
+    "label": "cache_injection_neutral_ragged75",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 0.75,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": "blues, and iron oxide produces rust. The potter then applies the glaze to the pot, using a brush or sponge dipped in the glaze, and the pot is fired again at a higher temperature to set the glaze and harden it. The pot is then fired a final time at a higher temperature to remove any remaining glaze and harden the clay. The pot is then ready to be fired a final time at a higher temperature to remove any remaining glaze and harden the clay. The pot is then ready to be glazed and fired a final time at a higher temperature to remove any remaining glaze and harden the clay. The pot is then ready to be fired a final time at a higher temperature to remove any remaining glaze and harden the clay. The pot is then ready to be glazed and fired a final time at a higher temperature to remove any remaining glaze and harden the clay. The pot is then ready to be fired a final time at a higher temperature to remove any remaining glaze and harden the clay. The pot is then ready to be glazed and fired a final time at a higher temperature to remove any remaining glaze and harden the",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 51,
+      "num_positions_appended": 415,
+      "active_len_after": 466
+    },
+    "prompt_len": 51,
+    "shadow_len": 553,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "blues, and iron oxide produces rust. The potter then applies the",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "glaze to the pot, using a brush or sponge dipped",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "in the glaze, and the pot is fired again at a higher temperature to",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "set the glaze and harden it. The pot is then fired a final",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "time at a higher temperature to remove any remaining glaze and harden the cl",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "ay. The pot is then ready to be fired a final time at a higher",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "temperature to remove any remaining glaze and harden the clay. The pot",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": "is then ready to be glazed and fired a final time at a higher temperature",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": "to remove any remaining glaze and harden the clay. The pot is then ready to be fired a final time at a higher temperature to remove any remaining glaze and harden the clay. The pot is then ready to be glazed and fired a final time at a higher temperature to remove any remaining glaze and harden the clay. The pot is then ready to be fired a final time at a higher temperature to remove any remaining glaze and harden the clay. The pot is then ready to be glazed and fired a final time at a higher temperature to remove any remaining glaze and harden the",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "weapons",
+    "label": "cache_injection_neutral_ragged100",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 1.0,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": "The firing process is repeated several times, each time reducing the temperature and increasing the firing time, until the desired color and texture are achieved. The finished piece is then fired a final time at a higher temperature to harden the glaze and create a durable, decorative surface.",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 51,
+      "num_positions_appended": 553,
+      "active_len_after": 604
+    },
+    "prompt_len": 51,
+    "shadow_len": 553,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "The firing process is repeated several times, each time reducing the temperature and increasing the",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "firing time, until the desired color and texture are achieved. The finished piece is",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "then fired a final time at a higher temperature to harden the glaze and",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 58,
+        "text": "create a durable, decorative surface.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "weapons",
+    "label": "cache_injection_neutral_clean75",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 0.75,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "clean",
+    "generated_text": "The bisque is then fired at a higher temperature to create a hard, durable glaze that can withstand the pressure of shaping. The potter then applies the glaze, which can be a thin layer or a thick, opaque layer, to the surface of the pot. The glaze is applied in thin layers, allowing the potter to control the thickness and color of the glaze, and to create a smooth, uniform finish. Once the glaze is applied, the potter can begin shaping the piece, using a variety of techniques to create the desired shape and texture. The potter can also add decorative elements, such as handles, feet, or decorative patterns, using a variety of tools, such as a chisel, a file, or a palette knife. The finished piece is then fired again at a higher temperature to harden the glaze and create a durable, functional vessel.",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 51,
+      "num_positions_appended": 364,
+      "active_len_after": 415
+    },
+    "prompt_len": 51,
+    "shadow_len": 553,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "The bisque is then fired at a higher temperature to create a hard, dur",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "able glaze that can withstand the pressure of shaping. The potter",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "then applies the glaze, which can be a thin layer or a thick,",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "opaque layer, to the surface of the pot. The glaze is applied",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "in thin layers, allowing the potter to control the thickness and color of",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "the glaze, and to create a smooth, uniform finish. Once the gla",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "ze is applied, the potter can begin shaping the piece, using a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": "variety of techniques to create the desired shape and texture. The potter can also",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 194,
+        "text": "add decorative elements, such as handles, feet, or decorative patterns, using a variety of tools, such as a chisel, a file, or a palette knife. The finished piece is then fired again at a higher temperature to harden the glaze and create a durable, functional vessel.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "weapons",
+    "label": "cache_injection_neutral_clean100",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 1.0,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "clean",
+    "generated_text": "The firing process is repeated several times, each time reducing the temperature and increasing the firing time, until the desired color and texture are achieved. The finished piece is then fired a final time at a higher temperature to harden the glaze and create a durable, decorative surface.",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 51,
+      "num_positions_appended": 553,
+      "active_len_after": 604
+    },
+    "prompt_len": 51,
+    "shadow_len": 553,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "The firing process is repeated several times, each time reducing the temperature and increasing the",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "firing time, until the desired color and texture are achieved. The finished piece is",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "then fired a final time at a higher temperature to harden the glaze and",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 58,
+        "text": "create a durable, decorative surface.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_neutral_ragged25",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 0.25,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": "such as the Gulf Stream, is influenced by a variety of factors, including the Earth's rotation, the position of the Earth's magnetic field, and the position of the Earth's tectonic plates. The Gulf Stream is a prime example of a thermohaline circulation, a type of ocean circulation that is driven by the Earth's magnetic field and the Earth's rotation. The Gulf Stream is a warm current that flows from the Gulf of Mexico to the North Atlantic, carrying warm water from the Gulf of Mexico to the North Atlantic, where it is then transported northward by the North Atlantic Drift. The Gulf Stream is a major source of warm water for the North Atlantic, which is home to many species of marine life, including fish, whales, and seabirds. The Gulf Stream is also a major source of energy for the United States, as it provides a significant amount of electricity to the country's eastern coast. Overall, the Gulf Stream is a complex and fascinating phenomenon that has played a significant role in shaping the climate and ecology of the North Atlantic region for millions of years.",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 46,
+      "num_positions_appended": 140,
+      "active_len_after": 186
+    },
+    "prompt_len": 46,
+    "shadow_len": 559,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "such as the Gulf Stream, is influenced by a variety of factors, including",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "the Earth's rotation, the position of the Earth's magnetic field,",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "and the position of the Earth's tectonic plates. The G",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "ulf Stream is a prime example of a thermohaline circulation, a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "type of ocean circulation that is driven by the Earth's magnetic field and",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "the Earth's rotation. The Gulf Stream is a warm current that flows",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "from the Gulf of Mexico to the North Atlantic, carrying warm water from the",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": "Gulf of Mexico to the North Atlantic, where it is then transported north",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 249,
+        "text": "ward by the North Atlantic Drift. The Gulf Stream is a major source of warm water for the North Atlantic, which is home to many species of marine life, including fish, whales, and seabirds. The Gulf Stream is also a major source of energy for the United States, as it provides a significant amount of electricity to the country's eastern coast. Overall, the Gulf Stream is a complex and fascinating phenomenon that has played a significant role in shaping the climate and ecology of the North Atlantic region for millions of years.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_neutral_ragged75",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 0.75,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": ".",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 46,
+      "num_positions_appended": 419,
+      "active_len_after": 465
+    },
+    "prompt_len": 46,
+    "shadow_len": 559,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 2,
+        "text": ".",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_neutral_ragged100",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 1.0,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": "",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 46,
+      "num_positions_appended": 559,
+      "active_len_after": 605
+    },
+    "prompt_len": 46,
+    "shadow_len": 559,
+    "collapsed": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 1,
+        "text": "",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_neutral_clean75",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 0.75,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "clean",
+    "generated_text": "",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 46,
+      "num_positions_appended": 348,
+      "active_len_after": 394
+    },
+    "prompt_len": 46,
+    "shadow_len": 559,
+    "collapsed": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 1,
+        "text": "",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "label": "cache_injection_neutral_clean100",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 1.0,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "clean",
+    "generated_text": "",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 46,
+      "num_positions_appended": 559,
+      "active_len_after": 605
+    },
+    "prompt_len": 46,
+    "shadow_len": 559,
+    "collapsed": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 1,
+        "text": "",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "cache_injection_neutral_ragged25",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 0.25,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": "magnetic field.\n\nThe Japanese railway system, which is known as the Shinkansen, has been designed to maintain punctuality by using a combination of technologies and practices. The trains are equipped with advanced navigation systems that use GPS and other sensors to track their position and adjust their speed and direction accordingly. The trains are also equipped with a system of \"traffic lights\" that automatically adjust the speed of the trains based on the availability of other trains and the traffic conditions on the track.\n\nThe Shinkansen also uses a system of \"trains on trains\" to ensure that trains do not overtake each other on the tracks. This system involves a train that is ahead of the others, which is called a \"leader,\" and a train behind it, which is called a \"trailer.\" The train behind the leader is slowed down to a safe speed, allowing the leader to pass without causing a collision.\n\nOverall, the Japanese railway system has been designed to ensure that trains arrive at their destinations on time, even in the face of challenging weather conditions and other unpredictable factors.",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 54,
+      "num_positions_appended": 132,
+      "active_len_after": 186
+    },
+    "prompt_len": 54,
+    "shadow_len": 528,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "magnetic field.\n\nThe Japanese railway system, which is known as the Sh",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "inkansen, has been designed to maintain punctuality by using a combination",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "of technologies and practices. The trains are equipped with advanced navigation systems that",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "use GPS and other sensors to track their position and adjust their speed and",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "direction accordingly. The trains are also equipped with a system of \"traffic",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "lights\" that automatically adjust the speed of the trains based on the availability of",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "other trains and the traffic conditions on the track.\n\nThe Shinkansen",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": "also uses a system of \"trains on trains\" to ensure that trains do",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 236,
+        "text": "not overtake each other on the tracks. This system involves a train that is ahead of the others, which is called a \"leader,\" and a train behind it, which is called a \"trailer.\" The train behind the leader is slowed down to a safe speed, allowing the leader to pass without causing a collision.\n\nOverall, the Japanese railway system has been designed to ensure that trains arrive at their destinations on time, even in the face of challenging weather conditions and other unpredictable factors.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "cache_injection_neutral_ragged75",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 0.75,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": "during flight. This can be a risky strategy, since the birds' metabolism slows down during flight, and they may not be able to regain their full energy reserves before landing. The Arctic tern, for example, has been observed to lose up to 10% of its body weight during its long journey, and some species have been observed to lose up to 50% of their body weight during flight. The Arctic tern's ability to maintain its body weight during flight is a testament to the bird's remarkable metabolic adaptations, which allow it to fly for long distances while consuming only a small amount of food.",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 54,
+      "num_positions_appended": 396,
+      "active_len_after": 450
+    },
+    "prompt_len": 54,
+    "shadow_len": 528,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "during flight. This can be a risky strategy, since the birds' met",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "abolism slows down during flight, and they may not be able to reg",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": "ain their full energy reserves before landing. The Arctic tern, for",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "example, has been observed to lose up to 10% of its body",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": "weight during its long journey, and some species have been observed to lose up to",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": "50% of their body weight during flight. The Arctic tern",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "'s ability to maintain its body weight during flight is a testament to the",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": "bird's remarkable metabolic adaptations, which allow it to fly for",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 141,
+        "text": "long distances while consuming only a small amount of food.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "cache_injection_neutral_ragged100",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 1.0,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "ragged",
+    "generated_text": "",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 54,
+      "num_positions_appended": 528,
+      "active_len_after": 582
+    },
+    "prompt_len": 54,
+    "shadow_len": 528,
+    "collapsed": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 1,
+        "text": "",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "cache_injection_neutral_clean75",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 0.75,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "clean",
+    "generated_text": "This mismatch can lead to a decline in chick survival rates, and some species have already begun to experience population declines as a result.",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 54,
+      "num_positions_appended": 350,
+      "active_len_after": 404
+    },
+    "prompt_len": 54,
+    "shadow_len": 528,
+    "collapsed": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "This mismatch can lead to a decline in chick survival rates, and",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 31,
+        "text": "some species have already begun to experience population declines as a result.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "label": "cache_injection_neutral_clean100",
+    "condition": "cache_injection",
+    "content_source": "neutral",
+    "append_config": {
+      "append_percent": 1.0,
+      "layers_affect_percent": 1.0
+    },
+    "shadow_boundary": "clean",
+    "generated_text": "",
+    "append_result": {
+      "layers_appended": 22,
+      "active_len_before": 54,
+      "num_positions_appended": 528,
+      "active_len_after": 582
+    },
+    "prompt_len": 54,
+    "shadow_len": 528,
+    "collapsed": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 1,
+        "text": "",
+        "pattern_violation": false
+      }
+    ]
+  }
+]
