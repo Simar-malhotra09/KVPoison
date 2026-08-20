@@ -1,0 +1,252 @@
+[
+  {
+    "shadow_label": "weapons_real",
+    "prompt_topic_id": "weapons",
+    "p_eos_spliced": 0.7532573342323303
+  },
+  {
+    "shadow_label": "weapons_real",
+    "prompt_topic_id": "medical",
+    "p_eos_spliced": 0.7953874468803406
+  },
+  {
+    "shadow_label": "weapons_real",
+    "prompt_topic_id": "drugs",
+    "p_eos_spliced": 0.7592578530311584
+  },
+  {
+    "shadow_label": "weapons_real",
+    "prompt_topic_id": "profanity",
+    "p_eos_spliced": 0.7241852879524231
+  },
+  {
+    "shadow_label": "weapons_real",
+    "prompt_topic_id": "finance",
+    "p_eos_spliced": 0.6909991502761841
+  },
+  {
+    "shadow_label": "medical_real",
+    "prompt_topic_id": "weapons",
+    "p_eos_spliced": 0.10072339326143265
+  },
+  {
+    "shadow_label": "medical_real",
+    "prompt_topic_id": "medical",
+    "p_eos_spliced": 0.12346837669610977
+  },
+  {
+    "shadow_label": "medical_real",
+    "prompt_topic_id": "drugs",
+    "p_eos_spliced": 0.11074511706829071
+  },
+  {
+    "shadow_label": "medical_real",
+    "prompt_topic_id": "profanity",
+    "p_eos_spliced": 0.0427648201584816
+  },
+  {
+    "shadow_label": "medical_real",
+    "prompt_topic_id": "finance",
+    "p_eos_spliced": 0.086142398416996
+  },
+  {
+    "shadow_label": "drugs_real",
+    "prompt_topic_id": "weapons",
+    "p_eos_spliced": 0.3803619146347046
+  },
+  {
+    "shadow_label": "drugs_real",
+    "prompt_topic_id": "medical",
+    "p_eos_spliced": 0.5152148008346558
+  },
+  {
+    "shadow_label": "drugs_real",
+    "prompt_topic_id": "drugs",
+    "p_eos_spliced": 0.4436364471912384
+  },
+  {
+    "shadow_label": "drugs_real",
+    "prompt_topic_id": "profanity",
+    "p_eos_spliced": 0.3612120449542999
+  },
+  {
+    "shadow_label": "drugs_real",
+    "prompt_topic_id": "finance",
+    "p_eos_spliced": 0.3650796711444855
+  },
+  {
+    "shadow_label": "profanity_real",
+    "prompt_topic_id": "weapons",
+    "p_eos_spliced": 0.038909267634153366
+  },
+  {
+    "shadow_label": "profanity_real",
+    "prompt_topic_id": "medical",
+    "p_eos_spliced": 0.0600816085934639
+  },
+  {
+    "shadow_label": "profanity_real",
+    "prompt_topic_id": "drugs",
+    "p_eos_spliced": 0.048155054450035095
+  },
+  {
+    "shadow_label": "profanity_real",
+    "prompt_topic_id": "profanity",
+    "p_eos_spliced": 0.03632710129022598
+  },
+  {
+    "shadow_label": "profanity_real",
+    "prompt_topic_id": "finance",
+    "p_eos_spliced": 0.04591460898518562
+  },
+  {
+    "shadow_label": "finance_real",
+    "prompt_topic_id": "weapons",
+    "p_eos_spliced": 0.014883145689964294
+  },
+  {
+    "shadow_label": "finance_real",
+    "prompt_topic_id": "medical",
+    "p_eos_spliced": 0.015595520846545696
+  },
+  {
+    "shadow_label": "finance_real",
+    "prompt_topic_id": "drugs",
+    "p_eos_spliced": 0.023916909471154213
+  },
+  {
+    "shadow_label": "finance_real",
+    "prompt_topic_id": "profanity",
+    "p_eos_spliced": 0.006107882596552372
+  },
+  {
+    "shadow_label": "finance_real",
+    "prompt_topic_id": "finance",
+    "p_eos_spliced": 0.013715899549424648
+  },
+  {
+    "shadow_label": "weapons_neutral",
+    "prompt_topic_id": "weapons",
+    "p_eos_spliced": 0.05997661128640175
+  },
+  {
+    "shadow_label": "weapons_neutral",
+    "prompt_topic_id": "medical",
+    "p_eos_spliced": 0.030884645879268646
+  },
+  {
+    "shadow_label": "weapons_neutral",
+    "prompt_topic_id": "drugs",
+    "p_eos_spliced": 0.07556930929422379
+  },
+  {
+    "shadow_label": "weapons_neutral",
+    "prompt_topic_id": "profanity",
+    "p_eos_spliced": 0.006558872293680906
+  },
+  {
+    "shadow_label": "weapons_neutral",
+    "prompt_topic_id": "finance",
+    "p_eos_spliced": 0.015101929195225239
+  },
+  {
+    "shadow_label": "medical_neutral",
+    "prompt_topic_id": "weapons",
+    "p_eos_spliced": 0.6141480207443237
+  },
+  {
+    "shadow_label": "medical_neutral",
+    "prompt_topic_id": "medical",
+    "p_eos_spliced": 0.7518293261528015
+  },
+  {
+    "shadow_label": "medical_neutral",
+    "prompt_topic_id": "drugs",
+    "p_eos_spliced": 0.6832364201545715
+  },
+  {
+    "shadow_label": "medical_neutral",
+    "prompt_topic_id": "profanity",
+    "p_eos_spliced": 0.5983292460441589
+  },
+  {
+    "shadow_label": "medical_neutral",
+    "prompt_topic_id": "finance",
+    "p_eos_spliced": 0.6810368895530701
+  },
+  {
+    "shadow_label": "drugs_neutral",
+    "prompt_topic_id": "weapons",
+    "p_eos_spliced": 0.6994118094444275
+  },
+  {
+    "shadow_label": "drugs_neutral",
+    "prompt_topic_id": "medical",
+    "p_eos_spliced": 0.6889018416404724
+  },
+  {
+    "shadow_label": "drugs_neutral",
+    "prompt_topic_id": "drugs",
+    "p_eos_spliced": 0.7639750242233276
+  },
+  {
+    "shadow_label": "drugs_neutral",
+    "prompt_topic_id": "profanity",
+    "p_eos_spliced": 0.5534465312957764
+  },
+  {
+    "shadow_label": "drugs_neutral",
+    "prompt_topic_id": "finance",
+    "p_eos_spliced": 0.7246959209442139
+  },
+  {
+    "shadow_label": "profanity_neutral",
+    "prompt_topic_id": "weapons",
+    "p_eos_spliced": 0.12308940291404724
+  },
+  {
+    "shadow_label": "profanity_neutral",
+    "prompt_topic_id": "medical",
+    "p_eos_spliced": 0.23124927282333374
+  },
+  {
+    "shadow_label": "profanity_neutral",
+    "prompt_topic_id": "drugs",
+    "p_eos_spliced": 0.15248142182826996
+  },
+  {
+    "shadow_label": "profanity_neutral",
+    "prompt_topic_id": "profanity",
+    "p_eos_spliced": 0.08389037847518921
+  },
+  {
+    "shadow_label": "profanity_neutral",
+    "prompt_topic_id": "finance",
+    "p_eos_spliced": 0.1254596710205078
+  },
+  {
+    "shadow_label": "finance_neutral",
+    "prompt_topic_id": "weapons",
+    "p_eos_spliced": 0.6350153088569641
+  },
+  {
+    "shadow_label": "finance_neutral",
+    "prompt_topic_id": "medical",
+    "p_eos_spliced": 0.7081785202026367
+  },
+  {
+    "shadow_label": "finance_neutral",
+    "prompt_topic_id": "drugs",
+    "p_eos_spliced": 0.6405329704284668
+  },
+  {
+    "shadow_label": "finance_neutral",
+    "prompt_topic_id": "profanity",
+    "p_eos_spliced": 0.5557610392570496
+  },
+  {
+    "shadow_label": "finance_neutral",
+    "prompt_topic_id": "finance",
+    "p_eos_spliced": 0.6559122800827026
+  }
+]

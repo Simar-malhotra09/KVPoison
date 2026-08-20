@@ -1,0 +1,266 @@
+[
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "baseline_num_append": 358,
+    "jitter": -5,
+    "num_append": 353,
+    "p_eos_spliced": 1.9958468471664714e-12
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "baseline_num_append": 358,
+    "jitter": -4,
+    "num_append": 354,
+    "p_eos_spliced": 4.453704332413322e-12
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "baseline_num_append": 358,
+    "jitter": -3,
+    "num_append": 355,
+    "p_eos_spliced": 1.580082364862484e-13
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "baseline_num_append": 358,
+    "jitter": -2,
+    "num_append": 356,
+    "p_eos_spliced": 1.4563481985033905e-13
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "baseline_num_append": 358,
+    "jitter": -1,
+    "num_append": 357,
+    "p_eos_spliced": 8.311331356480878e-08
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "baseline_num_append": 358,
+    "jitter": 0,
+    "num_append": 358,
+    "p_eos_spliced": 0.7518293261528015
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "baseline_num_append": 358,
+    "jitter": 1,
+    "num_append": 359,
+    "p_eos_spliced": 1.193043303038266e-10
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "baseline_num_append": 358,
+    "jitter": 2,
+    "num_append": 360,
+    "p_eos_spliced": 3.1625767976661834e-11
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "baseline_num_append": 358,
+    "jitter": 3,
+    "num_append": 361,
+    "p_eos_spliced": 1.0760945086396578e-11
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "baseline_num_append": 358,
+    "jitter": 4,
+    "num_append": 362,
+    "p_eos_spliced": 7.581265476508392e-11
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "baseline_num_append": 358,
+    "jitter": 5,
+    "num_append": 363,
+    "p_eos_spliced": 8.103010992223381e-13
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "baseline_num_append": 306,
+    "jitter": -5,
+    "num_append": 301,
+    "p_eos_spliced": 5.340002745546357e-12
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "baseline_num_append": 306,
+    "jitter": -4,
+    "num_append": 302,
+    "p_eos_spliced": 2.329700841963156e-11
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "baseline_num_append": 306,
+    "jitter": -3,
+    "num_append": 303,
+    "p_eos_spliced": 1.1034338026627566e-10
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "baseline_num_append": 306,
+    "jitter": -2,
+    "num_append": 304,
+    "p_eos_spliced": 4.759626784904157e-15
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "baseline_num_append": 306,
+    "jitter": -1,
+    "num_append": 305,
+    "p_eos_spliced": 1.428858507207531e-11
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "baseline_num_append": 306,
+    "jitter": 0,
+    "num_append": 306,
+    "p_eos_spliced": 0.08389037847518921
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "baseline_num_append": 306,
+    "jitter": 1,
+    "num_append": 307,
+    "p_eos_spliced": 7.811386953937571e-12
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "baseline_num_append": 306,
+    "jitter": 2,
+    "num_append": 308,
+    "p_eos_spliced": 8.418810787391706e-12
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "baseline_num_append": 306,
+    "jitter": 3,
+    "num_append": 309,
+    "p_eos_spliced": 3.885156153499332e-14
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "baseline_num_append": 306,
+    "jitter": 4,
+    "num_append": 310,
+    "p_eos_spliced": 2.7075141174198736e-12
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "baseline_num_append": 306,
+    "jitter": 5,
+    "num_append": 311,
+    "p_eos_spliced": 4.917670437531996e-12
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "baseline_num_append": 305,
+    "jitter": -5,
+    "num_append": 300,
+    "p_eos_spliced": 1.284684598285013e-12
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "baseline_num_append": 305,
+    "jitter": -4,
+    "num_append": 301,
+    "p_eos_spliced": 6.051124177604153e-15
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "baseline_num_append": 305,
+    "jitter": -3,
+    "num_append": 302,
+    "p_eos_spliced": 2.1334197429501156e-12
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "baseline_num_append": 305,
+    "jitter": -2,
+    "num_append": 303,
+    "p_eos_spliced": 1.9866014215608185e-12
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "baseline_num_append": 305,
+    "jitter": -1,
+    "num_append": 304,
+    "p_eos_spliced": 6.403978680680211e-09
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "baseline_num_append": 305,
+    "jitter": 0,
+    "num_append": 305,
+    "p_eos_spliced": 0.7639750242233276
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "baseline_num_append": 305,
+    "jitter": 1,
+    "num_append": 306,
+    "p_eos_spliced": 4.841956349754817e-11
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "baseline_num_append": 305,
+    "jitter": 2,
+    "num_append": 307,
+    "p_eos_spliced": 1.00513195856744e-12
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "baseline_num_append": 305,
+    "jitter": 3,
+    "num_append": 308,
+    "p_eos_spliced": 3.531266208264827e-12
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "baseline_num_append": 305,
+    "jitter": 4,
+    "num_append": 309,
+    "p_eos_spliced": 5.321779475431221e-11
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "baseline_num_append": 305,
+    "jitter": 5,
+    "num_append": 310,
+    "p_eos_spliced": 1.7448367403694043e-11
+  }
+]

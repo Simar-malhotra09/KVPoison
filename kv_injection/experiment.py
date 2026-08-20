@@ -710,6 +710,78 @@ def compute_p_eos_spliced_with_drop(
     return float(probs[0, tokenizer.eos_token_id].item())
 
 
+# ============================================================================
+# Stability sweep: P(EOS) is deterministic, so every num_append value is a
+# different, reproducible input, not a noisy repeat -- there is no such
+# thing as sampling error to average away here. The question this answers
+# is different: is P(EOS) a smooth function of num_append near the clean75
+# cut point, or does it swing sharply with single-token changes? The
+# leading-token-drop ablation's drop=2 spikes are a real, reproducible
+# response to a real perturbation (not noise), which raises exactly this
+# question before trusting any single num_append as representative of a
+# cell. Explicit num_append override, bypassing the normal dose/boundary
+# computation, so the jitter isn't tied to any particular append_percent.
+# ============================================================================
+
+
+def compute_p_eos_spliced_at_num_append(
+    model: PreTrainedModel,
+    tokenizer: PreTrainedTokenizerBase,
+    config: RunConfig,
+    device: str,
+    num_append: int,
+) -> float:
+    if config.append_config is None:
+        raise ValueError("append_config is required")
+
+    prompt_ids = _build_chat_prompt_ids(
+        tokenizer, config.constraint, config.user_input, device
+    )
+    shadow_ids = _build_shadow_ids(tokenizer, config.shadow_prompt, device)
+    prompt_len = prompt_ids.shape[1]
+    shadow_len = shadow_ids.shape[1]
+    if num_append < 1 or num_append > shadow_len:
+        raise ValueError(f"num_append={num_append} out of range for shadow_len={shadow_len}")
+
+    with torch.no_grad():
+        active_out = model(
+            input_ids=prompt_ids,
+            attention_mask=torch.ones_like(prompt_ids),
+            use_cache=True,
+        )
+        active_cache = active_out.past_key_values
+
+        shadow_position_ids = torch.arange(
+            prompt_len, prompt_len + shadow_len, device=device
+        ).unsqueeze(0)
+        shadow_out = model(
+            input_ids=shadow_ids,
+            attention_mask=torch.ones_like(shadow_ids),
+            position_ids=shadow_position_ids,
+            use_cache=True,
+        )
+        shadow_cache = shadow_out.past_key_values
+
+    append_kv_cache_n(
+        active_cache, shadow_cache, num_append - 1, config.append_config.layers_affect_percent
+    )
+
+    held_back_token = shadow_ids[:, num_append - 1 : num_append]
+    seq_len_before = prompt_len + (num_append - 1)
+    attn_mask = torch.ones((1, seq_len_before + 1), device=device, dtype=torch.long)
+
+    with torch.no_grad():
+        out = model(
+            input_ids=held_back_token,
+            attention_mask=attn_mask,
+            past_key_values=active_cache,
+            use_cache=False,
+        )
+    logits = out.logits[:, -1, :]
+    probs = torch.softmax(logits.float(), dim=-1)
+    return float(probs[0, tokenizer.eos_token_id].item())
+
+
 def run(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizerBase,
@@ -2122,6 +2194,71 @@ def run_leading_token_drop_ablation(model_name: str, results_path: Path) -> None
     print(f"\nwrote {results_path}")
 
 
+STABILITY_RESULTS_PATH = (
+    Path(__file__).parent / "results" / "experiment_l_stability_sweep.json"
+)
+
+STABILITY_CELLS = [
+    ("medical", "neutral", "neutral_shadow_prompt"),
+    ("profanity", "neutral", "neutral_shadow_prompt"),
+    ("drugs", "neutral", "neutral_shadow_prompt"),
+]
+STABILITY_JITTER = range(-5, 6)
+
+
+def run_stability_sweep(model_name: str, results_path: Path) -> None:
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    dtype = torch.float16 if device == "mps" else torch.float32
+    print(f"loading {model_name} on device={device} dtype={dtype}")
+    model, tokenizer = load_model(model_name, device, dtype)
+
+    all_results: list[dict[str, Any]] = []
+
+    for topic_id, content_source, shadow_field in STABILITY_CELLS:
+        topic = load_topic(topic_id)
+        config = RunConfig(
+            condition=Condition.CACHE_INJECTION,
+            constraint=topic["constraint"],
+            user_input=topic["input"],
+            shadow_prompt=topic[shadow_field],
+            max_new_tokens=1,
+            seed=0,
+            do_sample=False,
+            temperature=0.0,
+            append_config=AppendConfig(append_percent=0.75, layers_affect_percent=1.0),
+            shadow_boundary=ShadowBoundary.CLEAN,
+        )
+        shadow_len = _build_shadow_ids(
+            tokenizer, topic[shadow_field], device
+        ).shape[1]
+        baseline_num_append = compute_num_append_for_config(tokenizer, config, shadow_len)
+        print(f"\n=== {topic_id}/{content_source} (baseline num_append={baseline_num_append}) ===")
+        for jitter in STABILITY_JITTER:
+            num_append = baseline_num_append + jitter
+            if num_append < 1 or num_append > shadow_len:
+                continue
+            p_eos = compute_p_eos_spliced_at_num_append(model, tokenizer, config, device, num_append)
+            print(f"  jitter={jitter:+d} (num_append={num_append}): P(EOS)={p_eos:.4f}")
+            all_results.append(
+                {
+                    "topic_id": topic_id,
+                    "content_source": content_source,
+                    "baseline_num_append": baseline_num_append,
+                    "jitter": jitter,
+                    "num_append": num_append,
+                    "p_eos_spliced": p_eos,
+                }
+            )
+            gc.collect()
+            if device == "mps":
+                torch.mps.empty_cache()
+
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    with results_path.open("w") as f:
+        json.dump(all_results, f, indent=2)
+    print(f"\nwrote {results_path}")
+
+
 # ============================================================================
 # Cross-pairing matrix: every shadow text (5 real + 5 neutral = 10 rows)
 # spliced onto every topic's real prompt (5 columns), clean75, P(EOS)
@@ -2611,6 +2748,10 @@ def main() -> None:
         "leading-token-drop-ablation",
         help="drop the shadow block's leading 0/1/2/4 tokens from the splice, P(EOS) spliced, on 4 target cells",
     )
+    subparsers.add_parser(
+        "stability-sweep",
+        help="jitter num_append +/-5 around clean75 baseline on 3 cells, checks whether P(EOS) is smooth or rough near the cut point",
+    )
     subparsers.add_parser("test", help="run cache-injector smoke tests (no model load)")
 
     args = parser.parse_args()
@@ -2667,6 +2808,8 @@ def main() -> None:
         run_cross_pairing_matrix(QWEN_MODEL_NAME, CROSS_PAIRING_RESULTS_PATH)
     elif args.command == "leading-token-drop-ablation":
         run_leading_token_drop_ablation(QWEN_MODEL_NAME, ABLATION_RESULTS_PATH)
+    elif args.command == "stability-sweep":
+        run_stability_sweep(QWEN_MODEL_NAME, STABILITY_RESULTS_PATH)
     elif args.command == "test":
         run_smoke_tests()
 

@@ -803,3 +803,116 @@ since they specifically designed this test and it eliminates one of
 their two live hypotheses (sink hypothesis dead; cut-style/terminal-state
 account from step 22/24 stands as the leading explanation, unaffected by
 this result since it targets a different mechanism entirely).
+
+**27. PI round 4, and two major findings surfaced while acting on it,**
+**one of them a real methodological gap in the whole project, not just**
+**today's work.**
+
+PI's message: the drop=2 spikes in the ablation are NOT noise (P(EOS) is
+deterministic -- every drop level is a genuinely different, reproducible
+input, so a +0.264 swing at drop=2 is a real, reproducible response, not
+measurement error). Flagged that this threatens every cell-level number
+in the sweep: if P(EOS) is this sensitive to a 1-2 token edit, the 10
+sweep deltas could be point samples off a rough surface. Explicit
+instruction: do a stability sweep (num_append jittered, three cells)
+BEFORE running the cross-pairing matrix, and do not trust the matrix
+without it. Also: accepted the sink falsification with one documented
+caveat (drop-k conflates sink removal with dose reduction and position
+shift, but couldn't rescue the sink account given 14/16 points moved the
+wrong direction). Asked twice now for the full absolute-level P(EOS)
+table, not just deltas -- and proposed centering the actual DV on
+**behavioral flips**: does the splice move a cell across the 0.5 decision
+boundary that genuine alone doesn't cross. Also proposed a pre-registered
+prediction for the (still-unrun, at this point) cross-pairing matrix:
+gap should be larger on-diagonal (matched shadow/prompt topic) than
+off-diagonal, if the mechanism is "context-conditioning deficit" (shadow
+KV computed without attending to a semantically related prompt).
+
+**Timing problem to flag honestly:** the cross-pairing matrix (step
+"between" 26 and 27 in wall-clock time, not written up yet) was already
+launched and completed BEFORE this message arrived -- sent the ablation
+results and proceeded with what seemed like independent, already-built,
+non-judgment-call work while waiting, which in hindsight was exactly the
+kind of thing the PI's stability warning applies to. Reporting this
+honestly rather than silently reordering the log to look like instructions
+were followed in sequence. The cross-pairing matrix data exists; it has
+NOT been validated for stability yet at the time it was collected, and any
+on/off-diagonal read from it can no longer be a blind pre-registered test,
+since the data was already seen before the prediction could be made.
+
+**Built and ran the stability sweep** (num_append jittered -5..+5 around
+the clean75 baseline, medical/neutral, profanity/neutral, drugs/neutral,
+33 forward passes). Result is not "rough" in the sense the PI worried
+about (chaotic, unpredictable swings) -- it is far more extreme and far
+more interpretable than that: P(EOS) is EXACTLY 0.0000 at every single
+jittered position tested, in all three cells, except EXACTLY at
+jitter=0, the true clean-cut baseline, where it jumps to 0.75-0.84. Not a
+smooth peak, not a rough surface -- a razor-thin spike, on at exactly one
+token position and off everywhere else tested, out to +-5 tokens in every
+direction. This sharpens the cut-style/terminal-state account
+considerably: it isn't "sentence-adjacent cuts help somewhat," it's
+essentially binary, on only at the position where a real sentence in the
+source text actually ends.
+
+**This reframes the cross-pairing matrix's row-dominance finding, and not**
+**in the matrix's favor.** The two-way variance decomposition on the
+50-cell matrix (real read, computed before this was understood) gave
+SS_rows=97.8%, SS_cols=1.2%, SS_residual=1.0% -- overwhelming row
+(shadow-text) dominance, the opposite of the PI's stated prior toward
+interaction. But "clean" cut point is computed purely from the shadow
+text's own sentence structure (`_snap_to_clean_sentence_boundary`),
+independent of which real prompt it gets paired with -- so every row of
+the matrix was, by construction, evaluated exactly at that one shadow
+text's own precise spike location regardless of which of the 5 prompts
+sat in front of it. Given the spike is this narrow, row-dominance may be
+close to a tautology of the design (holding "exactly on-spike" fixed
+within each row, varying only prompt, which the spike's razor-thin
+tolerance would barely register) rather than genuine evidence that the
+shadow text's content, in some richer sense, is what matters most. Not
+claiming this invalidates the matrix, but it needs to be read very
+differently than a first-pass reading would suggest.
+
+**Separately, while building the true argmax-based flip classification the**
+**PI asked for (safer than the >0.5 proxy I'd used before, which I'd**
+**already caught being wrong for weapons/real): found something bigger.**
+Computed real argmax (not a threshold) for all 10 clean75 cells, spliced
+and genuine. Got 1/10 true flips (profanity/neutral only) -- but
+medical/neutral's GENUINE condition showed argmax_is_EOS=True, directly
+contradicting the empirical decode from step 19, which produced 130
+tokens with no collapse for that exact cell. Chased this down rather than
+reporting a number I knew was inconsistent with ground truth (per the
+PI's own standard, established over this whole consultation). Root cause
+found and confirmed: **Qwen2.5-1.5B-Instruct's default
+`generation_config.json` ships `repetition_penalty: 1.1`, `do_sample:
+true`, `temperature: 0.7`, `top_k: 20`, `top_p: 0.8`.** None of this
+project's `model.generate()` calls, anywhere, in any experiment run this
+entire session or before, have ever explicitly overridden
+`repetition_penalty` -- meaning every single decode-based result in the
+whole project has been running with the model's default 1.1 repetition
+penalty silently active. Confirmed directly: the real chat-templated
+prompt contains `<|im_end|>` (the eos token) twice already, once closing
+the system turn and once closing the user turn. With
+`repetition_penalty=1.0` (disabled) passed explicitly, `generate()`'s
+first token for medical/neutral genuine IS `<|im_end|>` -- matching my
+raw P(EOS) computation exactly. With the SILENT DEFAULT
+`repetition_penalty=1.1` (i.e. every actual run in this project),
+`generate()`'s first token is instead `" The"` -- because the penalty
+discounts EOS for having already appeared in context, letting a
+competing token win instead.
+
+This is a real, previously undocumented methodological fact about the
+whole project, not a bug in today's P(EOS) work specifically. It means:
+(a) my raw P(EOS) metric is a clean, repetition-penalty-free measure of
+the model's underlying preference, useful on its own terms, but it will
+sometimes disagree with what `generate()` actually outputs, exactly as
+seen here; (b) the actual "collapse" phenomenon characterized throughout
+this entire project (main matrix onward) was always measured under a
+1.1 repetition penalty that systematically discounts EOS whenever it
+has already appeared in context -- which it always has, at least twice,
+given the chat template's own turn-closing tokens -- meaning the true
+rate of collapse under a repetition-penalty-free decode could be
+different, plausibly higher, than anything reported anywhere in
+technical_note.md to date. Not yet quantified how much this changes
+historical numbers. Sending all of this to the PI now rather than
+proceeding further, since it bears on whether the entire collapse
+literature built up this session needs a caveat or a partial rerun.
