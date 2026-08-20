@@ -607,6 +607,109 @@ def compute_p_eos_genuine(
     return float(probs[0, tokenizer.eos_token_id].item())
 
 
+# ============================================================================
+# Leading-token-drop ablation: the shadow's isolated forward pass has no
+# system prompt, no BOS, no chat-template tokens (confirmed: Qwen2.5's
+# tokenizer has no BOS token at all and plain tokenization adds zero
+# special tokens), so its own first token or two likely serves as an
+# improvised attention sink, with elevated K/V norms, purely as an
+# artifact of being processed alone. If that sink is what drives
+# termination once spliced in, removing it from what actually gets spliced
+# should reduce or kill the effect. This is the one causal manipulation
+# available short of pulling attention weights directly.
+#
+# The shadow's OWN forward pass is unchanged (still the full original
+# text, so whatever sink forms at its true start still forms exactly as
+# before) -- only the SPLICE is altered, to start `drop_leading_tokens`
+# positions later than usual while ending at the exact same held-back
+# token, so the splice gets shorter from the front rather than the cut
+# point moving.
+# ============================================================================
+
+
+def compute_p_eos_spliced_with_drop(
+    model: PreTrainedModel,
+    tokenizer: PreTrainedTokenizerBase,
+    config: RunConfig,
+    device: str,
+    drop_leading_tokens: int,
+) -> float:
+    if config.append_config is None:
+        raise ValueError("append_config is required")
+    if config.shadow_boundary is None:
+        raise ValueError("shadow_boundary is required")
+
+    prompt_ids = _build_chat_prompt_ids(
+        tokenizer, config.constraint, config.user_input, device
+    )
+    shadow_ids = _build_shadow_ids(tokenizer, config.shadow_prompt, device)
+    prompt_len = prompt_ids.shape[1]
+    shadow_len = shadow_ids.shape[1]
+
+    with torch.no_grad():
+        active_out = model(
+            input_ids=prompt_ids,
+            attention_mask=torch.ones_like(prompt_ids),
+            use_cache=True,
+        )
+        active_cache = active_out.past_key_values
+
+        shadow_position_ids = torch.arange(
+            prompt_len, prompt_len + shadow_len, device=device
+        ).unsqueeze(0)
+        shadow_out = model(
+            input_ids=shadow_ids,
+            attention_mask=torch.ones_like(shadow_ids),
+            position_ids=shadow_position_ids,
+            use_cache=True,
+        )
+        shadow_cache = shadow_out.past_key_values
+
+    num_append = compute_num_append_for_config(tokenizer, config, shadow_len)
+    if drop_leading_tokens >= num_append:
+        raise ValueError(
+            f"drop_leading_tokens={drop_leading_tokens} must be less than num_append={num_append}"
+        )
+
+    # Splice shadow positions [drop_leading_tokens, num_append - 1), holding
+    # back the token at num_append - 1 exactly as in the undropped case.
+    num_spliced = (num_append - 1) - drop_leading_tokens
+    num_layers = len(active_cache.layers)
+    for layer_idx in range(num_layers):
+        active_layer = active_cache.layers[layer_idx]
+        shadow_layer = shadow_cache.layers[layer_idx]
+        with torch.no_grad():
+            active_layer.keys = torch.cat(
+                [
+                    active_layer.keys,
+                    shadow_layer.keys[:, :, drop_leading_tokens : num_append - 1, :],
+                ],
+                dim=2,
+            )
+            active_layer.values = torch.cat(
+                [
+                    active_layer.values,
+                    shadow_layer.values[:, :, drop_leading_tokens : num_append - 1, :],
+                ],
+                dim=2,
+            )
+
+    held_back_token = shadow_ids[:, num_append - 1 : num_append]
+    seq_len_before = prompt_len + num_spliced
+    attn_mask = torch.ones((1, seq_len_before + 1), device=device, dtype=torch.long)
+
+    with torch.no_grad():
+        out = model(
+            input_ids=held_back_token,
+            attention_mask=attn_mask,
+            past_key_values=active_cache,
+            use_cache=False,
+        )
+    logits = out.logits[:, -1, :]
+    probs = torch.softmax(logits.float(), dim=-1)
+    return float(probs[0, tokenizer.eos_token_id].item())
+
+
 def run(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizerBase,
@@ -1962,6 +2065,136 @@ def run_peos_sweep(model_name: str, results_path: Path) -> None:
     print(f"\nwrote {results_path}")
 
 
+ABLATION_RESULTS_PATH = (
+    Path(__file__).parent / "results" / "experiment_k_leading_token_drop.json"
+)
+
+ABLATION_CELLS = [
+    ("medical", "neutral", "neutral_shadow_prompt"),
+    ("weapons", "real", "shadow_prompt"),
+    ("drugs", "neutral", "neutral_shadow_prompt"),
+    ("profanity", "neutral", "neutral_shadow_prompt"),
+]
+ABLATION_DROP_LEVELS = (0, 1, 2, 4)
+
+
+def run_leading_token_drop_ablation(model_name: str, results_path: Path) -> None:
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    dtype = torch.float16 if device == "mps" else torch.float32
+    print(f"loading {model_name} on device={device} dtype={dtype}")
+    model, tokenizer = load_model(model_name, device, dtype)
+
+    all_results: list[dict[str, Any]] = []
+
+    for topic_id, content_source, shadow_field in ABLATION_CELLS:
+        topic = load_topic(topic_id)
+        config = RunConfig(
+            condition=Condition.CACHE_INJECTION,
+            constraint=topic["constraint"],
+            user_input=topic["input"],
+            shadow_prompt=topic[shadow_field],
+            max_new_tokens=1,
+            seed=0,
+            do_sample=False,
+            temperature=0.0,
+            append_config=AppendConfig(append_percent=0.75, layers_affect_percent=1.0),
+            shadow_boundary=ShadowBoundary.CLEAN,
+        )
+        print(f"\n=== {topic_id}/{content_source} ===")
+        for drop in ABLATION_DROP_LEVELS:
+            p_eos = compute_p_eos_spliced_with_drop(model, tokenizer, config, device, drop)
+            print(f"  drop={drop}: P(EOS)={p_eos:.4f}")
+            all_results.append(
+                {
+                    "topic_id": topic_id,
+                    "content_source": content_source,
+                    "drop_leading_tokens": drop,
+                    "p_eos_spliced": p_eos,
+                }
+            )
+            gc.collect()
+            if device == "mps":
+                torch.mps.empty_cache()
+
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    with results_path.open("w") as f:
+        json.dump(all_results, f, indent=2)
+    print(f"\nwrote {results_path}")
+
+
+# ============================================================================
+# Cross-pairing matrix: every shadow text (5 real + 5 neutral = 10 rows)
+# spliced onto every topic's real prompt (5 columns), clean75, P(EOS)
+# spliced only. 50 cheap forward passes. Separates three hypotheses for
+# what drives the cell-specific heterogeneity in the P(EOS) sweep above:
+# shadow-text-intrinsic (variance loads on rows -- a given shadow text is
+# equally collapse-prone regardless of which real prompt it lands on),
+# real-prompt-intrinsic (loads on columns), or interaction (neither --
+# specific pairings matter, not either ingredient alone). Two things in
+# hand already argue against both pure forms: pottery vs ocean-currents
+# are both varied non-repetitive prose with opposite collapse behavior
+# (kills pure shadow-intrinsic), and medical's real vs neutral content on
+# the SAME real prompt collapse at opposite rates (kills pure
+# prompt-intrinsic).
+# ============================================================================
+
+CROSS_PAIRING_RESULTS_PATH = (
+    Path(__file__).parent / "results" / "experiment_j_cross_pairing.json"
+)
+
+
+def run_cross_pairing_matrix(model_name: str, results_path: Path) -> None:
+    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    dtype = torch.float16 if device == "mps" else torch.float32
+    print(f"loading {model_name} on device={device} dtype={dtype}")
+    model, tokenizer = load_model(model_name, device, dtype)
+
+    all_topics = {t: load_topic(t) for t in PEOS_SWEEP_TOPICS}
+
+    shadow_rows: list[tuple[str, str]] = []
+    for topic_id in PEOS_SWEEP_TOPICS:
+        shadow_rows.append((f"{topic_id}_real", all_topics[topic_id]["shadow_prompt"]))
+    for topic_id in PEOS_SWEEP_TOPICS:
+        shadow_rows.append(
+            (f"{topic_id}_neutral", all_topics[topic_id]["neutral_shadow_prompt"])
+        )
+
+    all_results: list[dict[str, Any]] = []
+
+    for shadow_label, shadow_text in shadow_rows:
+        for prompt_topic_id in PEOS_SWEEP_TOPICS:
+            prompt_topic = all_topics[prompt_topic_id]
+            config = RunConfig(
+                condition=Condition.CACHE_INJECTION,
+                constraint=prompt_topic["constraint"],
+                user_input=prompt_topic["input"],
+                shadow_prompt=shadow_text,
+                max_new_tokens=1,
+                seed=0,
+                do_sample=False,
+                temperature=0.0,
+                append_config=AppendConfig(append_percent=0.75, layers_affect_percent=1.0),
+                shadow_boundary=ShadowBoundary.CLEAN,
+            )
+            p_eos = compute_p_eos_spliced(model, tokenizer, config, device)
+            print(f"  shadow={shadow_label:16} prompt={prompt_topic_id:10} P(EOS)={p_eos:.4f}")
+            all_results.append(
+                {
+                    "shadow_label": shadow_label,
+                    "prompt_topic_id": prompt_topic_id,
+                    "p_eos_spliced": p_eos,
+                }
+            )
+            gc.collect()
+            if device == "mps":
+                torch.mps.empty_cache()
+
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    with results_path.open("w") as f:
+        json.dump(all_results, f, indent=2)
+    print(f"\nwrote {results_path}")
+
+
 # ============================================================================
 # Rescoring: re-run results/experiment_a_results.json against the fixed
 # pattern regexes, without regenerating any model output. Each window's text
@@ -2370,6 +2603,14 @@ def main() -> None:
         "peos-sweep",
         help="P(EOS) at first step, spliced vs genuine, all 10 topic/content-source cells x ragged75/clean75, Qwen",
     )
+    subparsers.add_parser(
+        "cross-pairing-matrix",
+        help="every shadow text (5 real + 5 neutral) x every real prompt (5 topics), clean75, P(EOS) spliced, Qwen",
+    )
+    subparsers.add_parser(
+        "leading-token-drop-ablation",
+        help="drop the shadow block's leading 0/1/2/4 tokens from the splice, P(EOS) spliced, on 4 target cells",
+    )
     subparsers.add_parser("test", help="run cache-injector smoke tests (no model load)")
 
     args = parser.parse_args()
@@ -2422,6 +2663,10 @@ def main() -> None:
         run_genuine_prefill_check(QWEN_MODEL_NAME, GENUINE_PREFILL_RESULTS_PATH)
     elif args.command == "peos-sweep":
         run_peos_sweep(QWEN_MODEL_NAME, PEOS_SWEEP_RESULTS_PATH)
+    elif args.command == "cross-pairing-matrix":
+        run_cross_pairing_matrix(QWEN_MODEL_NAME, CROSS_PAIRING_RESULTS_PATH)
+    elif args.command == "leading-token-drop-ablation":
+        run_leading_token_drop_ablation(QWEN_MODEL_NAME, ABLATION_RESULTS_PATH)
     elif args.command == "test":
         run_smoke_tests()
 

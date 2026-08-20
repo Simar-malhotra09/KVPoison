@@ -1,0 +1,98 @@
+[
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "drop_leading_tokens": 0,
+    "p_eos_spliced": 0.7518293261528015
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "drop_leading_tokens": 1,
+    "p_eos_spliced": 0.8240704536437988
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "drop_leading_tokens": 2,
+    "p_eos_spliced": 0.7587702870368958
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "drop_leading_tokens": 4,
+    "p_eos_spliced": 0.8025796413421631
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "drop_leading_tokens": 0,
+    "p_eos_spliced": 0.7532573342323303
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "drop_leading_tokens": 1,
+    "p_eos_spliced": 0.775301456451416
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "drop_leading_tokens": 2,
+    "p_eos_spliced": 0.8119031190872192
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "drop_leading_tokens": 4,
+    "p_eos_spliced": 0.7660629153251648
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "drop_leading_tokens": 0,
+    "p_eos_spliced": 0.7639750242233276
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "drop_leading_tokens": 1,
+    "p_eos_spliced": 0.7967870235443115
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "drop_leading_tokens": 2,
+    "p_eos_spliced": 0.8354835510253906
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "drop_leading_tokens": 4,
+    "p_eos_spliced": 0.7147447466850281
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "drop_leading_tokens": 0,
+    "p_eos_spliced": 0.08389037847518921
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "drop_leading_tokens": 1,
+    "p_eos_spliced": 0.09095744043588638
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "drop_leading_tokens": 2,
+    "p_eos_spliced": 0.3482447862625122
+  },
+  {
+    "topic_id": "profanity",
+    "content_source": "neutral",
+    "drop_leading_tokens": 4,
+    "p_eos_spliced": 0.05486305058002472
+  }
+]

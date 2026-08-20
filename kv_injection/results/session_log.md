@@ -767,3 +767,39 @@ actual test.
 Proceeding to the leading-token-drop ablation on the three PI-specified
 cells (medical/neutral, weapons/real, drugs/neutral), drop levels 1/2/4,
 both conditions -- the one causal manipulation on the current list.
+
+**26. Leading-token-drop ablation, run and analyzed.** Added a fourth
+cell beyond the PI's three (profanity/neutral), since the log-odds
+reanalysis in step 25 had just surfaced it as the largest relative
+effect in the sweep and skipping it felt like leaving the most relevant
+cell out. Verified `compute_p_eos_spliced_with_drop` at drop=0 reproduces
+`compute_p_eos_spliced` exactly (0.751829 both ways) before trusting any
+of the drop>0 results. Ran drop levels 0/1/2/4 on all 4 cells, splice
+only (genuine has no isolated shadow forward pass to drop tokens from, so
+the manipulation doesn't apply there), clean75, Qwen, 16 forward passes.
+
+Clean, decisive NEGATIVE result for the attention-sink hypothesis.
+Dropping the shadow block's leading 1, 2, or 4 tokens from what actually
+gets spliced does not reduce P(EOS) in any cell -- 14 of 16 non-baseline
+data points are AT OR ABOVE the drop=0 baseline, not below it. Deltas
+from baseline: medical/neutral +0.072/+0.007/+0.051 (drop 1/2/4);
+weapons/real +0.022/+0.059/+0.013; drugs/neutral +0.033/+0.072/-0.049;
+profanity/neutral +0.007/+0.264/-0.029. The two negative deltas that do
+exist (drugs/neutral and profanity/neutral, both only at drop=4) are
+small (-0.049, -0.029) against a much larger positive spike at drop=2 in
+both of those same cells (+0.072, +0.264) -- noisy, not a trend, and
+certainly not the monotonic decrease the sink hypothesis predicts.
+
+This is the PI's own predicted falsification criterion, met: "if nothing
+changes, you've cheaply eliminated the most likely low-level confound in
+the design." Something did change, just not in the predicted direction --
+if the shadow's own artificially-induced attention sink (no BOS, no
+chat-template framing, confirmed in step 21) were driving termination,
+removing it from the splice should have reduced P(EOS), and it didn't in
+14 of 16 comparisons. The sink-duplication account is eliminated as the
+primary mechanism, at least at the 1-4 token scale the sink literature
+suggests matters. Sending this back to the PI along with the full deltas,
+since they specifically designed this test and it eliminates one of
+their two live hypotheses (sink hypothesis dead; cut-style/terminal-state
+account from step 22/24 stands as the leading explanation, unaffected by
+this result since it targets a different mechanism entirely).
