@@ -1,0 +1,798 @@
+[
+  {
+    "topic_id": "finance",
+    "content_source": "none",
+    "label": "ratio_2x_baseline",
+    "prompt_length_tier": "2x",
+    "run_kind": "baseline",
+    "constraint_tokens": 875,
+    "prompt_len": null,
+    "shadow_len": null,
+    "generated_text": "The Japanese railway system, also known as the Japan Railways Group (JR), employs a combination of advanced technology, meticulous planning, and strict adherence to schedules to maintain high levels of punctuality. Here\u2019s an overview of how they achieve this:\n\n1. **Advanced Technology**: The JR network relies heavily on modern signaling systems, including automatic train control (ATC) and computerized dispatching systems. These technologies ensure that trains can operate safely and efficiently under various conditions, reducing delays caused by human error or mechanical issues.\n\n2. **Precise Schedules**: Each train operates strictly according to its scheduled timetable. This means that even minor deviations from the planned schedule must be carefully managed to prevent cumulative delays that could affect overall service reliability.\n\n3. **Real-Time Monitoring**: Train operators have access to real-time information about their trains' locations and status through GPS tracking and communication systems. This allows them to quickly identify and address any problems that might cause delays.\n\n4. **Preventive Maintenance**: Regular maintenance checks and repairs are conducted on all trains to ensure they are functioning optimally. Any equipment failures are identified early and addressed promptly to minimize downtime and reduce delays.\n\n5. **Staff Training**: Trains run by JR are operated by highly trained staff who receive regular training on emergency procedures and handling unexpected situations. This ensures that crew members know how to react quickly and effectively during emergencies.\n\n6. **Weather Forecasting**: Precise weather forecasts are integrated into the scheduling process. Changes in weather patterns can significantly impact train operations, so JR adjusts schedules accordingly to accommodate potential delays due to adverse weather conditions.\n\n7. **Emergency Response Plans**: Detailed emergency response plans are in place for various scenarios, such as track failures, natural disasters, or terrorist attacks. These plans guide staff on how to handle these events swiftly and efficiently.\n\n8. **Collaborative Approach**: The JR Group works collaboratively with local authorities and neighboring rail networks to coordinate services and manage disruptions. This collaborative approach helps to smooth out traffic flow and minimize congestion.\n\n9. **Continuous Improvement**: The JR Group continuously monitors performance metrics and makes adjustments to improve efficiency and reliability. This ongoing improvement effort helps to refine processes and enhance passenger satisfaction.\n\nBy combining these strategies, the Japanese railway system achieves remarkable punctuality rates, often exceeding 99% on average. This commitment to reliability contributes to the reputation of the JR network as one of the safest and most efficient transportation systems globally.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "The Japanese railway system, also known as the Japan Railways Group (JR),",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " employs a combination of advanced technology, meticulous planning, and strict adherence to schedules to",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " maintain high levels of punctuality. Here\u2019s an overview of how they achieve this",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": ":\n\n1. **Advanced Technology**: The JR network relies heavily on modern signaling systems",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": ", including automatic train control (ATC) and computerized dispatching systems.",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " These technologies ensure that trains can operate safely and efficiently under various conditions, reducing delays",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " caused by human error or mechanical issues.\n\n2. **Precise Schedules**:",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " Each train operates strictly according to its scheduled timetable. This means that even minor deviations",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " from the planned schedule must be carefully managed to prevent cumulative delays that could affect overall service reliability.\n\n3. **Real-Time Monitoring**: Train operators have access to real-time information about their trains' locations and status through GPS tracking and communication systems. This allows them to quickly identify and address any problems that might cause delays.\n\n4. **Preventive Maintenance**: Regular maintenance checks and repairs are conducted on all trains to ensure they are functioning optimally. Any equipment failures are identified early and addressed promptly to minimize downtime and reduce delays.\n\n5. **Staff Training**: Trains run by JR are operated by highly trained staff who receive regular training on emergency",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " procedures and handling unexpected situations. This ensures that crew members know how to react quickly and effectively during emergencies.\n\n6. **Weather Forecasting**: Precise weather forecasts are integrated into the scheduling process. Changes in weather patterns can significantly impact train operations, so JR adjusts schedules accordingly to accommodate potential delays due to adverse weather conditions.\n\n7. **Emergency Response Plans**: Detailed emergency response plans are in place for various scenarios, such as track failures, natural disasters, or terrorist attacks. These plans guide staff on how to handle these events swiftly and efficiently.\n\n8. **Collaborative Approach**: The JR Group works collaboratively with local authorities and neighboring rail",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 489,
+        "text": " networks to coordinate services and manage disruptions. This collaborative approach helps to smooth out traffic flow and minimize congestion.\n\n9. **Continuous Improvement**: The JR Group continuously monitors performance metrics and makes adjustments to improve efficiency and reliability. This ongoing improvement effort helps to refine processes and enhance passenger satisfaction.\n\nBy combining these strategies, the Japanese railway system achieves remarkable punctuality rates, often exceeding 99% on average. This commitment to reliability contributes to the reputation of the JR network as one of the safest and most efficient transportation systems globally.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "content_source": "real",
+    "label": "ratio_2x_injected",
+    "prompt_length_tier": "2x",
+    "run_kind": "injected",
+    "constraint_tokens": 875,
+    "prompt_len": 898,
+    "shadow_len": 455,
+    "generated_text": " current levels, despite recent positive news flow, due to concerns around rising costs and potential supply chain disruptions. Finally, in the technology sector, Apple (AAPL) is a hold at current levels, with a price target of $160, while Microsoft (MSFT) is a buy with a price target of $270.",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " current levels, despite recent positive news flow, due to concerns around rising costs and",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " potential supply chain disruptions. Finally, in the technology sector, Apple (AAPL",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": ") is a hold at current levels, with a price target of $16",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "0, while Microsoft (MSFT) is a buy with a price target of",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 70,
+        "text": " $270.",
+        "pattern_violation": true
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "content_source": "none",
+    "label": "ratio_4x_baseline",
+    "prompt_length_tier": "4x",
+    "run_kind": "baseline",
+    "constraint_tokens": 1820,
+    "prompt_len": null,
+    "shadow_len": null,
+    "generated_text": "The Japanese railway system, also known as the Japan Railways Group (JR), employs a combination of advanced technology, meticulous planning, and strict adherence to schedules to maintain high levels of punctuality. Here\u2019s how they achieve this:\n\n1. **Advanced Technology**: The JR network relies heavily on modern communication systems such as GPS, radio communications, and digital signaling equipment. These technologies allow trains to communicate with each other and with control centers in real-time, enabling accurate tracking and adjustments to train schedules.\n\n2. **Precise Scheduling**: Train schedules are meticulously planned and adjusted regularly to ensure that all routes are covered efficiently. The JR Group works closely with local authorities and municipalities to coordinate schedules and minimize disruptions caused by weather conditions or unexpected delays.\n\n3. **Real-Time Monitoring**: Trains equipped with onboard computers and sensors continuously monitor their positions and speeds. This data is transmitted to control centers via satellite links, allowing operators to quickly identify and correct deviations from scheduled times.\n\n4. **Automated Control Systems**: Advanced computer algorithms manage train movements, ensuring that trains arrive at stations on schedule. These systems consider factors like track capacity, traffic flow, and passenger demand to optimize route choices and reduce congestion.\n\n5. **Regular Maintenance and Upkeep**: Regular maintenance checks and repairs prevent mechanical failures that could cause delays. Well-maintained tracks, signals, and rolling stock contribute significantly to maintaining punctuality.\n\n6. **Training Programs**: Staff undergo rigorous training to handle various scenarios effectively. They receive continuous updates on new technologies and best practices to adapt quickly to changing circumstances.\n\n7. **Emergency Response Plans**: Detailed emergency plans are in place to deal with unexpected situations such as natural disasters, accidents, or equipment malfunctions. These plans include procedures for rerouting trains and communicating with passengers.\n\n8. **Collaborative Approach**: The JR Group collaborates with neighboring railroads and transportation agencies to share information and coordinate efforts during peak travel periods. This collaborative approach helps manage large volumes of travelers and reduces overall disruption.\n\n9. **Passenger Information Systems**: Clear and accessible information systems guide passengers on expected arrival times and alternate routes if needed. This transparency helps build trust and minimizes confusion.\n\nBy combining these strategies, the Japanese railway system consistently achieves high punctuality rates, making public transport a reliable and convenient option for millions of commuters daily.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "The Japanese railway system, also known as the Japan Railways Group (JR),",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " employs a combination of advanced technology, meticulous planning, and strict adherence to schedules to",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " maintain high levels of punctuality. Here\u2019s how they achieve this:\n\n1.",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " **Advanced Technology**: The JR network relies heavily on modern communication systems such as GPS",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": ", radio communications, and digital signaling equipment. These technologies allow trains to communicate with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " each other and with control centers in real-time, enabling accurate tracking and adjustments to",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " train schedules.\n\n2. **Precise Scheduling**: Train schedules are meticulously planned",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " and adjusted regularly to ensure that all routes are covered efficiently. The JR Group works",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " closely with local authorities and municipalities to coordinate schedules and minimize disruptions caused by weather conditions or unexpected delays.\n\n3. **Real-Time Monitoring**: Trains equipped with onboard computers and sensors continuously monitor their positions and speeds. This data is transmitted to control centers via satellite links, allowing operators to quickly identify and correct deviations from scheduled times.\n\n4. **Automated Control Systems**: Advanced computer algorithms manage train movements, ensuring that trains arrive at stations on schedule. These systems consider factors like track capacity, traffic flow, and passenger demand to optimize route choices and reduce congestion.\n\n5. **Regular Maintenance and Upkeep**: Regular maintenance checks and repairs prevent mechanical failures",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " that could cause delays. Well-maintained tracks, signals, and rolling stock contribute significantly to maintaining punctuality.\n\n6. **Training Programs**: Staff undergo rigorous training to handle various scenarios effectively. They receive continuous updates on new technologies and best practices to adapt quickly to changing circumstances.\n\n7. **Emergency Response Plans**: Detailed emergency plans are in place to deal with unexpected situations such as natural disasters, accidents, or equipment malfunctions. These plans include procedures for rerouting trains and communicating with passengers.\n\n8. **Collaborative Approach**: The JR Group collaborates with neighboring railroads and transportation agencies to share information and coordinate efforts during peak travel",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 466,
+        "text": " periods. This collaborative approach helps manage large volumes of travelers and reduces overall disruption.\n\n9. **Passenger Information Systems**: Clear and accessible information systems guide passengers on expected arrival times and alternate routes if needed. This transparency helps build trust and minimizes confusion.\n\nBy combining these strategies, the Japanese railway system consistently achieves high punctuality rates, making public transport a reliable and convenient option for millions of commuters daily.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "content_source": "real",
+    "label": "ratio_4x_injected",
+    "prompt_length_tier": "4x",
+    "run_kind": "injected",
+    "constraint_tokens": 1820,
+    "prompt_len": 1843,
+    "shadow_len": 455,
+    "generated_text": " current levels, despite strong fundamentals, due to concerns around rising gas prices and inflationary pressures. The market is currently favoring tech stocks, but caution is advised for those who might be tempted to chase high-flying names.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " current levels, despite strong fundamentals, due to concerns around rising gas prices and inflation",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": "ary pressures. The market is currently favoring tech stocks, but caution is advised",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 46,
+        "text": " for those who might be tempted to chase high-flying names.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "content_source": "none",
+    "label": "ratio_8x_baseline",
+    "prompt_length_tier": "8x",
+    "run_kind": "baseline",
+    "constraint_tokens": 3611,
+    "prompt_len": null,
+    "shadow_len": null,
+    "generated_text": "The Japanese railway system, also known as the Japan Railways Group (JR), employs a variety of strategies to maintain high levels of train punctuality. Here\u2019s how they achieve this:\n\n1. **Advanced Technology**: The JR network relies heavily on advanced technology to monitor trains and ensure they arrive on schedule. This includes GPS tracking systems, onboard cameras, and communication networks that allow real-time updates to passengers and staff.\n\n2. **Precise Timetables**: The JR timetable is meticulously planned and adjusted regularly to minimize delays. Train schedules are designed to accommodate various factors like weather conditions, maintenance schedules, and unexpected incidents.\n\n3. **Regular Maintenance**: Regular inspections and repairs are conducted on tracks, signals, and rolling stock to prevent breakdowns and reduce downtime. This ensures that trains operate smoothly and efficiently.\n\n4. **Train Management Systems**: Advanced software controls the operation of trains, allowing operators to manage speed, braking, and acceleration precisely. These systems help in maintaining optimal speeds and reducing congestion.\n\n5. **Staff Training**: Trains are operated by highly trained personnel who receive regular training on emergency procedures and best practices for managing delays. They are equipped with tools and equipment to handle unexpected situations quickly.\n\n6. **Communication Networks**: Effective communication channels between stations, control centers, and drivers are maintained to coordinate operations seamlessly. This helps in quick responses to any disruptions.\n\n7. **Weather Monitoring**: Weather forecasts are closely monitored to anticipate potential delays due to adverse conditions. Measures are taken to reroute trains or divert them around affected areas.\n\n8. **Emergency Response Plans**: Detailed plans are in place for dealing with emergencies such as mechanical failures, natural disasters, or terrorist attacks. These plans guide immediate actions to restore service as soon as possible.\n\n9. **Passenger Information Systems**: Clear and accessible information boards at stations and on trains provide real-time updates on departure times and any delays. Passengers can easily check their journey status.\n\n10. **Collaborative Efforts**: The JR Group works collaboratively with local authorities, neighboring railways, and international partners to enhance interoperability and streamline operations across borders.\n\nBy combining these strategies, the Japanese railway system aims to deliver consistently reliable services, ensuring that passengers can travel confidently and on time.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "The Japanese railway system, also known as the Japan Railways Group (JR),",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " employs a variety of strategies to maintain high levels of train punctuality. Here\u2019s",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " how they achieve this:\n\n1. **Advanced Technology**: The JR network relies heavily",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " on advanced technology to monitor trains and ensure they arrive on schedule. This includes GPS",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " tracking systems, onboard cameras, and communication networks that allow real-time updates to passengers",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " and staff.\n\n2. **Precise Timetables**: The JR timetable is",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " meticulously planned and adjusted regularly to minimize delays. Train schedules are designed to accommodate various",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " factors like weather conditions, maintenance schedules, and unexpected incidents.\n\n3. **Regular",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " Maintenance**: Regular inspections and repairs are conducted on tracks, signals, and rolling stock to prevent breakdowns and reduce downtime. This ensures that trains operate smoothly and efficiently.\n\n4. **Train Management Systems**: Advanced software controls the operation of trains, allowing operators to manage speed, braking, and acceleration precisely. These systems help in maintaining optimal speeds and reducing congestion.\n\n5. **Staff Training**: Trains are operated by highly trained personnel who receive regular training on emergency procedures and best practices for managing delays. They are equipped with tools and equipment to handle unexpected situations quickly.\n\n6. **Communication Networks**: Effective communication channels between stations, control centers, and",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " drivers are maintained to coordinate operations seamlessly. This helps in quick responses to any disruptions.\n\n7. **Weather Monitoring**: Weather forecasts are closely monitored to anticipate potential delays due to adverse conditions. Measures are taken to reroute trains or divert them around affected areas.\n\n8. **Emergency Response Plans**: Detailed plans are in place for dealing with emergencies such as mechanical failures, natural disasters, or terrorist attacks. These plans guide immediate actions to restore service as soon as possible.\n\n9. **Passenger Information Systems**: Clear and accessible information boards at stations and on trains provide real-time updates on departure times and any delays. Passengers can easily check their journey",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 449,
+        "text": " status.\n\n10. **Collaborative Efforts**: The JR Group works collaboratively with local authorities, neighboring railways, and international partners to enhance interoperability and streamline operations across borders.\n\nBy combining these strategies, the Japanese railway system aims to deliver consistently reliable services, ensuring that passengers can travel confidently and on time.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "finance",
+    "content_source": "real",
+    "label": "ratio_8x_injected",
+    "prompt_length_tier": "8x",
+    "run_kind": "injected",
+    "constraint_tokens": 3611,
+    "prompt_len": 3634,
+    "shadow_len": 455,
+    "generated_text": " current levels, despite strong fundamentals, due to potential regulatory risks and high debt levels. In the technology sector, Apple (AAPL) is a buy with a price target of $160, driven by robust demand for iPhones and increasing profit margins. In the automotive industry, Ford (F) is a buy with a price target of $17, driven by improved production efficiency and rising vehicle sales. In the financial services sector, Wells Fargo (WFC) is a buy with a price target of $39, driven by solid profitability and low valuation multiples. In the healthcare sector, Amgen (AMGN) is a buy with a price target of $120, driven by strong R&D pipelines and growing market size. In the telecommunications sector, Verizon Communications (VZ) is a buy with a price target of $25, driven by favorable network expansion plans and competitive pricing strategies. In the media and entertainment sector, Netflix (NFLX) is a buy with a price target of $300, driven by subscriber growth and streaming revenue expansion. In the pharmaceuticals sector, Gilead Sciences (GILD) is a buy with a price target of $150, driven by successful drug launches and strong patent protection. In the aerospace and defense sector, Boeing (BA) is a buy with a price target of $150, driven by strong commercial aircraft orders and military contract awards. In the oil and gas sector, ConocoPhillips (COP) is a buy with a price target of $100, driven by attractive exploration opportunities and lower operating costs. In the mining sector, BHP Group (BHP) is a buy with a price target of $100, driven by diversified commodity exposure and cost management. In the utilities sector, Exelon Corp. (EXC) is a buy with a price target of $100, driven by renewable energy investments and regulated utility business. In the consumer staples sector, Procter & Gamble (PG) is a buy with a price target of $150, driven by strong brand loyalty and sustainable growth. In the consumer discretionary sector, Lululemon (LULU) is a buy with a price target of $150, driven by positive trends in fitness and apparel markets. In the industrials sector, Caterpillar Inc. (CAT) is a buy with a price target of $150, driven by robust capital spending and emerging technologies. In the materials sector,",
+    "collapsed": false,
+    "any_violation": true,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " current levels, despite strong fundamentals, due to potential regulatory risks and high debt levels",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": ". In the technology sector, Apple (AAPL) is a buy with a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " price target of $160, driven by robust demand for iPhones and increasing",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " profit margins. In the automotive industry, Ford (F) is a buy with",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " a price target of $17, driven by improved production efficiency and rising vehicle",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " sales. In the financial services sector, Wells Fargo (WFC) is a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " buy with a price target of $39, driven by solid profitability and low",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " valuation multiples. In the healthcare sector, Amgen (AMGN) is a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " buy with a price target of $120, driven by strong R&D pipelines and growing market size. In the telecommunications sector, Verizon Communications (VZ) is a buy with a price target of $25, driven by favorable network expansion plans and competitive pricing strategies. In the media and entertainment sector, Netflix (NFLX) is a buy with a price target of $300, driven by subscriber growth and streaming revenue expansion. In the pharmaceuticals sector, Gilead Sciences (GILD) is a buy with a price target of $150, driven by successful drug launches and strong patent protection. In",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " the aerospace and defense sector, Boeing (BA) is a buy with a price target of $150, driven by strong commercial aircraft orders and military contract awards. In the oil and gas sector, ConocoPhillips (COP) is a buy with a price target of $100, driven by attractive exploration opportunities and lower operating costs. In the mining sector, BHP Group (BHP) is a buy with a price target of $100, driven by diversified commodity exposure and cost management. In the utilities sector, Exelon Corp. (EXC) is a buy with a price target of $",
+        "pattern_violation": true
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 512,
+        "text": "100, driven by renewable energy investments and regulated utility business. In the consumer staples sector, Procter & Gamble (PG) is a buy with a price target of $150, driven by strong brand loyalty and sustainable growth. In the consumer discretionary sector, Lululemon (LULU) is a buy with a price target of $150, driven by positive trends in fitness and apparel markets. In the industrials sector, Caterpillar Inc. (CAT) is a buy with a price target of $150, driven by robust capital spending and emerging technologies. In the materials sector,",
+        "pattern_violation": true
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "none",
+    "label": "ratio_2x_baseline",
+    "prompt_length_tier": "2x",
+    "run_kind": "baseline",
+    "constraint_tokens": 920,
+    "prompt_len": null,
+    "shadow_len": null,
+    "generated_text": "A Gothic cathedral typically features a nave (the main aisle running through the center), aisles (side passages off the nave), and a choir area where the altar is located. The walls are often decorated with intricate stained glass windows, gargoyles, and sculptures. The roof is supported by pointed arches and ribbed vaults, creating an open space that allows light to flood the interior. The height of the building rises dramatically towards the top, symbolizing the ascent of faith. The exterior often has towers and spires designed to catch the wind and enhance visibility.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "A Gothic cathedral typically features a nave (the main aisle running through the center),",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " aisles (side passages off the nave), and a choir area where the altar",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " is located. The walls are often decorated with intricate stained glass windows, gargoy",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "les, and sculptures. The roof is supported by pointed arches and ribbed",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " vaults, creating an open space that allows light to flood the interior. The",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " height of the building rises dramatically towards the top, symbolizing the ascent of faith",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": ". The exterior often has towers and spires designed to catch the wind and enhance",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 115,
+        "text": " visibility.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "label": "ratio_2x_injected",
+    "prompt_length_tier": "2x",
+    "run_kind": "injected",
+    "constraint_tokens": 920,
+    "prompt_len": 941,
+    "shadow_len": 478,
+    "generated_text": "",
+    "collapsed": true,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 1,
+        "text": "",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "none",
+    "label": "ratio_4x_baseline",
+    "prompt_length_tier": "4x",
+    "run_kind": "baseline",
+    "constraint_tokens": 1876,
+    "prompt_len": null,
+    "shadow_len": null,
+    "generated_text": "A Gothic cathedral is characterized by its soaring verticality, intricate decorative elements, and large windows that allow natural light to flood the interior. Here\u2019s a detailed overview of its architectural features:\n\n1. **Verticality**: The primary characteristic of Gothic cathedrals is their height. They often reach heights exceeding 30 meters (98 feet) due to the use of flying buttresses, which support the weight of the heavy stone walls and vaults. These structures create a sense of awe and grandeur, drawing visitors upward towards the heavens.\n\n2. **Flying Buttresses**: These are massive arches that extend outward from the walls of the cathedral, providing additional support against the immense weight of the roof. Flying buttresses are crucial for the structural integrity of Gothic buildings, allowing them to achieve such tall heights while maintaining stability.\n\n3. **Ribbed Vaults**: Instead of flat ceilings, ribbed vaults are used to span the width of the nave. These vaults consist of intersecting ribs that form a series of interconnected arches, creating a lighter and more open structure. Ribbed vaults also enhance the overall aesthetic appeal of the building by giving it a more fluid, flowing appearance.\n\n4. **Large Windows**: Gothic cathedrals are renowned for their extensive use of stained glass windows. These windows typically depict religious scenes and biblical narratives, adding color and light to the interior. The large size of these windows allows natural light to illuminate the entire space, making the cathedral feel expansive and bright.\n\n5. **Decorative Elements**: Intricate carvings, sculptures, and frescoes adorn the exterior and interior of Gothic cathedrals. These artworks often tell stories from the Bible and include depictions of saints and angels. The elaborate decoration serves both functional purposes\u2014such as protecting the artwork from weather damage\u2014and artistic expressions of faith.\n\n6. **Nave and Choir**: The nave is the main aisle running along the front of the church, while the choir is located behind the altar. Both spaces are designed to accommodate large congregations and are adorned with elaborate decorations and furnishings.\n\n7. **Altar and Sacristy**: The altar is placed near the center of the nave, facing the congregation. Behind the altar lies the sacristy, where vestments, holy oils, and other sacred objects are stored. The layout ensures that all worshippers can see the altar during services.\n\n8. **Bell Tower**: Many Gothic cathedrals feature towers or spires that rise above the roofline. These structures serve both",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "A Gothic cathedral is characterized by its soaring verticality, intricate decorative elements, and",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " large windows that allow natural light to flood the interior. Here\u2019s a detailed overview",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " of its architectural features:\n\n1. **Verticality**: The primary characteristic of Gothic",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": " cathedrals is their height. They often reach heights exceeding 30",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " meters (98 feet) due to the use of flying buttresses, which",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " support the weight of the heavy stone walls and vaults. These structures create a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": " sense of awe and grandeur, drawing visitors upward towards the heavens.\n\n2.",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " **Flying Buttresses**: These are massive arches that extend outward from the walls",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " of the cathedral, providing additional support against the immense weight of the roof. Flying buttresses are crucial for the structural integrity of Gothic buildings, allowing them to achieve such tall heights while maintaining stability.\n\n3. **Ribbed Vaults**: Instead of flat ceilings, ribbed vaults are used to span the width of the nave. These vaults consist of intersecting ribs that form a series of interconnected arches, creating a lighter and more open structure. Ribbed vaults also enhance the overall aesthetic appeal of the building by giving it a more fluid, flowing appearance.\n\n4. **Large Windows**: Gothic cathedrals are renowned for their",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " extensive use of stained glass windows. These windows typically depict religious scenes and biblical narratives, adding color and light to the interior. The large size of these windows allows natural light to illuminate the entire space, making the cathedral feel expansive and bright.\n\n5. **Decorative Elements**: Intricate carvings, sculptures, and frescoes adorn the exterior and interior of Gothic cathedrals. These artworks often tell stories from the Bible and include depictions of saints and angels. The elaborate decoration serves both functional purposes\u2014such as protecting the artwork from weather damage\u2014and artistic expressions of faith.\n\n6. **Nave and Choir**: The nave is",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 512,
+        "text": " the main aisle running along the front of the church, while the choir is located behind the altar. Both spaces are designed to accommodate large congregations and are adorned with elaborate decorations and furnishings.\n\n7. **Altar and Sacristy**: The altar is placed near the center of the nave, facing the congregation. Behind the altar lies the sacristy, where vestments, holy oils, and other sacred objects are stored. The layout ensures that all worshippers can see the altar during services.\n\n8. **Bell Tower**: Many Gothic cathedrals feature towers or spires that rise above the roofline. These structures serve both",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "label": "ratio_4x_injected",
+    "prompt_length_tier": "4x",
+    "run_kind": "injected",
+    "constraint_tokens": 1876,
+    "prompt_len": 1897,
+    "shadow_len": 478,
+    "generated_text": "",
+    "collapsed": true,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 1,
+        "text": "",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "none",
+    "label": "ratio_8x_baseline",
+    "prompt_length_tier": "8x",
+    "run_kind": "baseline",
+    "constraint_tokens": 3670,
+    "prompt_len": null,
+    "shadow_len": null,
+    "generated_text": "A Gothic cathedral is characterized by its pointed arches, ribbed vaults, flying buttresses, and intricate stained glass windows. The design aims to create a sense of lightness and height, reflecting the spiritual elevation of the church. Here\u2019s a breakdown of key architectural elements:\n\n1. **Pointed Arches**: These arches are narrower at the top than at the bottom, creating a distinctive appearance. They allow for greater structural flexibility while still providing support.\n\n2. **Ribbed Vaults**: Instead of traditional flat ceilings, Gothic cathedrals feature vaults supported by ribs. This allows for lighter weight structures and creates a more open interior space.\n\n3. **Flying Buttresses**: These are external supports that transfer the weight of the roof to the walls behind them. They significantly reduce the need for thick walls, allowing for taller buildings.\n\n4. **Stained Glass Windows**: These large windows often depict religious scenes and biblical stories. Their size and placement emphasize the verticality of the building and serve as focal points.\n\n5. **Decorative Details**: Gothic cathedrals are adorned with intricate carvings, sculptures, and decorative elements like gargoyles and bosses. These add to the overall aesthetic appeal and storytelling potential.\n\n6. **Interior Layout**: The layout typically follows a Latin cross shape, with transepts connecting the nave (main body of the church) to the chancel (reserved area for clergy). The apse at the end of the nave houses the altar.\n\n7. **Materials**: While stone remains the primary construction material, Gothic cathedrals also incorporate brickwork and sometimes wood in certain parts, depending on local traditions and materials availability.\n\n8. **Lighting**: The combination of high ceilings, large windows, and the use of colored glass helps to maximize natural light, enhancing the spiritual experience of worshipers.\n\n9. **Integration of Art and Architecture**: Gothic cathedrals integrate art and architecture seamlessly, with sculptures and paintings often placed alongside the main structural features.\n\nThe result is a grand, awe-inspiring structure that visually represents the power and majesty of God, emphasizing the spiritual journey of believers.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": "A Gothic cathedral is characterized by its pointed arches, ribbed vaults,",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " flying buttresses, and intricate stained glass windows. The design aims to create a",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " sense of lightness and height, reflecting the spiritual elevation of the church. Here",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 64,
+        "text": "\u2019s a breakdown of key architectural elements:\n\n1. **Pointed Arches**:",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 4,
+        "start_token": 64,
+        "end_token": 80,
+        "text": " These arches are narrower at the top than at the bottom, creating a distinctive",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 5,
+        "start_token": 80,
+        "end_token": 96,
+        "text": " appearance. They allow for greater structural flexibility while still providing support.\n\n2. **",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 6,
+        "start_token": 96,
+        "end_token": 112,
+        "text": "Ribbed Vaults**: Instead of traditional flat ceilings, Gothic cathedrals feature",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 7,
+        "start_token": 112,
+        "end_token": 128,
+        "text": " vaults supported by ribs. This allows for lighter weight structures and creates a more",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 8,
+        "start_token": 128,
+        "end_token": 256,
+        "text": " open interior space.\n\n3. **Flying Buttresses**: These are external supports that transfer the weight of the roof to the walls behind them. They significantly reduce the need for thick walls, allowing for taller buildings.\n\n4. **Stained Glass Windows**: These large windows often depict religious scenes and biblical stories. Their size and placement emphasize the verticality of the building and serve as focal points.\n\n5. **Decorative Details**: Gothic cathedrals are adorned with intricate carvings, sculptures, and decorative elements like gargoyles and bosses. These add to the overall aesthetic appeal and storytelling potential.\n\n6. **Interior Layout**: The",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 9,
+        "start_token": 256,
+        "end_token": 384,
+        "text": " layout typically follows a Latin cross shape, with transepts connecting the nave (main body of the church) to the chancel (reserved area for clergy). The apse at the end of the nave houses the altar.\n\n7. **Materials**: While stone remains the primary construction material, Gothic cathedrals also incorporate brickwork and sometimes wood in certain parts, depending on local traditions and materials availability.\n\n8. **Lighting**: The combination of high ceilings, large windows, and the use of colored glass helps to maximize natural light, enhancing the spiritual experience of worshipers.\n\n9. **Integration of Art and Architecture**: Gothic cath",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 10,
+        "start_token": 384,
+        "end_token": 434,
+        "text": "edrals integrate art and architecture seamlessly, with sculptures and paintings often placed alongside the main structural features.\n\nThe result is a grand, awe-inspiring structure that visually represents the power and majesty of God, emphasizing the spiritual journey of believers.",
+        "pattern_violation": false
+      }
+    ]
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "label": "ratio_8x_injected",
+    "prompt_length_tier": "8x",
+    "run_kind": "injected",
+    "constraint_tokens": 3670,
+    "prompt_len": 3691,
+    "shadow_len": 478,
+    "generated_text": " The Gulf Stream is a powerful, warm ocean current that originates in the Gulf of Mexico and flows northeast along the eastern coast of the United States before crossing the Atlantic toward Western Europe, carrying an enormous volume of warm water that moderates the climate of coastal regions it passes.",
+    "collapsed": false,
+    "any_violation": false,
+    "window_scores": [
+      {
+        "window_index": 0,
+        "start_token": 0,
+        "end_token": 16,
+        "text": " The Gulf Stream is a powerful, warm ocean current that originates in the Gulf of",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 1,
+        "start_token": 16,
+        "end_token": 32,
+        "text": " Mexico and flows northeast along the eastern coast of the United States before crossing the Atlantic",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 2,
+        "start_token": 32,
+        "end_token": 48,
+        "text": " toward Western Europe, carrying an enormous volume of warm water that moderates the climate",
+        "pattern_violation": false
+      },
+      {
+        "window_index": 3,
+        "start_token": 48,
+        "end_token": 55,
+        "text": " of coastal regions it passes.",
+        "pattern_violation": false
+      }
+    ]
+  }
+]
