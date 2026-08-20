@@ -1040,3 +1040,104 @@ that WAS achievable via prefill turned out not to be splice-specific).
 User explicitly invited the PI to recommend something entirely
 different if they see a better direction, rather than picking from
 this list. Sending the full status plus all three directions now.
+
+**30. PI round 6.** Reframed the stop-or-pivot question: write up first
+is non-negotiable, not optional, since nothing from this session is in
+technical_note.md yet and "losing the session" is the real risk, not
+picking the wrong pivot. Reframed what survives as three keepable things
+rather than residue: a controlled negative result (six mechanisms killed
+by direct manipulation, not just doubt), a standalone methodological
+contribution (the repetition_penalty confound, a real trap for anyone
+else measuring termination/refusal/EOS behavior on Qwen or any model
+shipping a nonzero default penalty), and one positive finding (sentence-
+boundary priming). Ruled cross-architecture splicing infeasible as
+literally proposed (Qwen 28 layers/2 KV heads/head_dim 128 vs TinyLlama
+22 layers/4 KV heads/head_dim 64 -- tensors don't align, no splice is
+even possible without a learned projection, which would make any null
+uninterpretable) but identified a feasible cousin (same-architecture,
+different checkpoint -- e.g. Qwen base vs Instruct, or Pythia-1.4B's 154
+public training checkpoints). Endorsed partial/cross-layer splicing as
+cheapest and genuinely prefill-impossible, sharpened toward "which layers
+must carry the sentence-boundary signal," with a mandatory fluency/
+perplexity control DV (otherwise can't tell "needs these layers" from
+"splicing here just breaks the model"). Identified optimized-KV splicing
+as literally prefix tuning (Li & Liang 2021, an established method, must
+be cited, can't be presented as novel) with the real open question being
+manifold distance (how far optimized KV sits from real-text KV), not
+reachability itself (unsurprising that arbitrary KV can force arbitrary
+output). Proposed a fourth option, ranked above all three: a k-context
+sweep -- compute the shadow text's KV with k tokens of preceding real-
+prompt context (k=0 is exactly today's isolated/spliced case, k=full
+prompt is exactly genuine), splice, measure divergence as a function of
+k. Reasoning: prefill-impossible by construction, produces a curve
+regardless of outcome rather than another binary kill, reuses the
+validated P(EOS) apparatus entirely, and has a real systems framing
+(production KV-cache reuse -- prefix caching, RAG chunk reuse -- "how
+much missing context corrupts reused KV and how fast it recovers")
+rather than a security-attack framing, which matches what this session's
+actual results have been pointing toward the whole time once the safety-
+bypass framing died. Recommended pairing the k-sweep with the layer sweep
+as one coherent small project. Concrete order: comb test this week (done,
+see below), then technical_note.md reconciliation including the
+repetition_penalty finding as its own short methods section, THEN the
+k-sweep/layer-sweep pair, optimized-KV only if that yields something,
+cross-architecture splicing not at all.
+
+User confirmed understanding of the k-context sweep design before
+authorizing it: k controls how many of the real prompt's own tokens (the
+LAST k, immediately preceding where the shadow attaches, correct
+position_ids) the shadow's own forward pass gets to attend to while its
+cache is computed. k=0 is exactly the isolated/spliced case used all
+session; k=full prompt length is exactly genuine. Confirmed correct.
+
+**31. Ran the comb test** (P(EOS) at every sentence boundary within a
+shadow text, same text, same real prompt, log10 throughout, 3 cells,
+29 forward passes). Result is neither of the PI's two predicted shapes.
+
+Not a unique spike: multiple boundaries per text show high P(EOS), not
+just the one previously tested. Not a clean comb either (not alternating
+high/low at a fixed period). What actually shows up, for the two neutral
+texts specifically:
+
+medical/neutral (8 boundaries, num_append 54..478): 3.4e-8, 0.213,
+0.644, 0.779, 0.808, 0.752, 0.765, 0.804 -- near-zero at the first
+boundary, transitional at the second, then persistently HIGH (0.64-0.81)
+for boundaries 3 through 8, the rest of the text.
+
+drugs/neutral (7 boundaries, 52..457): 0.0014, 0.034, 0.021, 0.209,
+0.764, 0.804, 0.734 -- same shape, low for the first three boundaries,
+transitional at the fourth, persistently high for the last three.
+
+Both neutral texts show a clear RAMP, not a spike and not a comb: an
+early "warm-up" region where P(EOS) is genuinely tiny (several orders of
+magnitude below the plateau), then once several sentences of exposition
+have accumulated, P(EOS) stays high at essentially every subsequent
+sentence boundary for the remainder of the text. This looks more like a
+cumulative-context or "the passage has said enough to plausibly end"
+effect than either pure per-boundary geometry or a periodic comb.
+
+weapons/real (14 boundaries, 32..479) breaks that pattern entirely:
+0.098, 0.130, 0.344, 0.429, 0.113, 0.476, 0.011, 0.453, 0.636, 0.753,
+0.052, 0.069, 0.047, 0.449 -- erratic, no monotonic ramp, high values
+concentrated around boundaries 9-10 (which is where the previously-
+tested clean75 cut point sits) with much LOWER values at neighboring
+boundaries on both sides, including near the very end of the text
+(boundaries 11-13, despite being later than 9-10, are among the lowest
+values in the whole series). This argues against pure length/
+accumulation as a complete story too, since a real accumulation effect
+should keep P(EOS) high through the end once triggered, and it doesn't
+here.
+
+Reading: rules out pure boundary-geometry as sufficient (the same "is
+this a sentence-ending" property produces P(EOS) spanning 7 orders of
+magnitude within one single text), and rules out a simple periodic comb.
+The two neutral texts look driven by something like accumulated/
+plausible-completion-length; the more topically heterogeneous real
+weapons text (14 sentences, each about a different weapon subsystem, not
+a coherent single narrative the way the neutral texts are) looks driven
+by something closer to per-sentence content after all, with specific
+boundaries mattering rather than a smooth trend. Content and geometry are
+not cleanly separable from this data alone -- sending the full numbers to
+the PI rather than picking an interpretation, then moving to the
+technical_note.md reconciliation while waiting, per their non-negotiable
+ordering.

@@ -1,0 +1,234 @@
+[
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sentence_index": 0,
+    "num_append": 54,
+    "p_eos_spliced": 3.4373904611584294e-08,
+    "log10_p_eos_spliced": -7.4637711325427505
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sentence_index": 1,
+    "num_append": 121,
+    "p_eos_spliced": 0.21271450817584991,
+    "log10_p_eos_spliced": -0.6722028880670137
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sentence_index": 2,
+    "num_append": 185,
+    "p_eos_spliced": 0.6435787081718445,
+    "log10_p_eos_spliced": -0.19139833231141098
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sentence_index": 3,
+    "num_append": 219,
+    "p_eos_spliced": 0.7791343927383423,
+    "log10_p_eos_spliced": -0.10838762449610255
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sentence_index": 4,
+    "num_append": 299,
+    "p_eos_spliced": 0.8079805970191956,
+    "log10_p_eos_spliced": -0.09259906832030743
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sentence_index": 5,
+    "num_append": 358,
+    "p_eos_spliced": 0.7518293261528015,
+    "log10_p_eos_spliced": -0.12388073802904655
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sentence_index": 6,
+    "num_append": 438,
+    "p_eos_spliced": 0.7654796838760376,
+    "log10_p_eos_spliced": -0.11606633115463563
+  },
+  {
+    "topic_id": "medical",
+    "content_source": "neutral",
+    "sentence_index": 7,
+    "num_append": 478,
+    "p_eos_spliced": 0.8044626116752625,
+    "log10_p_eos_spliced": -0.09449413543125931
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "sentence_index": 0,
+    "num_append": 52,
+    "p_eos_spliced": 0.0014360174536705017,
+    "log10_p_eos_spliced": -2.842840281551432
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "sentence_index": 1,
+    "num_append": 119,
+    "p_eos_spliced": 0.03417374938726425,
+    "log10_p_eos_spliced": -1.466307369785691
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "sentence_index": 2,
+    "num_append": 173,
+    "p_eos_spliced": 0.02123877964913845,
+    "log10_p_eos_spliced": -1.67287044083309
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "sentence_index": 3,
+    "num_append": 254,
+    "p_eos_spliced": 0.20877957344055176,
+    "log10_p_eos_spliced": -0.6803119940606066
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "sentence_index": 4,
+    "num_append": 305,
+    "p_eos_spliced": 0.7639750242233276,
+    "log10_p_eos_spliced": -0.11692083909353773
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "sentence_index": 5,
+    "num_append": 376,
+    "p_eos_spliced": 0.8044062852859497,
+    "log10_p_eos_spliced": -0.09452454467109267
+  },
+  {
+    "topic_id": "drugs",
+    "content_source": "neutral",
+    "sentence_index": 6,
+    "num_append": 457,
+    "p_eos_spliced": 0.7344623804092407,
+    "log10_p_eos_spliced": -0.13403044412027543
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 0,
+    "num_append": 32,
+    "p_eos_spliced": 0.09759969264268875,
+    "log10_p_eos_spliced": -1.0105515499951363
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 1,
+    "num_append": 60,
+    "p_eos_spliced": 0.12964609265327454,
+    "log10_p_eos_spliced": -0.8872405677083062
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 2,
+    "num_append": 97,
+    "p_eos_spliced": 0.34419676661491394,
+    "log10_p_eos_spliced": -0.4631932137524924
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 3,
+    "num_append": 130,
+    "p_eos_spliced": 0.4288080036640167,
+    "log10_p_eos_spliced": -0.367737117170981
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 4,
+    "num_append": 161,
+    "p_eos_spliced": 0.11257722228765488,
+    "log10_p_eos_spliced": -0.9485494712560818
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 5,
+    "num_append": 194,
+    "p_eos_spliced": 0.47570210695266724,
+    "log10_p_eos_spliced": -0.3226649250234647
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 6,
+    "num_append": 229,
+    "p_eos_spliced": 0.010835723020136356,
+    "log10_p_eos_spliced": -1.9651421048167752
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 7,
+    "num_append": 279,
+    "p_eos_spliced": 0.45313239097595215,
+    "log10_p_eos_spliced": -0.3437748923135789
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 8,
+    "num_append": 312,
+    "p_eos_spliced": 0.6359238624572754,
+    "log10_p_eos_spliced": -0.19659487821015967
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 9,
+    "num_append": 343,
+    "p_eos_spliced": 0.7532573342323303,
+    "log10_p_eos_spliced": -0.12305663104375457
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 10,
+    "num_append": 382,
+    "p_eos_spliced": 0.051965635269880295,
+    "log10_p_eos_spliced": -1.2842837591788925
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 11,
+    "num_append": 412,
+    "p_eos_spliced": 0.06917417794466019,
+    "log10_p_eos_spliced": -1.1600559932454744
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 12,
+    "num_append": 442,
+    "p_eos_spliced": 0.04697873815894127,
+    "log10_p_eos_spliced": -1.328098652478986
+  },
+  {
+    "topic_id": "weapons",
+    "content_source": "real",
+    "sentence_index": 13,
+    "num_append": 479,
+    "p_eos_spliced": 0.4494341313838959,
+    "log10_p_eos_spliced": -0.34733394903122666
+  }
+]
